@@ -5,22 +5,17 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * MyPracticeProjects
- * Class: UserModel
- * Created by mac on 2021/07/22.
+ * Class: LoginModel
+ * Created by mac on 2021/08/03.
  *
  * Description:
  */
-data class UserModel(
-
+data class LoginModel(
     @SerializedName("email")
     @Expose
-    var email: String?,
+    var email: String,
 
     @SerializedName("pw")
     @Expose
-    var pw: String?,
-
-    @SerializedName("pwConfirm")
-    @Expose
-    var pwConfirm: String?,
+    var pw: String
 )

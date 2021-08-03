@@ -1,8 +1,11 @@
 package org.kjh.mypracticeprojects.network
 
+import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.model.UserModel
-import org.kjh.mypracticeprojects.model.UserResponse
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 /**
  * MyPracticeProjects
@@ -19,5 +22,19 @@ interface ApiService {
      *
      ***************************************************/
     @POST("user")
-    suspend fun reqSignUp(@Body body: UserModel): UserResponse
+    suspend fun reqSignUp(@Body body: UserModel): DataResponse
+
+
+    /***************************************************
+     *
+     * Log in
+     *
+     ***************************************************/
+    @GET("login")
+    suspend fun reqLogin(
+        @Query("email") email: String,
+        @Query("pw") pw: String,
+    ): DataResponse
+
+
 }
