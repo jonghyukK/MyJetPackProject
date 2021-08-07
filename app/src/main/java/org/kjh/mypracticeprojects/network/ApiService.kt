@@ -24,6 +24,9 @@ interface ApiService {
     @POST("user")
     suspend fun reqSignUp(@Body body: UserModel): DataResponse
 
+    @GET("user/validate")
+    suspend fun reqValidateEmail(@Query("email") email: String): DataResponse
+
 
     /***************************************************
      *

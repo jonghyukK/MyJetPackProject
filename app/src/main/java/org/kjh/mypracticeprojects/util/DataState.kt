@@ -1,5 +1,7 @@
 package org.kjh.mypracticeprojects.util
 
+import com.orhanobut.logger.Logger
+
 /**
  * MyPracticeProjects
  * Class: DataState
@@ -25,6 +27,7 @@ sealed class DataState<out T> {
     data class Error(val exception: Exception) : DataState<Nothing>()
     object Loading: DataState<Nothing>()
 
+    fun successData(): T? = if (this is Success) this.data else null
     fun isLoading(): Boolean? = if (this is Loading) true else null
     fun toErrorMessage(): String? = if (this is Error) this.exception.message else null
 }

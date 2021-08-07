@@ -10,6 +10,9 @@
       <map>
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.575" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.575" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_blog.xml" value="0.36018518518518516" />
       </map>
     </option>
   </component>

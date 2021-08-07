@@ -17,7 +17,24 @@ import org.kjh.mypracticeprojects.util.DataState
 class UserRepository
 constructor(private val apiService: ApiService){
 
-    // Sign Up
+    // Duplicate Email.
+    suspend fun reqValidateEmail(email: String)
+            : Flow<DataState<DataResponse>> = flow {
+        emit(DataState.Loading)
+
+        try {
+            val result = apiService.reqValidateEmail(email = email)
+
+            if (result.result == "Failed")
+                throw Exception(result.errorMsg)
+
+            emit(DataState.Success(result))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    // Sign Up.
     suspend fun reqSignUp(userModel: UserModel)
     : Flow<DataState<DataResponse>> = flow {
         emit(DataState.Loading)
@@ -34,7 +51,7 @@ constructor(private val apiService: ApiService){
         }
     }
 
-    // Login
+    // Login.
     suspend fun reqLogin(email: String, pw: String,)
     : Flow<DataState<DataResponse>> = flow {
         emit(DataState.Loading)

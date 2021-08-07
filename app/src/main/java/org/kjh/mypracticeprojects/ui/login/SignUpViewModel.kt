@@ -1,11 +1,8 @@
 package org.kjh.mypracticeprojects.ui.login
 
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Patterns
+import android.widget.EditText
 import androidx.lifecycle.*
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -28,93 +25,96 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val savedStateHandle: SavedStateHandle,
-) : ViewModel() {
+) : ViewModel(), FocusEventHandler {
 
     val email     : MutableLiveData<String> = MutableLiveData()
     val pw        : MutableLiveData<String> = MutableLiveData()
     val pwConfirm : MutableLiveData<String> = MutableLiveData()
 
-    // API Result - SignUp API.
-    private val _dataState: MutableLiveData<DataState<DataResponse>> = MutableLiveData()
-    val dataState: LiveData<DataState<DataResponse>>
-        get() = _dataState
+    private val _emailValidState: MutableLiveData<ValidateState> = MutableLiveData()
+    val emailValidState: LiveData<ValidateState> = _emailValidState
 
-    // isValid SignUp - Email, Pw, PwConfirm
-    private val _isValid: MutableLiveData<Boolean> = MutableLiveData()
-    val isValid: LiveData<Boolean>
-        get() = _isValid
+    private val _pwValidState: MutableLiveData<ValidateState> = MutableLiveData()
+    val pwValidState: LiveData<ValidateState> = _pwValidState
 
-    // isValid Email
-    private val _isEmailValid: MutableLiveData<Boolean> = MutableLiveData()
-    val isEmailValid: LiveData<Boolean>
-        get() = _isEmailValid
+    private val _pwConfirmValidState: MutableLiveData<ValidateState> = MutableLiveData()
+    val pwConfirmValidState: LiveData<ValidateState> = _pwConfirmValidState
 
-    // isValid Pw
-    private val _isPwValid: MutableLiveData<Boolean> = MutableLiveData()
-    val isPwValid: LiveData<Boolean>
-        get() = _isPwValid
+    private val _signUpDataState: MutableLiveData<DataState<DataResponse>> = MutableLiveData()
+    val signUpDataState: LiveData<DataState<DataResponse>> = _signUpDataState
 
-    // isValid PwConfirm
-    private val _isPwConfirmValid: MutableLiveData<Boolean> = MutableLiveData()
-    val isPwConfirmValid: LiveData<Boolean>
-        get() = _isPwConfirmValid
+    // API - Check Validate Email.
+    private fun requestDuplicateCheckEmail() {
+        viewModelScope.launch {
+            userRepository.reqValidateEmail(email = email.value.toString())
+                .onEach { dataState ->
+                    when (dataState) {
+                        is DataState.Success ->
+                            _emailValidState.value = ValidateState.SUCCESS
+                        is DataState.Error ->
+                            _emailValidState.value = ValidateState.ERROR_DUPLICATED
+                    }
+                }
+                .launchIn(viewModelScope)
+        }
+    }
 
-    fun requestSignUp() {
+    // API - Request SignUp.
+    private fun requestSignUp() {
         viewModelScope.launch {
             userRepository.reqSignUp(
                 UserModel(
                     email = email.value,
                     pw = pw.value,
                     pwConfirm = pwConfirm.value
-                ))
+                )
+            )
                 .onEach { dataState ->
-                    _dataState.value = dataState
+                    _signUpDataState.value = dataState
                 }
                 .launchIn(viewModelScope)
         }
     }
 
-    private fun validation() {
-        _isValid.value =
-            isEmailValid.value ?: false
-                    && isPwValid.value ?: false
-                    && isPwConfirmValid.value ?: false
+    // Check Duplicate for Email.
+    fun checkPatternEmail() {
+        Patterns.EMAIL_ADDRESS.matcher(email.value.toString()).matches()
+            .let { isValidPatten ->
+                if (isValidPatten)
+                    requestDuplicateCheckEmail()
+                else
+                    _emailValidState.value = ValidateState.ERROR_PATTERN
+            }
     }
 
-
-    // TextWatcher - Email
-    val emailWatcher: TextWatcher = object: TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            _isEmailValid.value =
-                !TextUtils.isEmpty(s) && Patterns.EMAIL_ADDRESS.matcher(s).matches()
-        }
-        override fun afterTextChanged(s: Editable?) {
-            validation()
-        }
-    }
-
-    // TextWatcher - Password
-    val pwWatcher: TextWatcher = object: TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            _isPwValid.value =
-                !TextUtils.isEmpty(s) && s != null && s.length >= 8
-        }
-        override fun afterTextChanged(s: Editable?) {
-            validation()
+    // Check Pw <-> PwConfirm Before SignUp.
+    fun checkPwMatch() {
+        if (pw.value?.length in 1..7) {
+            _pwValidState.value = ValidateState.ERROR_LENGTH
+        } else if (!pw.value.equals(pwConfirm.value)) {
+            _pwConfirmValidState.value = ValidateState.ERROR_NOT_MATCH
+        } else {
+            requestSignUp()
         }
     }
 
-    // TextWatcher - Password Confirm
-    val pwConfirmWatcher: TextWatcher = object: TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            _isPwConfirmValid.value =
-                !TextUtils.isEmpty(s) && s != null && pw.value == s.toString()
-        }
-        override fun afterTextChanged(s: Editable?) {
-            validation()
+    override fun onFocusLost(view: EditText) {
+        _pwValidState.value =
+            if (view.text.length >= 8) ValidateState.SUCCESS else ValidateState.ERROR_LENGTH
+    }
+
+
+    fun clearErrorWhenTextChanged(s: CharSequence?, tag: String) {
+        when (tag) {
+            "email" -> if (_emailValidState.value != ValidateState.INIT)
+                _emailValidState.value = ValidateState.INIT
+
+            "pw", "pwConfirm" -> {
+                if (_pwConfirmValidState.value != ValidateState.INIT)
+                    _pwConfirmValidState.value = ValidateState.INIT
+                if (_pwValidState.value != ValidateState.INIT)
+                    _pwValidState.value = ValidateState.INIT
+            }
         }
     }
 }

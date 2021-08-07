@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">MyPracticeProjects</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="splash_title">Splash</string>
+    <string name="login_title">Login</string>
+    <string name="hint_login_email_input">이메일 주소 입력</string>
+    <string name="hint_signup_email_input">이메일을 입력해주세요.</string>
+    <string name="hint_pw_input">비밀번호</string>
+    <string name="desc_dont_have_email">계정이 없으신가요?</string>
+    <string name="do_signup">가입하기</string>
+    <string name="login">로그인</string>
+    <string name="signup">회원가입</string>
+    <string name="email">이메일</string>
+    <string name="duplicate_email">중복확인</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_email_not_valid">이메일 주소가 올바르지 않습니다.</string>
     <string name="error_pw_less_than_8">비밀번호는 8자리 이상 입력해 주세요.</string>

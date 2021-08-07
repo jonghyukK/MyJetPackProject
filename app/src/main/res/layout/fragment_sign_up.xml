@@ -7,10 +7,11 @@
     <data>
         <variable
             name="viewModel"
-            type="org.kjh.mypracticeprojects.ui.login.SignUpViewModel"
-            />
+            type="org.kjh.mypracticeprojects.ui.login.SignUpViewModel" />
+        <variable
+            name="validState"
+            type="org.kjh.mypracticeprojects.ui.login.ValidateState" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,127 +20,199 @@
         android:layout_marginRight="20dp"
         tools:context=".SignUpFragment">
 
-        <Button
-            android:id="@+id/btn_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/btn_round_corner"
-            android:text="회원가입"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:onClick="@{() -> viewModel.isValid == true ? viewModel.requestSignUp() : null}"
-            android:enabled="@{viewModel.isValid}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_signup_pw_confirm" />
-
         <TextView
             android:id="@+id/tv_title_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원가입"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/signup"
             android:textColor="@color/purple_500"
-            app:layout_constraintBottom_toTopOf="@+id/til_signup_email"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/cl_email_box"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_signup_email"
+        <!-- Email Box -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_email_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            style="@style/EditTextTheme2"
-            android:theme="@style/EditTextTheme2"
-            app:isValid="@{viewModel.isEmailValid()}"
-            app:errorMsg="@{@string/error_email_not_valid}"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/til_signup_pw"
+            app:layout_constraintBottom_toTopOf="@+id/cl_pw_box"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_signup">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_email_validate"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:enabled="@{viewModel.email.length > 0}"
+                android:onClick="@{() -> viewModel.checkPatternEmail()}"
+                android:text="@string/duplicate_email"
+                android:textSize="11sp"
+                app:layout_constraintLeft_toRightOf="@+id/et_signup_email"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_signup_email" />
+
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_signup_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hint_signup_email_input"
                 android:inputType="textEmailAddress"
-                android:paddingStart="5dp"
-                android:paddingEnd="20dp"
-                android:hint="이메일"
                 android:text="@={viewModel.email}"
-                app:addTextChangedListener="@{viewModel.emailWatcher}"/>
+                android:textSize="12sp"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.clearErrorWhenTextChanged(text, `email`)}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/btn_email_validate"
+                app:layout_constraintTop_toBottomOf="@+id/tv_signup_email" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_signup_email_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="11sp"
+                android:text="@{viewModel.emailValidState.getError()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_signup_email" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_signup_pw"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_signup_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@+id/et_signup_email"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Password Box -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_pw_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/EditTextTheme2"
-            android:theme="@style/EditTextTheme2"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            app:isValid="@{viewModel.isPwValid()}"
-            app:errorMsg="@{@string/error_pw_less_than_8}"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/til_signup_pw_confirm"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/cl_pw_confirm_box"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_signup_email">
+            app:layout_constraintTop_toBottomOf="@+id/cl_email_box"
+            app:visibility="@{viewModel.emailValidState == validState.SUCCESS}">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_signup_pw_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_signup_pw"
+                app:visibility="@{viewModel.pwValidState.getError()}" />
+
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_signup_pw"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:hint="비밀번호를 입력해주세요."
                 android:inputType="textPassword"
-                android:paddingStart="5dp"
-                android:paddingEnd="20dp"
-                android:hint="비밀번호"
                 android:text="@={viewModel.pw}"
-                app:addTextChangedListener="@{viewModel.pwWatcher}"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textSize="12sp"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.clearErrorWhenTextChanged(text, `pw`)}"
+                app:onFocusLost="@{(view) -> viewModel.pw.length > 0 ? viewModel.onFocusLost(view) : null}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_signup_pw" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_signup_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_pw_input"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_signup_pw_confirm"
-            style="@style/EditTextTheme2"
+        <!-- Password Confirm Box -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_pw_confirm_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/EditTextTheme2"
-            app:isValid="@{viewModel.isPwConfirmValid()}"
-            app:errorMsg="@{@string/error_pw_confirm_not_match}"
-            app:boxBackgroundColor="@color/white"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/btn_signup"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_signup_pw">
+            app:layout_constraintTop_toBottomOf="@+id/cl_pw_box"
+            app:visibility="@{viewModel.emailValidState == validState.SUCCESS}">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:enabled="@{viewModel.pw.length > 0 &amp;&amp; viewModel.pwConfirm.length > 0}"
+                android:onClick="@{() -> viewModel.checkPwMatch()}"
+                android:text="@string/signup"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/et_signup_pw_confirm" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_signup_pw_confirm_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_signup_pw_confirm"
+                app:visibility="@{viewModel.pwConfirmValidState.getError()}" />
+
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_signup_pw_confirm"
-                style="@style/EditTextTheme"
-                android:layout_marginTop="15dp"
-                android:hint="비밀번호 확인"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:hint="비밀번호를 재입력해주세요."
                 android:inputType="textPassword"
                 android:text="@={viewModel.pwConfirm}"
-                app:addTextChangedListener="@{viewModel.pwConfirmWatcher}"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textSize="12sp"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.clearErrorWhenTextChanged(text, `pwConfirm`)}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_signup_pw_confirm" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_signup_pw_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 확인"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
             android:id="@+id/pb_loading"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:isLoading="@{viewModel.dataState.isLoading()}"
-            app:layout_constraintTop_toTopOf="parent"
+            app:isLoading="@{viewModel.signUpDataState.isLoading()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,17 +1,17 @@
 package org.kjh.mypracticeprojects.ui.login
 
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.kjh.mypracticeprojects.ERROR_NOTHING_EMAIL
+import org.kjh.mypracticeprojects.ERROR_WRONG_PW
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.util.DataState
@@ -33,57 +33,52 @@ class LoginViewModel @Inject constructor(
     val email: MutableLiveData<String> = MutableLiveData()
     val pw   : MutableLiveData<String> = MutableLiveData()
 
+    private val _emailValidState: MutableLiveData<ValidateState> = MutableLiveData()
+    val emailValidState: LiveData<ValidateState> = _emailValidState
+
+    private val _pwValidState: MutableLiveData<ValidateState> = MutableLiveData()
+    val pwValidState: LiveData<ValidateState> = _pwValidState
+
+    private val _loginDataState: MutableLiveData<DataState<DataResponse>> = MutableLiveData()
+    val loginDataState: LiveData<DataState<DataResponse>> = _loginDataState
+
     // API Result - Login API.
-    private val _dataState: MutableLiveData<DataState<DataResponse>> = MutableLiveData()
-    val dataState: LiveData<DataState<DataResponse>>
-        get() = _dataState
-
-    private val _isEmailValid: MutableLiveData<Boolean> = MutableLiveData()
-    val isEmailValid: LiveData<Boolean>
-        get() = _isEmailValid
-
-    private val _isPwValid: MutableLiveData<Boolean> = MutableLiveData()
-    val isPwValid: LiveData<Boolean>
-        get() = _isPwValid
-
-    private val _isValidInputs: MutableLiveData<Boolean> = MutableLiveData()
-    val isValidInputs: LiveData<Boolean>
-        get() = _isValidInputs
-
-    private fun validation() {
-        _isValidInputs.value =
-            isEmailValid.value ?: false && isPwValid.value ?: false
-    }
-
-    fun requestLogin() {
+    private fun requestLogin() {
         viewModelScope.launch {
             userRepository.reqLogin(email.value.toString(), pw.value.toString())
                 .onEach { dataState ->
-                    _dataState.value = dataState
+                    when (dataState) {
+                        is DataState.Success ->
+                            _loginDataState.value = dataState
+                        is DataState.Error ->
+                            setError(dataState.exception.message)
+                    }
                 }
                 .launchIn(viewModelScope)
         }
     }
 
-    val emailWatcher: TextWatcher = object: TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            _isEmailValid.value =
-                !TextUtils.isEmpty(s) && Patterns.EMAIL_ADDRESS.matcher(s).matches()
-        }
-        override fun afterTextChanged(s: Editable?) {
-            validation()
+    private fun setError(errorMsg: String?) {
+        when (errorMsg) {
+            ERROR_NOTHING_EMAIL -> _emailValidState.value = ValidateState.ERROR_EMAIL_NOTHING
+            ERROR_WRONG_PW      -> _pwValidState.value = ValidateState.ERROR_PW
         }
     }
 
-    val pwWatcher: TextWatcher = object: TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            _isPwValid.value =
-                !TextUtils.isEmpty(s) && s != null && s.length >= 8
+    fun clearErrorWhenTextChanged(s: CharSequence?) {
+        if (_emailValidState.value != ValidateState.INIT) {
+            _emailValidState.value = ValidateState.INIT
         }
-        override fun afterTextChanged(s: Editable?) {
-            validation()
+        if (_pwValidState.value != ValidateState.INIT) {
+            _pwValidState.value = ValidateState.INIT
+        }
+    }
+
+    fun checkLoginData() {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.value.toString()).matches()) {
+            _emailValidState.value = ValidateState.ERROR_PATTERN
+        } else {
+            requestLogin()
         }
     }
 }

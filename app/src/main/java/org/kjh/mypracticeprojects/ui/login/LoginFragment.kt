@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentLoginBinding
@@ -20,19 +21,15 @@ import org.kjh.mypracticeprojects.util.DataState
 class LoginFragment : Fragment() {
 
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_login,
-            container,
-            false
-        )
-        binding.lifecycleOwner = this
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
@@ -49,18 +46,22 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        subscribeObserver()
+    }
 
-        viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
+    private fun subscribeObserver() {
+        viewModel.loginDataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
-                is DataState.Success<DataResponse> -> {
+                is DataState.Success -> {
                     findNavController().navigate(R.id.mainActivity)
                     (activity as LoginActivity).finish()
                 }
-
-                is DataState.Error -> {
-                    Toast.makeText(activity, dataState.exception.message, Toast.LENGTH_SHORT).show()
-                }
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
