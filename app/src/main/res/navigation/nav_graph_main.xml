@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment"
+        android:label="MyPage"
+        tools:layout="@layout/fragment_mypage" >
+        <action
+            android:id="@+id/action_thirdFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
+        <action
+            android:id="@+id/action_thirdFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.mypage.WriteFragment"
+        android:label="글 쓰기"
+        tools:layout="@layout/fragment_write">
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.mypage.SettingFragment"
+        android:label="설정"
+        tools:layout="@layout/fragment_setting">
+    </fragment>
+</navigation>

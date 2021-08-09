@@ -9,10 +9,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.575" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.575" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4962962962962963" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.4078125" />
+        <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.8020594965675057" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_third.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_write.xml" value="0.31851851851851853" />
         <entry key="app/src/main/res/layout/item_blog.xml" value="0.36018518518518516" />
+        <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.9241025641025641" />
+        <entry key="app/src/main/res/menu/main_bottom_nav.xml" value="0.5979166666666667" />
+        <entry key="app/src/main/res/menu/third_menu.xml" value="0.5598958333333334" />
       </map>
     </option>
   </component>
