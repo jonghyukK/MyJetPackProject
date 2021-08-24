@@ -1,21 +1,19 @@
 package org.kjh.mypracticeprojects.ui.login
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.ERROR_NOTHING_EMAIL
 import org.kjh.mypracticeprojects.ERROR_WRONG_PW
+import org.kjh.mypracticeprojects.isValidPattern
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.SingleLiveEvent
 import javax.inject.Inject
 
 /**
@@ -45,7 +43,10 @@ class LoginViewModel @Inject constructor(
     // API Result - Login API.
     private fun requestLogin() {
         viewModelScope.launch {
-            userRepository.reqLogin(email.value.toString(), pw.value.toString())
+            userRepository.reqLogin(
+                email = email.value.toString(),
+                pw    = pw.value.toString()
+            )
                 .onEach { dataState ->
                     when (dataState) {
                         is DataState.Success ->
@@ -75,10 +76,11 @@ class LoginViewModel @Inject constructor(
     }
 
     fun checkLoginData() {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email.value.toString()).matches()) {
+        if (!email.value.toString().isValidPattern()) {
             _emailValidState.value = ValidateState.ERROR_PATTERN
-        } else {
-            requestLogin()
+            return
         }
+
+        requestLogin()
     }
 }

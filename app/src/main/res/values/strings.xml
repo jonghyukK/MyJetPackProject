@@ -20,4 +20,6 @@
     <string name="error_pw_confirm_not_match">비밀번호가 같지 않습니다.</string>
 
     <string name="success_sign_up">회원가입이 완료되었습니다.\n 로그인 해주세요.</string>
+
+    <string name="transition_name_upload_image">upload_image</string>
 </resources>

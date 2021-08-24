@@ -1,7 +1,9 @@
 package org.kjh.mypracticeprojects.model
 
+import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import org.kjh.mypracticeprojects.ui.main.mypage.MediaStoreImage
 
 /**
  * MyPracticeProjects
@@ -14,13 +16,29 @@ data class UserModel(
 
     @SerializedName("email")
     @Expose
-    var email: String?,
+    var email: String,
 
     @SerializedName("pw")
     @Expose
-    var pw: String?,
+    var pw: String,
 
-    @SerializedName("pwConfirm")
+    @SerializedName("postCount")
     @Expose
-    var pwConfirm: String?,
+    var postCount: Int,
+
+    @SerializedName("followingCount")
+    @Expose
+    var followingCount: Int,
+
+    @SerializedName("followCount")
+    @Expose
+    var followCount: Int,
+
+    @SerializedName("profileImg")
+    @Expose
+    var profileImg: String? = null,
+
+    @SerializedName("posts")
+    @Expose
+    var posts: List<PostModel>?,
 )

@@ -9,7 +9,9 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kjh.mypracticeprojects.BASE_API_URL
+import org.kjh.mypracticeprojects.BASE_KAKAO_API_URL
 import org.kjh.mypracticeprojects.network.ApiService
+import org.kjh.mypracticeprojects.network.KaKaoApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -30,6 +32,7 @@ object NetworkModule {
     fun provideGsonBuilder(): Gson {
         return GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
+            .setLenient()
             .create()
     }
 
@@ -52,9 +55,18 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideBlogService(retrofit: Retrofit.Builder): ApiService {
+    fun provideApiService(retrofit: Retrofit.Builder): ApiService {
         return retrofit
             .build()
             .create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideKakaoApiService(retrofit: Retrofit.Builder): KaKaoApiService {
+        return retrofit
+            .baseUrl(BASE_KAKAO_API_URL)
+            .build()
+            .create(KaKaoApiService::class.java)
     }
 }

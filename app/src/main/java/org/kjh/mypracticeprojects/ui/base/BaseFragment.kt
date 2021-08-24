@@ -28,6 +28,7 @@ abstract class BaseFragment<B: ViewDataBinding>(
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+
         return binding.root
     }
 

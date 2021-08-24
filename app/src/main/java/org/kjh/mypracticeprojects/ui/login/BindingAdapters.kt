@@ -2,9 +2,11 @@ package org.kjh.mypracticeprojects.ui.login
 
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.orhanobut.logger.Logger
 
@@ -17,20 +19,6 @@ import com.orhanobut.logger.Logger
  */
 
 object BindingAdapters {
-
-    @JvmStatic
-    @BindingAdapter(value = ["isValid", "errorMsg"])
-    fun setError(view: TextInputLayout, isValid: Boolean?, errorMsg: String) {
-        isValid?.run {
-            view.apply {
-                if (isValid) {
-                    error = null
-                    isErrorEnabled = false
-                } else
-                    error = errorMsg
-            }
-        }
-    }
 
     @JvmStatic
     @BindingAdapter("app:isLoading")
@@ -62,6 +50,15 @@ object BindingAdapters {
     fun EditText.onFocusLost(callback: FocusEventHandler) {
         setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) { callback.onFocusLost(this) }
+        }
+    }
+
+    @BindingAdapter("app:imageUrl")
+    fun ImageView.bindImageUrl(imageUrl: String?) {
+        imageUrl?.let {
+            Glide.with(this.context)
+                .load(it)
+                .into(this)
         }
     }
 }

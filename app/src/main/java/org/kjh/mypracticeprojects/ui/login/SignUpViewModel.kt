@@ -1,12 +1,12 @@
 package org.kjh.mypracticeprojects.ui.login
 
-import android.util.Patterns
 import android.widget.EditText
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.kjh.mypracticeprojects.isValidPattern
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.model.UserModel
 import org.kjh.mypracticeprojects.repository.UserRepository
@@ -46,7 +46,9 @@ class SignUpViewModel @Inject constructor(
     // API - Check Validate Email.
     private fun requestDuplicateCheckEmail() {
         viewModelScope.launch {
-            userRepository.reqValidateEmail(email = email.value.toString())
+            userRepository.reqValidateEmail(
+                email = email.value.toString()
+            )
                 .onEach { dataState ->
                     when (dataState) {
                         is DataState.Success ->
@@ -54,8 +56,7 @@ class SignUpViewModel @Inject constructor(
                         is DataState.Error ->
                             _emailValidState.value = ValidateState.ERROR_DUPLICATED
                     }
-                }
-                .launchIn(viewModelScope)
+                }.launchIn(viewModelScope)
         }
     }
 
@@ -63,11 +64,8 @@ class SignUpViewModel @Inject constructor(
     private fun requestSignUp() {
         viewModelScope.launch {
             userRepository.reqSignUp(
-                UserModel(
-                    email = email.value,
-                    pw = pw.value,
-                    pwConfirm = pwConfirm.value
-                )
+                email = email.value!!,
+                pw    = pw.value!!,
             )
                 .onEach { dataState ->
                     _signUpDataState.value = dataState
@@ -78,13 +76,12 @@ class SignUpViewModel @Inject constructor(
 
     // Check Duplicate for Email.
     fun checkPatternEmail() {
-        Patterns.EMAIL_ADDRESS.matcher(email.value.toString()).matches()
-            .let { isValidPatten ->
-                if (isValidPatten)
-                    requestDuplicateCheckEmail()
-                else
-                    _emailValidState.value = ValidateState.ERROR_PATTERN
-            }
+        if (!email.value.toString().isValidPattern()) {
+            _emailValidState.value = ValidateState.ERROR_PATTERN
+            return
+        }
+
+        requestDuplicateCheckEmail()
     }
 
     // Check Pw <-> PwConfirm Before SignUp.
@@ -102,7 +99,6 @@ class SignUpViewModel @Inject constructor(
         _pwValidState.value =
             if (view.text.length >= 8) ValidateState.SUCCESS else ValidateState.ERROR_LENGTH
     }
-
 
     fun clearErrorWhenTextChanged(s: CharSequence?, tag: String) {
         when (tag) {

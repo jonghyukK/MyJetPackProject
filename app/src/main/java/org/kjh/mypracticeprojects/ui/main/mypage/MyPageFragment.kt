@@ -2,25 +2,52 @@ package org.kjh.mypracticeprojects.ui.main.mypage
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
+import org.kjh.mypracticeprojects.countryList
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
+import org.kjh.mypracticeprojects.ui.MainViewModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
-    private val viewModel: MyPageViewModel by viewModels()
+    private lateinit var _myPagePagerAdapter: MyPagePagerAdapter
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
 
+        initTabLayoutWithPager()
+        initToolbarWithNavigation()
+
+
+//        viewModel.userData.observe(viewLifecycleOwner, { data ->
+//            when (data) {
+//                is DataState.Success -> {
+//                    myImagesAdapter.submitList(data.data?.contents?.reversed() ?: listOf())
+//                }
+//            }
+//        })
+    }
+
+    private fun initTabLayoutWithPager() {
+        binding.pager.adapter = MyPagePagerAdapter(this)
+
+        TabLayoutMediator(binding.tlTabLayout, binding.pager) { tab, position ->
+            tab.text = countryList[position]
+        }.attach()
+    }
+
+    private fun initToolbarWithNavigation() {
         binding.tbMypageToolbar.inflateMenu(R.menu.menu_mypage)
 
         val navController = findNavController()
@@ -33,7 +60,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
             setupWithNavController(navController, appBarConfig)
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.writeFragment -> {
+                    R.id.selectPictureFragment -> {
                         navController.navigate(R.id.action_thirdFragment_to_writeFragment)
                         true
                     }
@@ -46,5 +73,18 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
             }
         }
     }
+}
 
+
+
+class MyPagePagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+    override fun getItemCount(): Int = countryList.size
+
+    override fun createFragment(position: Int): Fragment {
+        val fragment = AreaImageFragment()
+        fragment.arguments = Bundle().apply {
+            putInt("TEST", position + 1)
+        }
+        return fragment
+    }
 }

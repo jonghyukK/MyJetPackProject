@@ -17,21 +17,46 @@
         tools:layout="@layout/fragment_mypage" >
         <action
             android:id="@+id/action_thirdFragment_to_writeFragment"
-            app:destination="@id/writeFragment" />
+            app:destination="@id/selectPictureFragment" />
         <action
             android:id="@+id/action_thirdFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/writeFragment"
-        android:name="org.kjh.mypracticeprojects.ui.main.mypage.WriteFragment"
-        android:label="글 쓰기"
-        tools:layout="@layout/fragment_write">
+        android:id="@+id/selectPictureFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.mypage.SelectPictureFragment"
+        android:label="사진 선택"
+        tools:layout="@layout/fragment_select_picture">
+        <action
+            android:id="@+id/action_selectPictureFragment_to_uploadContentFragment"
+            app:destination="@id/uploadContentFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.SettingFragment"
         android:label="설정"
         tools:layout="@layout/fragment_setting">
+    </fragment>
+    <fragment
+        android:id="@+id/uploadContentFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.mypage.UploadContentFragment"
+        android:label="게시글 작성"
+        tools:layout="@layout/fragment_upload_content" >
+        <action
+            android:id="@+id/action_uploadContentFragment_to_myPageFragment"
+            app:popUpTo="@id/myPageFragment" />
+        <action
+            android:id="@+id/action_uploadContentFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.MapFragment"
+        android:label="위치 찾기"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_uploadContentFragment"
+            app:popUpTo="@id/uploadContentFragment" />
     </fragment>
 </navigation>

@@ -13,10 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
-import org.kjh.mypracticeprojects.LOGIN
-import org.kjh.mypracticeprojects.LOGIN_STATE
-import org.kjh.mypracticeprojects.MyApplication
-import org.kjh.mypracticeprojects.R
+import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.FragmentLoginBinding
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
@@ -36,10 +33,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         binding.tvSignup.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.next_action, null)
         )
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         subscribeObserver()
     }
 
@@ -47,7 +41,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         viewModel.loginDataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success -> {
-                    MyApplication.prefs.setPref(LOGIN_STATE, LOGIN)
+                    MyApplication.prefs.setPref(PREF_KEY_LOGIN_STATE, LoginState.LOGIN.value)
+                    MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
+
                     startActivity(Intent(activity, MainActivity::class.java))
                     (activity as LoginActivity).finish()
                 }

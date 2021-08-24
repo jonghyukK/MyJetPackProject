@@ -36,6 +36,15 @@ android {
     buildFeatures{
         dataBinding = true
     }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk false
+        }
+    }
 }
 
 dependencies {
@@ -59,7 +68,6 @@ dependencies {
 
     // Hilt ViewModel extension
     def hilt_jetpack_version = '1.0.0'
-//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
     implementation group: 'androidx.lifecycle', name:'lifecycle-viewmodel-ktx', version:'$hilt_jetpack_version'
     kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
     implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha05'
@@ -98,12 +106,16 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
 
     // Navigation
-    def nav_version = "2.3.5"
+    def nav_version = "2.4.0-alpha06"
 
     // Kotlin Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
+    implementation files('libs/libDaumMapAndroid.jar')
 }
