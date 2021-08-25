@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="org.kjh.mypracticeprojects.ui.main.mypage.SelectPictureViewModel" />
+        <variable
+            name="mainViewModel"
+            type="org.kjh.mypracticeprojects.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:transitionName="@string/transition_name_upload_image"
+            android:src="@{mainViewModel.uploadImgData.contentUri}"
             app:layout_constraintBottom_toTopOf="@+id/rv_gallery"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"

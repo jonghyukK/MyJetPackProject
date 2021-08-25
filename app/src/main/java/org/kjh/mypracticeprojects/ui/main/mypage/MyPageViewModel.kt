@@ -29,22 +29,5 @@ class MyPageViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
 
-    private val _userData = MutableLiveData<DataState<UserModel>?>()
-    val userData: LiveData<DataState<UserModel>?> = _userData
 
-    fun getMyUserData() {
-        viewModelScope.launch {
-            userRepository.reqUser(email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""))
-                .onEach { dataState ->
-                    _userData.value = dataState
-                }
-                .launchIn(viewModelScope)
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        Logger.e("onCleared!!")
-    }
 }

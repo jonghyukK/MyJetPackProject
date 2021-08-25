@@ -9,7 +9,6 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.ActivityMainBinding
-import org.kjh.mypracticeprojects.ui.MainViewModel
 import org.kjh.mypracticeprojects.ui.base.BaseActivity
 
 @AndroidEntryPoint
@@ -21,6 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
+        viewModel.reqMyUserData()
     }
 
     private fun initBottomNavigationView() {

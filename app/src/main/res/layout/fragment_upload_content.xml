@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="org.kjh.mypracticeprojects.ui.main.mypage.UploadContentViewModel" />
+        <variable
+            name="mainViewModel"
+            type="org.kjh.mypracticeprojects.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,7 +84,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/ic_location"
                     android:gravity="center_vertical"
-                    android:text="위치 추가"
+                    android:text="@{mainViewModel.uploadLocationData == null ? `위치 추가` : mainViewModel.uploadLocationData.address_name}"
                     android:textSize="13sp" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

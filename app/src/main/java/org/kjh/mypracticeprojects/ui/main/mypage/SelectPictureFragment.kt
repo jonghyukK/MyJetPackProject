@@ -26,17 +26,19 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentSelectPictureBinding
-import org.kjh.mypracticeprojects.ui.MainViewModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainActivity
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.SpacesItemDecoration
 import java.util.*
 
 @AndroidEntryPoint
-class SelectPictureFragment : BaseFragment<FragmentSelectPictureBinding>(R.layout.fragment_select_picture) {
+class SelectPictureFragment :
+    BaseFragment<FragmentSelectPictureBinding>(R.layout.fragment_select_picture) {
 
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: SelectPictureViewModel by viewModels()
+    private val viewModel    : SelectPictureViewModel by viewModels()
+
     private val requestPermissionLauncher =
         registerForActivityResult(RequestPermission()) {
             if (it) {
@@ -57,12 +59,13 @@ class SelectPictureFragment : BaseFragment<FragmentSelectPictureBinding>(R.layou
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         checkPermission()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.mainViewModel = mainViewModel
+        binding.viewModel = viewModel
 
         initToolbarWithNavigation()
 
@@ -81,10 +84,6 @@ class SelectPictureFragment : BaseFragment<FragmentSelectPictureBinding>(R.layou
             galleryAdapter.submitList(images)
             mainViewModel.setUploadImgData(mainViewModel.uploadImgData.value ?: images[0])
         })
-
-        mainViewModel.uploadImgData.observe(viewLifecycleOwner, { selectedImgItem ->
-            bindImage(selectedImgItem!!)
-        })
     }
 
     private fun initToolbarWithNavigation() {
@@ -100,26 +99,13 @@ class SelectPictureFragment : BaseFragment<FragmentSelectPictureBinding>(R.layou
                         val action = SelectPictureFragmentDirections
                             .actionSelectPictureFragmentToUploadContentFragment()
 
-                        findNavController().navigate(action, extras)
+                        navController.navigate(action, extras)
                         true
                     }
                     else -> false
                 }
             }
         }
-    }
-
-    private fun bindImage(image: MediaStoreImage) {
-        Glide.with(binding.ivSelected)
-            .load(image.contentUri)
-            .thumbnail(0.33f)
-            .centerCrop()
-            .into(binding.ivSelected)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        binding.viewModel = viewModel
     }
 
     private fun checkPermission() {

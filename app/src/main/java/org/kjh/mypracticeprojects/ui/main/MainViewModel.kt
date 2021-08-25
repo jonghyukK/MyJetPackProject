@@ -1,4 +1,4 @@
-package org.kjh.mypracticeprojects.ui
+package org.kjh.mypracticeprojects.ui.main
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,29 +34,25 @@ class MainViewModel @Inject constructor(
     private val _uploadLocationData = MutableLiveData<LocationItem?>()
     val uploadLocationData: LiveData<LocationItem?> = _uploadLocationData
 
-    fun setUploadImgData(data: MediaStoreImage) {
-        _uploadImgData.value = data
-    }
+    fun setUploadImgData(data: MediaStoreImage) { _uploadImgData.value = data }
+    fun setUploadLocationData(data: LocationItem?) { _uploadLocationData.value = data }
 
-    fun setUploadLocationData(data: LocationItem?) {
-        _uploadLocationData.value = data
-    }
+    private val _myUserData = MutableLiveData<UserModel>()
+    val myUserData: LiveData<UserModel> = _myUserData
 
-
-    private val _userData = MutableLiveData<DataState<UserModel>?>()
-    val userData: LiveData<DataState<UserModel>?> = _userData
-
-    fun getMyUserData() {
+    fun reqMyUserData() {
         viewModelScope.launch {
             userRepository.reqUser(email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""))
                 .onEach { dataState ->
-                    _userData.value = dataState
+                    when (dataState) {
+                        is DataState.Success -> _myUserData.value = dataState.data!!
+                    }
                 }
                 .launchIn(viewModelScope)
         }
     }
 
-    fun updateUserData(data: DataState<UserModel>) {
-        _userData.value = data
+    fun updateMyUserData(userData: UserModel) {
+        _myUserData.value = userData
     }
 }

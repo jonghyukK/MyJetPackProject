@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,23 +14,24 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentUploadContentBinding
-import org.kjh.mypracticeprojects.model.LocationItem
-import org.kjh.mypracticeprojects.ui.MainViewModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
+import org.kjh.mypracticeprojects.util.DataState
 import org.kjh.mypracticeprojects.util.GlideApp
 
 @AndroidEntryPoint
-class UploadContentFragment : BaseFragment<FragmentUploadContentBinding>(R.layout.fragment_upload_content) {
+class UploadContentFragment :
+    BaseFragment<FragmentUploadContentBinding>(R.layout.fragment_upload_content) {
 
     private val viewModel: UploadContentViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.mainViewModel = mainViewModel
         binding.viewModel = viewModel
 
         initToolbarWithNavigation()
@@ -43,13 +45,20 @@ class UploadContentFragment : BaseFragment<FragmentUploadContentBinding>(R.layou
             }
         })
 
-        mainViewModel.uploadLocationData.observe(viewLifecycleOwner, { selectedLocateItem ->
-            binding.tvLocation.text = selectedLocateItem?.road_address_name ?: "위치 추가"
-        })
-
         binding.rlAddLocation.setOnClickListener {
             findNavController().navigate(R.id.action_uploadContentFragment_to_mapFragment)
         }
+
+        viewModel.uploadResult.observe(viewLifecycleOwner, { dataState ->
+            when (dataState) {
+                is DataState.Success -> {
+                    mainViewModel.updateMyUserData(dataState.data!!)
+                    findNavController().navigate(R.id.action_uploadContentFragment_to_myPageFragment)
+                }
+                is DataState.Error -> Toast.makeText(context, "업로드가 실패하였습니다.", Toast.LENGTH_LONG).show()
+                is DataState.Loading -> {}
+            }
+        })
     }
 
     private fun setSharedElementTransitionOnEnter() {
@@ -101,7 +110,6 @@ class UploadContentFragment : BaseFragment<FragmentUploadContentBinding>(R.layou
                             mainViewModel.uploadImgData.value!!,
                             mainViewModel.uploadLocationData.value!!
                         )
-//                        findNavController().navigate(R.id.action_uploadContentFragment_to_myPageFragment)
                         true
                     }
                     else -> false
@@ -112,7 +120,6 @@ class UploadContentFragment : BaseFragment<FragmentUploadContentBinding>(R.layou
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         mainViewModel.setUploadLocationData(null)
     }
 }

@@ -1,5 +1,6 @@
-package org.kjh.mypracticeprojects.ui.login
+package org.kjh.mypracticeprojects.ui
 
+import android.net.Uri
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -7,8 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.google.android.material.textfield.TextInputLayout
-import com.orhanobut.logger.Logger
+import org.kjh.mypracticeprojects.ui.login.FocusEventHandler
 
 /**
  * MyPracticeProjects
@@ -53,12 +53,15 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter("app:imageUrl")
-    fun ImageView.bindImageUrl(imageUrl: String?) {
-        imageUrl?.let {
-            Glide.with(this.context)
-                .load(it)
-                .into(this)
+    @JvmStatic
+    @BindingAdapter("android:src")
+    fun bindImageWithUri(view: ImageView, imgUri: Uri?) {
+        imgUri?.run {
+            Glide.with(view)
+                .load(imgUri)
+                .thumbnail(0.33f)
+                .centerCrop()
+                .into(view)
         }
     }
 }

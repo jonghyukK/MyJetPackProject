@@ -122,14 +122,14 @@ constructor(
                 phone       = locationData.phone,
                 place_name  = locationData.place_name,
                 place_url   = locationData.place_url,
-                address_name    = locationData.address_name,
+                address_name  = locationData.address_name,
                 category_name = locationData.category_name,
                 road_address_name   = locationData.road_address_name,
                 category_group_code = locationData.category_group_code,
                 category_group_name = locationData.category_group_name
             )
 
-            Logger.d("$result")
+            emit(DataState.Success(result))
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }

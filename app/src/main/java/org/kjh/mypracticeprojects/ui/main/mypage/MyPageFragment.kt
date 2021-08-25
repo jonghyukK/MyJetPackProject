@@ -13,30 +13,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.countryList
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
-import org.kjh.mypracticeprojects.ui.MainViewModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
 
 
 @AndroidEntryPoint
-class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
+class MyPageFragment :
+    BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
     private lateinit var _myPagePagerAdapter: MyPagePagerAdapter
-    private val viewModel: MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.mainViewModel = mainViewModel
+
         initTabLayoutWithPager()
         initToolbarWithNavigation()
-
-
-//        viewModel.userData.observe(viewLifecycleOwner, { data ->
-//            when (data) {
-//                is DataState.Success -> {
-//                    myImagesAdapter.submitList(data.data?.contents?.reversed() ?: listOf())
-//                }
-//            }
-//        })
     }
 
     private fun initTabLayoutWithPager() {

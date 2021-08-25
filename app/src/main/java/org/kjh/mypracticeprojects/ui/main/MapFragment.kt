@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,7 +20,6 @@ import net.daum.mf.map.api.MapView
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMapBinding
 import org.kjh.mypracticeprojects.model.LocationItem
-import org.kjh.mypracticeprojects.ui.MainViewModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 
 @AndroidEntryPoint

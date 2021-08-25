@@ -48,6 +48,7 @@ class SelectPictureViewModel @Inject constructor(
     private val userRepository: UserRepository,
     application: Application
 ): AndroidViewModel(application) {
+
     private val _localImages = MutableLiveData<List<MediaStoreImage>>()
     val localImages: LiveData<List<MediaStoreImage>> = _localImages
 

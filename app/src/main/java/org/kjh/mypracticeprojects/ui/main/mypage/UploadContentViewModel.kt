@@ -1,5 +1,6 @@
 package org.kjh.mypracticeprojects.ui.main.mypage
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import org.kjh.mypracticeprojects.MyApplication
 import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.model.LocationItem
+import org.kjh.mypracticeprojects.model.UserModel
 import org.kjh.mypracticeprojects.repository.UserRepository
+import org.kjh.mypracticeprojects.util.DataState
 import java.io.File
 import javax.inject.Inject
 
@@ -32,6 +35,9 @@ class UploadContentViewModel @Inject constructor(
 
     val content = MutableLiveData<String>()
 
+    private val _uploadResult = MutableLiveData<DataState<UserModel>>()
+    val uploadResult: LiveData<DataState<UserModel>> = _uploadResult
+
     fun uploadContent(imgData: MediaStoreImage, locationData: LocationItem) {
         val file = File(imgData.realPath)
         val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -45,9 +51,8 @@ class UploadContentViewModel @Inject constructor(
                 body,
                 locationData
             ).onEach { dataState ->
-                Logger.e("$dataState")
+                _uploadResult.value = dataState
             }.launchIn(viewModelScope)
         }
-
     }
 }
