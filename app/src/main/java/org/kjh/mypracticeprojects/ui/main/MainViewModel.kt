@@ -1,6 +1,7 @@
 package org.kjh.mypracticeprojects.ui.main
 
 import androidx.lifecycle.*
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

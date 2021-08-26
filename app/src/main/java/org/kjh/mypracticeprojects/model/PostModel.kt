@@ -16,6 +16,10 @@ data class PostModel(
     @Expose
     val postId: Int,
 
+    @SerializedName("cityCategory")
+    @Expose
+    val cityCategory: String,
+
     @SerializedName("imageUrl")
     @Expose
     val imageUrl: String,

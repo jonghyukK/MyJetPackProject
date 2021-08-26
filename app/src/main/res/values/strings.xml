@@ -22,4 +22,5 @@
     <string name="success_sign_up">회원가입이 완료되었습니다.\n 로그인 해주세요.</string>
 
     <string name="transition_name_upload_image">upload_image</string>
+    <string name="empty_posts">해당 지역의 게시물이 없습니다! \n 이번 주말, 놀러가시는 건 어떨까요?</string>
 </resources>

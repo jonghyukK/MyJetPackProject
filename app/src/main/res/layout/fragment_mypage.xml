@@ -8,9 +8,10 @@
             type="org.kjh.mypracticeprojects.ui.main.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_mypage_toolbar"
@@ -22,9 +23,7 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/cl_mypage_container"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/tb_mypage_toolbar"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="match_parent">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -155,9 +154,10 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/pager"
+                android:fitsSystemWindows="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

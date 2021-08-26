@@ -30,12 +30,10 @@ import org.kjh.mypracticeprojects.util.SpacesItemDecoration
 class AreaImageFragment: BaseFragment<FragmentAreaImageBinding>(R.layout.fragment_area_image) {
 
     private val mainViewModel: MainViewModel by activityViewModels()
+    private lateinit var cityKey: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey("TEST") }?.apply {
-//            binding.tvAreaImageText.text = getInt("TEST").toString()
-//            Logger.d("This is : ${getInt("TEST").toString()}")
-        }
+        cityKey = arguments?.getString("City") ?: "전체"
 
         val myImagesAdapter = MyImagesAdapter { content ->
             Logger.d("onClicked content : $content")
@@ -48,7 +46,10 @@ class AreaImageFragment: BaseFragment<FragmentAreaImageBinding>(R.layout.fragmen
         }
 
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
-            myImagesAdapter.submitList(myData.posts!!.reversed())
+            myData.posts[cityKey]?.let {
+                myImagesAdapter.submitList(myData.posts[cityKey])
+                binding.tvEmptyPosts.visibility = View.GONE
+            }
         })
     }
 

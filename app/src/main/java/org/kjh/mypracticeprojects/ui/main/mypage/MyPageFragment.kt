@@ -69,16 +69,13 @@ class MyPageFragment :
     }
 }
 
-
-
-class MyPagePagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+class MyPagePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = countryList.size
 
-    override fun createFragment(position: Int): Fragment {
-        val fragment = AreaImageFragment()
-        fragment.arguments = Bundle().apply {
-            putInt("TEST", position + 1)
+    override fun createFragment(position: Int): Fragment =
+        AreaImageFragment().apply {
+            arguments = Bundle().apply {
+                putString("City", countryList[position])
+            }
         }
-        return fragment
-    }
 }
