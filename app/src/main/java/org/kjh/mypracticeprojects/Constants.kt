@@ -27,7 +27,7 @@ val countryList = listOf("전체", "서울", "경기", "인천", "충북", "충�
 const val PREF_KEY_LOGIN_STATE = "LOGIN_STATE"
 const val PREF_KEY_LOGIN_ID    = "LOGIN_ID"
 
-enum class LoginState(val value: Int) {
+enum class LoginState(val value: Int = 0) {
     LOGOUT(0),
     LOGIN(1)
 }

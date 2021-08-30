@@ -13,17 +13,28 @@
     <fragment
         android:id="@+id/myPageFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment"
-        android:label="MyPage"
         tools:layout="@layout/fragment_mypage" >
         <action
-            android:id="@+id/action_thirdFragment_to_writeFragment"
-            app:destination="@id/selectPictureFragment" />
+            android:id="@+id/action_myPageFragment_to_writeFragment"
+            app:destination="@id/selectPictureFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_thirdFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
+            android:id="@+id/action_myPageFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_myPageFragment_to_postDetailFragment"
-            app:destination="@id/postDetailFragment" />
+            app:destination="@id/postDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/selectPictureFragment"
@@ -65,10 +76,35 @@
     <fragment
         android:id="@+id/postDetailFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.PostDetailFragment"
-        android:label=""
         tools:layout="@layout/fragment_post_detail">
         <argument
             android:name="postDetailFragmentArgs"
             app:argType="org.kjh.mypracticeprojects.model.PostModel" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_mapInfoFragment"
+            app:destination="@id/mapInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_postDetailFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapInfoFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.MapInfoFragment"
+        tools:layout="@layout/fragment_map_info">
+        <action
+            android:id="@+id/action_mapInfoFragment_to_postDetailFragment"
+            app:popUpTo="@id/postDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>

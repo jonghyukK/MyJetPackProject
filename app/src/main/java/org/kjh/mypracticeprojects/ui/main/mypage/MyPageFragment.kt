@@ -55,11 +55,11 @@ class MyPageFragment :
             setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.selectPictureFragment -> {
-                        navController.navigate(R.id.action_thirdFragment_to_writeFragment)
+                        navController.navigate(R.id.action_myPageFragment_to_writeFragment)
                         true
                     }
                     R.id.settingFragment -> {
-                        navController.navigate(R.id.action_thirdFragment_to_settingFragment)
+                        navController.navigate(R.id.action_myPageFragment_to_settingFragment)
                         true
                     }
                     else -> false
