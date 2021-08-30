@@ -35,7 +35,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             if (destination.id == R.id.settingFragment ||
                 destination.id == R.id.selectPictureFragment ||
                 destination.id == R.id.uploadContentFragment ||
-                destination.id == R.id.mapFragment
+                destination.id == R.id.mapFragment ||
+                destination.id == R.id.postDetailFragment
             ) {
                 binding.bnvBottomNav.visibility = View.GONE
             } else {

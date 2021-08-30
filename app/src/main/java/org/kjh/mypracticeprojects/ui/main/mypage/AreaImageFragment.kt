@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -35,8 +38,12 @@ class AreaImageFragment: BaseFragment<FragmentAreaImageBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         cityKey = arguments?.getString("City") ?: "전체"
 
-        val myImagesAdapter = MyImagesAdapter { content ->
-            Logger.d("onClicked content : $content")
+        val myImagesAdapter = MyImagesAdapter { post, iv ->
+            val extras = FragmentNavigatorExtras(iv to iv.transitionName)
+            val action = MyPageFragmentDirections
+                .actionMyPageFragmentToPostDetailFragment(postDetailFragmentArgs = post)
+
+            findNavController().navigate(action, extras)
         }
 
         binding.rvMyImages.apply {
@@ -53,7 +60,7 @@ class AreaImageFragment: BaseFragment<FragmentAreaImageBinding>(R.layout.fragmen
         })
     }
 
-    private inner class MyImagesAdapter(val onClick: (PostModel) -> Unit) :
+    private inner class MyImagesAdapter(val onClick: (PostModel, ImageView) -> Unit) :
         ListAdapter<PostModel, MyImageViewHolder>(PostModel.DiffCallback) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyImageViewHolder {
@@ -66,6 +73,8 @@ class AreaImageFragment: BaseFragment<FragmentAreaImageBinding>(R.layout.fragmen
             val contentItem = getItem(position)
             holder.rootView.tag = contentItem
 
+            holder.imageView.transitionName = "postId_${contentItem.postId}"
+
             GlideApp.with(holder.imageView)
                 .load(contentItem.imageUrl)
                 .thumbnail(0.33f)
@@ -75,15 +84,15 @@ class AreaImageFragment: BaseFragment<FragmentAreaImageBinding>(R.layout.fragmen
     }
 }
 
-private class MyImageViewHolder(view: View, onClick: (PostModel) -> Unit) :
+private class MyImageViewHolder(view: View, onClick: (PostModel, ImageView) -> Unit) :
     RecyclerView.ViewHolder(view) {
     val rootView = view
     val imageView: ImageView = view.findViewById(R.id.iv_myImage)
 
     init {
         imageView.setOnClickListener {
-            val image = rootView.tag as? PostModel ?: return@setOnClickListener
-            onClick(image)
+            val item = rootView.tag as? PostModel ?: return@setOnClickListener
+            onClick(item, imageView)
         }
     }
 }

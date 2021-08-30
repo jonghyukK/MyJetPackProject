@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_thirdFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectPictureFragment"
@@ -58,5 +61,14 @@
         <action
             android:id="@+id/action_mapFragment_to_uploadContentFragment"
             app:popUpTo="@id/uploadContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.PostDetailFragment"
+        android:label=""
+        tools:layout="@layout/fragment_post_detail">
+        <argument
+            android:name="postDetailFragmentArgs"
+            app:argType="org.kjh.mypracticeprojects.model.PostModel" />
     </fragment>
 </navigation>

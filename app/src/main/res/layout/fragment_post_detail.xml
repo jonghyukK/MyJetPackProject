@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="fragment"
+            type="org.kjh.mypracticeprojects.ui.main.PostDetailFragment" />
+        <variable
+            name="postModel"
+            type="org.kjh.mypracticeprojects.model.PostModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.PostDetailFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_post_detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@{postModel.place_name}"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_profileImg"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/tb_post_detail_toolbar"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_profileImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_launcher_background" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/cv_profileImg"
+            app:layout_constraintTop_toTopOf="@+id/cv_profileImg"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_profileImg"
+            android:text="@{postModel.email}" />
+
+        <ImageView
+            android:id="@+id/iv_postDetailImg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp"
+            android:transitionName="@{`postId_` + postModel.postId}"
+            app:frag="@{fragment}"
+            app:imgUrl="@{postModel.imageUrl}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/cv_profileImg" />
+
+        <RelativeLayout
+            android:id="@+id/rl_location"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_postDetailImg"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_icLocation"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_location"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_icLocation"
+                android:layout_centerInParent="true"
+                android:text="@{postModel.address_name}"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/rl_location"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{postModel.content}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

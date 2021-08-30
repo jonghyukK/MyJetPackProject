@@ -1,5 +1,6 @@
 package org.kjh.mypracticeprojects.ui
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.EditText
@@ -7,8 +8,14 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import org.kjh.mypracticeprojects.ui.login.FocusEventHandler
+import org.kjh.mypracticeprojects.util.GlideApp
 
 /**
  * MyPracticeProjects
@@ -61,6 +68,40 @@ object BindingAdapters {
                 .load(imgUri)
                 .thumbnail(0.33f)
                 .centerCrop()
+                .into(view)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:frag", "app:imgUrl")
+    fun bindImageTransition(view: ImageView, frag: Fragment, imgUrl: String?) {
+        imgUrl?.run {
+            GlideApp.with(frag)
+                .load(imgUrl)
+                .dontAnimate()
+                .centerCrop()
+                .listener(object: RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        frag.startPostponedEnterTransition()
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        frag.startPostponedEnterTransition()
+                        return false
+                    }
+                })
                 .into(view)
         }
     }

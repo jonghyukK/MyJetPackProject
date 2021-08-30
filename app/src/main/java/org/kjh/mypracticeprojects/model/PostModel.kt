@@ -1,8 +1,10 @@
 package org.kjh.mypracticeprojects.model
 
+import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 /**
  * MyPracticeProjects
@@ -11,10 +13,15 @@ import com.google.gson.annotations.SerializedName
  *
  * Description:
  */
+@Parcelize
 data class PostModel(
     @SerializedName("postId")
     @Expose
     val postId: Int,
+
+    @SerializedName("email")
+    @Expose
+    val email: String,
 
     @SerializedName("cityCategory")
     @Expose
@@ -67,7 +74,7 @@ data class PostModel(
     @SerializedName("y")
     @Expose
     val y: String
-){
+): Parcelable {
     companion object {
         val DiffCallback = object: DiffUtil.ItemCallback<PostModel>() {
             override fun areItemsTheSame(oldItem: PostModel, newItem: PostModel): Boolean =
