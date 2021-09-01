@@ -35,8 +35,12 @@ class MainViewModel @Inject constructor(
     private val _uploadLocationData = MutableLiveData<LocationItem?>()
     val uploadLocationData: LiveData<LocationItem?> = _uploadLocationData
 
+    private val _multipleImages = MutableLiveData<List<MediaStoreImage>?>()
+    val multipleImages: LiveData<List<MediaStoreImage>?> = _multipleImages
+
     fun setUploadImgData(data: MediaStoreImage) { _uploadImgData.value = data }
     fun setUploadLocationData(data: LocationItem?) { _uploadLocationData.value = data }
+    fun setMultipleImages(data: List<MediaStoreImage>) { _multipleImages.value = data }
 
     private val _myUserData = MutableLiveData<UserModel>()
     val myUserData: LiveData<UserModel> = _myUserData

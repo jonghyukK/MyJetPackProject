@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.ActivityMainBinding
@@ -21,6 +22,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
         viewModel.reqMyUserData()
+
+        val str = listOf<String>("hi", "hello", "hi")
+        val str2 = str.joinToString(";")
+
+        Logger.d("$str2")
     }
 
     private fun initBottomNavigationView() {

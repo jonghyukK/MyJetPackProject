@@ -6,11 +6,8 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -18,11 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentSelectPictureBinding
@@ -30,7 +29,6 @@ import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainActivity
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.SpacesItemDecoration
-import java.util.*
 
 @AndroidEntryPoint
 class SelectPictureFragment :
@@ -38,6 +36,7 @@ class SelectPictureFragment :
 
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel    : SelectPictureViewModel by viewModels()
+    private lateinit var selectPictureAdapter: SelectPictureAdapter
 
     private val requestPermissionLauncher =
         registerForActivityResult(RequestPermission()) {
@@ -68,20 +67,11 @@ class SelectPictureFragment :
         binding.viewModel = viewModel
 
         initToolbarWithNavigation()
-
-        val galleryAdapter = GalleryAdapter { selectedImg ->
-            mainViewModel.setUploadImgData(selectedImg)
-        }
-
-        binding.rvGallery.apply {
-            layoutManager = GridLayoutManager(activity, 3)
-            adapter = galleryAdapter
-            addItemDecoration(SpacesItemDecoration(this.context))
-        }
+        initRecyclerView()
 
         // Gallery Images Observe.
         viewModel.localImages.observe(viewLifecycleOwner, { images ->
-            galleryAdapter.submitList(images)
+            selectPictureAdapter.submitList(images)
             mainViewModel.setUploadImgData(mainViewModel.uploadImgData.value ?: images[0])
         })
     }
@@ -106,6 +96,52 @@ class SelectPictureFragment :
                 }
             }
         }
+    }
+
+    private fun initRecyclerView() {
+        selectPictureAdapter = SelectPictureAdapter()
+        binding.rvGallery.apply {
+            adapter = selectPictureAdapter
+            layoutManager = GridLayoutManager(activity, 3)
+            addItemDecoration(SpacesItemDecoration(this.context))
+        }
+
+        val selectedImageTracker = SelectionTracker.Builder(
+            "selected-my-image",
+            binding.rvGallery,
+            StableIdKeyProvider(binding.rvGallery),
+            MediaStoreImageDetailsLookup(binding.rvGallery),
+            StorageStrategy.createLongStorage()
+        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
+
+        selectPictureAdapter.setSelectionTracker(selectedImageTracker)
+
+        selectedImageTracker.addObserver(object: SelectionTracker.SelectionObserver<Long>() {
+            override fun onItemStateChanged(key: Long, selected: Boolean) {
+                super.onItemStateChanged(key, selected)
+
+                mainViewModel.setUploadImgData(selectPictureAdapter.currentList[key.toInt()])
+
+                if (!selected) {
+                    for (num in selectedImageTracker.selection) {
+                        Logger.d("$num")
+                        selectPictureAdapter.notifyItemChanged(num.toInt())
+                    }
+                }
+            }
+
+            override fun onSelectionChanged() {
+                super.onSelectionChanged()
+
+                if (selectedImageTracker.hasSelection()) {
+                    val list = selectedImageTracker.selection.map {
+                        selectPictureAdapter.currentList[it.toInt()]
+                    }.toMutableList()
+
+                    mainViewModel.setMultipleImages(list)
+                }
+            }
+        })
     }
 
     private fun checkPermission() {
@@ -147,40 +183,5 @@ class SelectPictureFragment :
                 checkPermission()
             }
             .show()
-    }
-
-
-    private inner class GalleryAdapter(val onClick: (MediaStoreImage) -> Unit):
-            ListAdapter<MediaStoreImage, ImageViewHolder>(MediaStoreImage.DiffCallback) {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-            val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.item_gallery_image, parent, false)
-            return ImageViewHolder(view, onClick)
-        }
-
-        override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-            val mediaStoreImage = getItem(position)
-            holder.rootView.tag = mediaStoreImage
-
-            Glide.with(holder.imageView)
-                .load(mediaStoreImage.contentUri)
-                .thumbnail(0.33f)
-                .centerCrop()
-                .into(holder.imageView)
-        }
-    }
-}
-
-private class ImageViewHolder(view: View, onClick: (MediaStoreImage) -> Unit) :
-    RecyclerView.ViewHolder(view) {
-    val rootView = view
-    val imageView: ImageView = view.findViewById(R.id.image)
-
-    init {
-        imageView.setOnClickListener {
-            val image = rootView.tag as? MediaStoreImage ?: return@setOnClickListener
-            onClick(image)
-        }
     }
 }

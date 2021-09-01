@@ -72,7 +72,7 @@ interface ApiService {
     @Multipart
     @POST("user/upload")
     suspend fun uploadPost(
-        @Part file: MultipartBody.Part,
+        @Part file: List<MultipartBody.Part>,
         @Query("email"          ) email: String,
         @Query("content"        ) content: String,
         @Query("address_name"   ) address_name: String,

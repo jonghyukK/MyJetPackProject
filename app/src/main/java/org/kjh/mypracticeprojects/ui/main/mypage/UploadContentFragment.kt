@@ -107,7 +107,7 @@ class UploadContentFragment :
                 when (it.itemId) {
                     R.id.menu_upload -> {
                         viewModel.uploadContent(
-                            mainViewModel.uploadImgData.value!!,
+                            mainViewModel.multipleImages.value!!,
                             mainViewModel.uploadLocationData.value!!
                         )
                         true

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.orhanobut.logger.Logger
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -12,7 +11,7 @@ import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMapInfoBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.PostDetailFragment.Companion.DIALOG_X_Y_INFO
+import org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment.Companion.DIALOG_X_Y_INFO
 
 /**
  * MyPracticeProjects

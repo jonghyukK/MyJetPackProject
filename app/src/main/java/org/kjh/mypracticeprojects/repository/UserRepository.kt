@@ -107,7 +107,7 @@ constructor(
     suspend fun uploadPost(
         email       : String,
         content     : String,
-        file        : MultipartBody.Part,
+        file        : List<MultipartBody.Part>,
         locationData: LocationItem
     ): Flow<DataState<UserModel>> = flow {
         emit(DataState.Loading)

@@ -29,7 +29,7 @@ data class PostModel(
 
     @SerializedName("imageUrl")
     @Expose
-    val imageUrl: String,
+    val imageUrl: List<String>,
 
     @SerializedName("content")
     @Expose

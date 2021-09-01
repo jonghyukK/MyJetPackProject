@@ -38,17 +38,19 @@ class UploadContentViewModel @Inject constructor(
     private val _uploadResult = MutableLiveData<DataState<UserModel>>()
     val uploadResult: LiveData<DataState<UserModel>> = _uploadResult
 
-    fun uploadContent(imgData: MediaStoreImage, locationData: LocationItem) {
-        val file = File(imgData.realPath)
-        val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+    fun uploadContent(selectedImages: List<MediaStoreImage>, locationData: LocationItem) {
+        val fileBody = selectedImages.map {
+            val file = File(it.realPath)
+            val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("file", file.name, requestFile)
+        }
         val email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
 
         viewModelScope.launch {
             userRepository.uploadPost(
                 email,
                 content.value.toString(),
-                body,
+                fileBody,
                 locationData
             ).onEach { dataState ->
                 _uploadResult.value = dataState

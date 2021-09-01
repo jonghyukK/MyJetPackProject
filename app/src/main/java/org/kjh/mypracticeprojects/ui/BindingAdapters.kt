@@ -61,10 +61,10 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("android:src")
+    @BindingAdapter("app:imgUri")
     fun bindImageWithUri(view: ImageView, imgUri: Uri?) {
         imgUri?.run {
-            Glide.with(view)
+            GlideApp.with(view)
                 .load(imgUri)
                 .thumbnail(0.33f)
                 .centerCrop()
@@ -73,35 +73,13 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("app:frag", "app:imgUrl")
-    fun bindImageTransition(view: ImageView, frag: Fragment, imgUrl: String?) {
+    @BindingAdapter("app:imgUrl")
+    fun bindImageWithUrl(view: ImageView, imgUrl: String?) {
         imgUrl?.run {
-            GlideApp.with(frag)
+            GlideApp.with(view)
                 .load(imgUrl)
-                .dontAnimate()
+                .thumbnail(0.33f)
                 .centerCrop()
-                .listener(object: RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        frag.startPostponedEnterTransition()
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        frag.startPostponedEnterTransition()
-                        return false
-                    }
-                })
                 .into(view)
         }
     }

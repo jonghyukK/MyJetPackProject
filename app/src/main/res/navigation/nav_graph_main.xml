@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/postDetailFragment"
-        android:name="org.kjh.mypracticeprojects.ui.main.PostDetailFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment"
         tools:layout="@layout/fragment_post_detail">
         <argument
             android:name="postDetailFragmentArgs"
