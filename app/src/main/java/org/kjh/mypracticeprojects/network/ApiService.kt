@@ -3,10 +3,7 @@ package org.kjh.mypracticeprojects.network
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import org.kjh.mypracticeprojects.model.DataResponse
-import org.kjh.mypracticeprojects.model.LocationItem
-import org.kjh.mypracticeprojects.model.LocationResponse
-import org.kjh.mypracticeprojects.model.UserModel
+import org.kjh.mypracticeprojects.model.*
 import retrofit2.http.*
 
 /**
@@ -89,4 +86,14 @@ interface ApiService {
 
 
 
+    /***************************************************
+     *
+     * [DELETE] Delete Post.
+     *
+     ***************************************************/
+    @DELETE("post")
+    suspend fun deletePost(
+        @Query("postId") postId: Int,
+        @Query("email") email: String,
+    ): UserModel
 }

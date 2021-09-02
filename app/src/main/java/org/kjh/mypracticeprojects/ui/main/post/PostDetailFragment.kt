@@ -2,43 +2,78 @@ package org.kjh.mypracticeprojects.ui.main.post
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
+import org.kjh.mypracticeprojects.MyApplication
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentPostDetailBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.main.MainActivity
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
+import org.kjh.mypracticeprojects.util.DataState
 
+@AndroidEntryPoint
 class PostDetailFragment
-    : BaseFragment<FragmentPostDetailBinding>(R.layout.fragment_post_detail) {
+    : BaseFragment<FragmentPostDetailBinding>(R.layout.fragment_post_detail),
+PostBottomSheetEventListener {
 
     companion object {
-        const val DIALOG_X_Y_INFO = "DIALOG_X_Y_INFO"
+        const val LOCATION_INFO = "LOCATION_INFO"
     }
+
+    private val viewModel: PostDetailViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
+    private val args : PostDetailFragmentArgs by navArgs()
 
     private lateinit var navController: NavController
     private lateinit var postData: PostModel
-    private val args : PostDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with (args.postDetailFragmentArgs) {
+
+        args.postDetailFragmentArgs.run {
             postData = this
             binding.postModel = this
+            binding.viewModel = viewModel
         }
 
         initToolbarWithNavigation()
         initViewPager()
 
+        viewModel.deleteResult.observe(viewLifecycleOwner, { dataState ->
+            when (dataState) {
+                is DataState.Success -> {
+                    dataState.data?.let {
+                        mainViewModel.updateMyUserData(it)
+                        navController.popBackStack()
+                    }
+                }
+                is DataState.Error ->
+                    Toast.makeText(context, "게시물 삭제가 실패하였습니다.", Toast.LENGTH_LONG).show()
+            }
+        })
+
         binding.rlLocation.setOnClickListener {
             navController.navigate(
                 R.id.action_postDetailFragment_to_mapInfoFragment,
-                bundleOf(DIALOG_X_Y_INFO to args.postDetailFragmentArgs)
+                bundleOf(LOCATION_INFO to args.postDetailFragmentArgs)
             )
+        }
+
+        binding.btnMore.setOnClickListener {
+            val btmSheet = PostBottomSheetFragment(this)
+            btmSheet.show((activity as MainActivity).supportFragmentManager, "tag")
         }
     }
 
@@ -48,7 +83,7 @@ class PostDetailFragment
     }
 
     private fun initViewPager() {
-        binding.vpPostDetail.apply {
+        with (binding.vpPostDetail) {
             adapter = PostDetailImageAdapter().apply {
                 setImageList(args.postDetailFragmentArgs.imageUrl)
             }
@@ -76,6 +111,14 @@ class PostDetailFragment
                 }
             }
         }
+    }
+
+    override fun onClickDeletePost() {
+        val myEmail = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
+        viewModel.deletePost(
+            postId = postData.postId,
+            email  = myEmail
+        )
     }
 }
 

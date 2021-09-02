@@ -10,6 +10,9 @@
         <variable
             name="postModel"
             type="org.kjh.mypracticeprojects.model.PostModel" />
+        <variable
+            name="viewModel"
+            type="org.kjh.mypracticeprojects.ui.main.post.PostDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,10 +51,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/cv_profileImg"
             app:layout_constraintTop_toTopOf="@+id/cv_profileImg"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_profileImg"
-            android:text="@{postModel.email}" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_address"
+            android:text="@{postModel.email}"/>
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:text="@{postModel.address_name}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userEmail"
+            app:layout_constraintStart_toEndOf="@+id/cv_profileImg"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_profileImg"/>
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:background="@null"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@id/cv_profileImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cv_profileImg" />
 
 
         <androidx.viewpager2.widget.ViewPager2
@@ -95,26 +124,32 @@
         <RelativeLayout
             android:id="@+id/rl_location"
             android:layout_width="wrap_content"
-            android:layout_height="34dp"
+            android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/bg_stroke_corner_purple"
             app:layout_constraintTop_toBottomOf="@+id/vp_postDetail"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/iv_icLocation"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="7dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_location" />
 
             <TextView
-                android:id="@+id/tv_address"
+                android:id="@+id/tv_showLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/iv_icLocation"
                 android:layout_centerInParent="true"
-                android:text="@{postModel.address_name}"/>
+                android:paddingStart="4dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/purple_500"
+                android:textSize="15sp"
+                android:text="위치보기"/>
         </RelativeLayout>
 
         <TextView
@@ -127,6 +162,16 @@
             app:layout_constraintTop_toBottomOf="@+id/rl_location"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@{postModel.content}"/>
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:isLoading="@{viewModel.deleteResult.isLoading()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

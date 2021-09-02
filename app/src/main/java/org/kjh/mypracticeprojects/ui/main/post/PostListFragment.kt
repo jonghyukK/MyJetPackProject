@@ -1,25 +1,17 @@
 package org.kjh.mypracticeprojects.ui.main.post
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentPostListBinding
-import org.kjh.mypracticeprojects.databinding.ItemMyImageBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragmentDirections
-import org.kjh.mypracticeprojects.util.GlideApp
 import org.kjh.mypracticeprojects.util.SpacesItemDecoration
 
 /**

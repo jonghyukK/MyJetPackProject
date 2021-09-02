@@ -1,7 +1,11 @@
 package org.kjh.mypracticeprojects.ui.main
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import net.daum.mf.map.api.MapPOIItem
@@ -11,7 +15,7 @@ import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMapInfoBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment.Companion.DIALOG_X_Y_INFO
+import org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment.Companion.LOCATION_INFO
 
 /**
  * MyPracticeProjects
@@ -28,7 +32,8 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postData = arguments?.get(DIALOG_X_Y_INFO) as PostModel
+        postData = arguments?.get(LOCATION_INFO) as PostModel
+        binding.postModel = postData
 
         initToolbarWithNavigation()
         initMapViewWithLocation()
@@ -44,9 +49,15 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
                     postData.x.toDouble()
                 ), true)
         }
+
+        binding.btnAddressCopy.setOnClickListener {
+            val clipboard =
+                (activity as MainActivity).getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.setPrimaryClip(ClipData.newPlainText("주소", postData.address_name))
+
+            Toast.makeText(context, "주소가 복사되었습니다.", Toast.LENGTH_LONG).show()
+        }
     }
-
-
 
     private fun initToolbarWithNavigation() {
         binding.tbMapInfo.setupWithNavController(findNavController())

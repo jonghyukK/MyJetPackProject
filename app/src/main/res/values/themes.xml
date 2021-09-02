@@ -31,4 +31,8 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="MyButton" parent="Theme.MyPracticeProjects">
+        <item name="background">@drawable/bg_stroke_corner_purple</item>
+    </style>
+
 </resources>

@@ -22,11 +22,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
         viewModel.reqMyUserData()
-
-        val str = listOf<String>("hi", "hello", "hi")
-        val str2 = str.joinToString(";")
-
-        Logger.d("$str2")
     }
 
     private fun initBottomNavigationView() {

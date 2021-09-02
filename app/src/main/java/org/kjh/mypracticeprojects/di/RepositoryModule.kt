@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.kjh.mypracticeprojects.network.ApiService
 import org.kjh.mypracticeprojects.network.KaKaoApiService
+import org.kjh.mypracticeprojects.repository.PostRepository
 import org.kjh.mypracticeprojects.repository.UserRepository
 import javax.inject.Singleton
 
@@ -23,10 +24,17 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideUserRepository(
-        apiServiceService: ApiService,
+        apiService: ApiService,
         kakaoApiService: KaKaoApiService
     ): UserRepository {
-        return UserRepository(apiServiceService, kakaoApiService)
+        return UserRepository(apiService, kakaoApiService)
     }
 
+    @Singleton
+    @Provides
+    fun providePostRepository(
+        apiService: ApiService
+    ): PostRepository {
+        return PostRepository(apiService)
+    }
 }
