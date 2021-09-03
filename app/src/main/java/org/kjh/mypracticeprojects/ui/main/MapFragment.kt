@@ -46,7 +46,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         }
 
         viewModel.locationList.observe(viewLifecycleOwner, { data ->
-            locationAdapter.submitList(data.documents.reversed())
+            locationAdapter.submitList(data.documents)
         })
     }
 

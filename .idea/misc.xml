@@ -19,14 +19,16 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.575" />
         <entry key="app/src/main/res/layout/dialog_fragment_map.xml" value="0.14074074074074075" />
         <entry key="app/src/main/res/layout/fragment_area_image.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_area_post_list.xml" value="0.11388888888888889" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4962962962962963" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.37598736176935227" />
         <entry key="app/src/main/res/layout/fragment_map_info.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_post_bottom_sheet.xml" value="0.6307291666666667" />
         <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.4666666666666667" />
+        <entry key="app/src/main/res/layout/fragment_post_list.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.4078125" />
         <entry key="app/src/main/res/layout/fragment_select_picture.xml" value="0.1319796954314721" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.5838150289017341" />
@@ -34,6 +36,7 @@
         <entry key="app/src/main/res/layout/fragment_third.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_upload_content.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_write.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/layout/item_area.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_blog.xml" value="0.36018518518518516" />
         <entry key="app/src/main/res/layout/item_gallery_image.xml" value="0.38981481481481484" />
         <entry key="app/src/main/res/layout/item_location_list.xml" value="0.5" />

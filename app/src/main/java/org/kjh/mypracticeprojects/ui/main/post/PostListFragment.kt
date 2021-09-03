@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
@@ -27,11 +29,13 @@ class PostListFragment:
     PostListClickEventListener {
 
     private val mainViewModel: MainViewModel by activityViewModels()
+    private val args: PostListFragmentArgs by navArgs()
     private lateinit var cityKey: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        cityKey = arguments?.getString("City") ?: "전체"
+        cityKey = args.postListFragmentArgs
 
+        initToolbarWithNavigation()
         val postListAdapter = PostListAdapter(this)
 
         binding.rvMyImages.apply {
@@ -42,15 +46,21 @@ class PostListFragment:
 
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
             myData.posts[cityKey]?.let {
-                postListAdapter.submitList(myData.posts[cityKey]?.reversed())
-                binding.tvEmptyPosts.visibility = View.GONE
+                postListAdapter.submitList(myData.posts[cityKey])
             }
         })
     }
 
+    private fun initToolbarWithNavigation() {
+        with(binding.tbPostListToolbar) {
+            setupWithNavController(findNavController())
+            title = cityKey
+        }
+    }
+
     override fun onClickPost(postItem: PostModel) {
-        val action = MyPageFragmentDirections
-            .actionMyPageFragmentToPostDetailFragment(postDetailFragmentArgs = postItem)
+        val action = PostListFragmentDirections
+            .actionPostListFragmentToPostDetailFragment(postDetailFragmentArgs = postItem)
         findNavController().navigate(action)
     }
 }

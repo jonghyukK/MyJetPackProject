@@ -14,13 +14,19 @@ import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.countryList
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.main.AreaPostListFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
+import org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment.Companion.TAB_LIST
 import org.kjh.mypracticeprojects.ui.main.post.PostListFragment
 
 
 @AndroidEntryPoint
 class MyPageFragment :
     BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
+
+    companion object {
+        val TAB_LIST = listOf("내 여행지", "내 여행계획")
+    }
 
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -37,13 +43,11 @@ class MyPageFragment :
         binding.pager.adapter = MyPagePagerAdapter(this)
 
         TabLayoutMediator(binding.tlTabLayout, binding.pager) { tab, position ->
-            tab.text = countryList[position]
+            tab.text = TAB_LIST[position]
         }.attach()
     }
 
     private fun initToolbarWithNavigation() {
-        binding.tbMypageToolbar.inflateMenu(R.menu.menu_mypage)
-
         val navController = findNavController()
         val appBarConfig = AppBarConfiguration(setOf(
             R.id.homeFragment,
@@ -51,6 +55,7 @@ class MyPageFragment :
         ))
 
         binding.tbMypageToolbar.apply {
+            inflateMenu(R.menu.menu_mypage)
             setupWithNavController(navController, appBarConfig)
             setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -70,12 +75,7 @@ class MyPageFragment :
 }
 
 class MyPagePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    override fun getItemCount(): Int = countryList.size
+    override fun getItemCount(): Int = TAB_LIST.size
 
-    override fun createFragment(position: Int): Fragment =
-        PostListFragment().apply {
-            arguments = Bundle().apply {
-                putString("City", countryList[position])
-            }
-        }
+    override fun createFragment(position: Int): Fragment = AreaPostListFragment()
 }

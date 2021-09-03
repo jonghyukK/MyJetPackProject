@@ -56,7 +56,7 @@ class UploadContentFragment :
                     findNavController().navigate(R.id.action_uploadContentFragment_to_myPageFragment)
                 }
                 is DataState.Error -> Toast.makeText(context, "업로드가 실패하였습니다.", Toast.LENGTH_LONG).show()
-                is DataState.Loading -> {}
+                is DataState.Loading -> binding.pbLoading.visibility = View.VISIBLE
             }
         })
     }

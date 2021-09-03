@@ -29,12 +29,12 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_myPageFragment_to_postDetailFragment"
-            app:destination="@id/postDetailFragment"
+            android:id="@+id/action_myPageFragment_to_postListFragment"
+            app:destination="@id/postListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/selectPictureFragment"
@@ -77,23 +77,22 @@
         android:id="@+id/postDetailFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment"
         tools:layout="@layout/fragment_post_detail">
-        <argument
-            android:name="postDetailFragmentArgs"
-            app:argType="org.kjh.mypracticeprojects.model.PostModel" />
         <action
             android:id="@+id/action_postDetailFragment_to_mapInfoFragment"
             app:destination="@id/mapInfoFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_postListFragment"
+            app:popUpTo="@id/postListFragment" />
         <action
             android:id="@+id/action_postDetailFragment_to_myPageFragment"
-            app:destination="@id/myPageFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popUpTo="@id/myPageFragment" />
+        <argument
+            android:name="postDetailFragmentArgs"
+            app:argType="org.kjh.mypracticeprojects.model.PostModel" />
     </fragment>
     <fragment
         android:id="@+id/mapInfoFragment"
@@ -102,6 +101,21 @@
         <action
             android:id="@+id/action_mapInfoFragment_to_postDetailFragment"
             app:popUpTo="@id/postDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/postListFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.post.PostListFragment"
+        tools:layout="@layout/fragment_post_list">
+        <argument
+            android:name="postListFragmentArgs"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_postListFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

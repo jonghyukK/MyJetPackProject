@@ -56,7 +56,11 @@ PostBottomSheetEventListener {
                 is DataState.Success -> {
                     dataState.data?.let {
                         mainViewModel.updateMyUserData(it)
-                        navController.popBackStack()
+
+                        if (it.posts[postData.cityCategory].isNullOrEmpty())
+                            navController.navigate(R.id.action_postDetailFragment_to_myPageFragment)
+                        else
+                            navController.popBackStack()
                     }
                 }
                 is DataState.Error ->
