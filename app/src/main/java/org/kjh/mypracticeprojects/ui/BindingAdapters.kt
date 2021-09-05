@@ -61,6 +61,16 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("app:imgDrawable")
+    fun bindImageWithDrawable(view: ImageView, imgDrawable: Int) {
+        GlideApp.with(view)
+            .load(imgDrawable)
+            .thumbnail(0.33f)
+            .centerCrop()
+            .into(view)
+    }
+
+    @JvmStatic
     @BindingAdapter("app:imgUri")
     fun bindImageWithUri(view: ImageView, imgUri: Uri?) {
         imgUri?.run {

@@ -22,6 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
         viewModel.reqMyUserData()
+        viewModel.getRecentPostData()
     }
 
     private fun initBottomNavigationView() {

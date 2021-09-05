@@ -22,7 +22,20 @@ const val ERROR_PW_LESS_THAN_8       = "비밀번호는 8자리 이상 입력해
 const val ERROR_PW_CONFIRM_NOT_MATCH = "비밀번호가 일치하지 않습니다."
 const val ERROR_WRONG_PW             = "비밀번호가 맞지 않습니다."
 
-val countryList = listOf("전체", "서울", "경기", "인천", "충북", "충남", "경북", "경남", "전북", "전남", "강원")
+
+//val countryList = listOf("서울", "경기", "인천", "충북", "충남", "경북", "경남", "전북", "전남", "강원")
+val AREA_LIST = mapOf(
+    "서울" to R.drawable.local_img_seoul,
+    "경기" to R.drawable.local_img_gyeonggido,
+    "인천" to R.drawable.local_img_incheon,
+    "충북" to R.drawable.local_img_chungbook,
+    "충남" to R.drawable.local_img_chungnam,
+    "경북" to R.drawable.local_img_gyeongbuk,
+    "경남" to R.drawable.local_img_gyeongnam,
+    "전북" to R.drawable.local_img_jeunbook,
+    "전남" to R.drawable.local_img_jeonnam,
+    "강원" to R.drawable.local_img_gangwon
+)
 
 const val PREF_KEY_LOGIN_STATE = "LOGIN_STATE"
 const val PREF_KEY_LOGIN_ID    = "LOGIN_ID"

@@ -9,7 +9,9 @@ import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.MyApplication
 import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.model.LocationItem
+import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.model.UserModel
+import org.kjh.mypracticeprojects.repository.PostRepository
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.ui.main.mypage.MediaStoreImage
 import org.kjh.mypracticeprojects.util.DataState
@@ -26,6 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val userRepository: UserRepository,
+    private val postRepository: PostRepository,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -45,12 +48,27 @@ class MainViewModel @Inject constructor(
     private val _myUserData = MutableLiveData<UserModel>()
     val myUserData: LiveData<UserModel> = _myUserData
 
+    private val _recentPostData = MutableLiveData<List<PostModel>>()
+    val recentPostData: LiveData<List<PostModel>> = _recentPostData
+
     fun reqMyUserData() {
         viewModelScope.launch {
             userRepository.reqUser(email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""))
                 .onEach { dataState ->
                     when (dataState) {
                         is DataState.Success -> _myUserData.value = dataState.data!!
+                    }
+                }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    fun getRecentPostData() {
+        viewModelScope.launch {
+            postRepository.getAllPost()
+                .onEach { dataState ->
+                    when (dataState) {
+                        is DataState.Success -> _recentPostData.value = dataState.data!!
                     }
                 }
                 .launchIn(viewModelScope)

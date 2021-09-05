@@ -2,6 +2,7 @@ package org.kjh.mypracticeprojects.ui.main.post
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -59,9 +60,13 @@ class PostListFragment:
     }
 
     override fun onClickPost(postItem: PostModel) {
-        val action = PostListFragmentDirections
-            .actionPostListFragmentToPostDetailFragment(postDetailFragmentArgs = postItem)
-        findNavController().navigate(action)
+        val postLists = mainViewModel.myUserData.value!!.posts[cityKey]!!
+
+        val bundle = bundleOf(
+            "postList" to postLists,
+            "postId" to postItem.postId
+        )
+        findNavController().navigate(R.id.action_postListFragment_to_postDetailFragment, bundle)
     }
 }
 

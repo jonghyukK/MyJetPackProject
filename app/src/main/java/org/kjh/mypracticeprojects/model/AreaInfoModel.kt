@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 data class AreaInfoModel(
     val areaName: String,
     val areaImgUrl: String,
-    val areaPostCount: Int
+    val areaPostCount: Int = 0
 ) {
     companion object {
         val DiffCallback = object: DiffUtil.ItemCallback<AreaInfoModel>() {

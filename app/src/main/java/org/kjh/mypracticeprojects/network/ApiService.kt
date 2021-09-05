@@ -96,4 +96,12 @@ interface ApiService {
         @Query("postId") postId: Int,
         @Query("email") email: String,
     ): UserModel
+
+    /***************************************************
+     *
+     * [GET] Get All Posts by Recent.
+     *
+     ***************************************************/
+    @GET("post")
+    suspend fun getAllPost(): List<PostModel>
 }

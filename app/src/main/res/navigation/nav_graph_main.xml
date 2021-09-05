@@ -9,7 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/myPageFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment"
@@ -90,9 +98,13 @@
         <action
             android:id="@+id/action_postDetailFragment_to_myPageFragment"
             app:popUpTo="@id/myPageFragment" />
-        <argument
-            android:name="postDetailFragmentArgs"
-            app:argType="org.kjh.mypracticeprojects.model.PostModel" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/mapInfoFragment"

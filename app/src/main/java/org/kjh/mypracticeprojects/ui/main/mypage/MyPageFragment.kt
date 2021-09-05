@@ -11,13 +11,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
-import org.kjh.mypracticeprojects.countryList
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.AreaPostListFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment.Companion.TAB_LIST
-import org.kjh.mypracticeprojects.ui.main.post.PostListFragment
 
 
 @AndroidEntryPoint
