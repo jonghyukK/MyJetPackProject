@@ -1,8 +1,10 @@
 package org.kjh.mypracticeprojects.ui.main.post
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
@@ -20,6 +22,7 @@ import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentPostDetailBinding
 import org.kjh.mypracticeprojects.model.PostModel
+import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainActivity
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
@@ -39,12 +42,18 @@ class PostDetailFragment :
     private lateinit var navController: NavController
     private lateinit var postList: List<PostModel>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            postList = it.get("postList") as List<PostModel>
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postList = arguments?.get("postList") as List<PostModel>
 
-        initToolbarWithNavigation()
-        initRecyclerView()
+            loadView()
+
 
 //        viewModel.deleteResult.observe(viewLifecycleOwner, { dataState ->
 //            when (dataState) {
@@ -62,6 +71,11 @@ class PostDetailFragment :
 //                    Toast.makeText(context, "게시물 삭제가 실패하였습니다.", Toast.LENGTH_LONG).show()
 //            }
 //        })
+    }
+
+    private fun loadView() {
+        initToolbarWithNavigation()
+        initRecyclerView()
     }
 
     private fun initToolbarWithNavigation() {
@@ -86,7 +100,7 @@ class PostDetailFragment :
     }
 
     override fun onClickMap(item: PostModel) {
-        navController.navigate(
+        navigate(
             R.id.action_postDetailFragment_to_mapInfoFragment,
             bundleOf(LOCATION_INFO to item)
         )

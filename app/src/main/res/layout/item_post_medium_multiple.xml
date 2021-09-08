@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="postModel"
+            type="org.kjh.mypracticeprojects.model.PostModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_postItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_postSmallItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_postThumb"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_postThumb1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:paddingEnd="3dp"
+                    android:paddingStart="0dp"
+                    app:imgUrl="@{postModel.imageUrl[0]}"
+                    app:layout_constraintHorizontal_weight="6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_postThumb2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_postThumb2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:paddingBottom="1.5dp"
+                    app:imgUrl="@{postModel.imageUrl[1]}"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_postThumb1"
+                    app:layout_constraintBottom_toTopOf="@+id/iv_postThumb3"
+                     />
+
+                <ImageView
+                    android:id="@+id/iv_postThumb3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="1.5dp"
+                    app:imgUrl="@{postModel.imageUrl[2]}"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_postThumb2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_postThumb1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                     />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_icLocation"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_placeName" />
+
+            <TextView
+                android:id="@+id/tv_placeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{postModel.place_name}"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_postThumb" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:paddingBottom="20dp"
+                android:text="@{postModel.address_name}"
+                android:textColor="#444444"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/iv_icLocation"
+                app:layout_constraintTop_toBottomOf="@+id/tv_placeName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

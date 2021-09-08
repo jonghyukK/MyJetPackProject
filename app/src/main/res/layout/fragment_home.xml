@@ -7,94 +7,92 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl_homeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/cl_home_container"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_home"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fitsSystemWindows="true">
 
-            <com.google.android.material.appbar.AppBarLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_home_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll" />
+
+            <ImageView
+                android:id="@+id/iv_homeBanner"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/local_img_jeonnam"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
+
+            <TextView
+                android:id="@+id/tv_areaByArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="지역별 여행지"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_scrollFlags="scroll" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_areaList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:fitsSystemWindows="true">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/tb_home_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_scrollFlags="scroll" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <ImageView
+            <LinearLayout
+                android:id="@+id/ll_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/divider"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:scaleType="centerCrop"
-                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                    android:src="@drawable/local_img_jeonnam"/>
+                    android:layout_height="15dp"
+                    android:background="#e1e1e1" />
+
 
                 <TextView
-                    android:id="@+id/tv_areaByArea"
+                    android:id="@+id/tv_recentText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="지역별 여행지"
+                    android:text="최신 여행지"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_scrollFlags="scroll|enterAlways" />
+                    android:textStyle="bold" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_areaList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal" />
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-                <LinearLayout
+                    android:id="@+id/rv_recentPostList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:background="#e1e1e1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:textStyle="bold"
-                        android:text="최신 여행지"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/fr_postDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:tag="postSmallListFragment"
-                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

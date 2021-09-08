@@ -14,7 +14,6 @@ import org.kjh.mypracticeprojects.databinding.FragmentPostListBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
-import org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragmentDirections
 import org.kjh.mypracticeprojects.util.SpacesItemDecoration
 
 /**
@@ -37,7 +36,7 @@ class PostListFragment:
         cityKey = args.postListFragmentArgs
 
         initToolbarWithNavigation()
-        val postListAdapter = PostListAdapter(this)
+        val postListAdapter = PostTestAdapter(this)
 
         binding.rvMyImages.apply {
             layoutManager = GridLayoutManager(activity, 3)

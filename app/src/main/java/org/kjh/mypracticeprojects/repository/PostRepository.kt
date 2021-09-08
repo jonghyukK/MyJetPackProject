@@ -37,11 +37,13 @@ constructor(
         }
     }
 
-    suspend fun getAllPost(): Flow<DataState<List<PostModel>>> = flow {
+    suspend fun getPosts(
+        cityName: String? = null
+    ): Flow<DataState<List<PostModel>>> = flow {
         emit(DataState.Loading)
 
         try {
-            val result = apiService.getAllPost()
+            val result = apiService.getPosts(cityName)
 
             emit(DataState.Success(result))
         } catch (e: Exception) {

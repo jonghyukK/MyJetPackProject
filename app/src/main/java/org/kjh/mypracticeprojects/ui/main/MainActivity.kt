@@ -22,7 +22,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
         viewModel.reqMyUserData()
-        viewModel.getRecentPostData()
     }
 
     private fun initBottomNavigationView() {
@@ -34,13 +33,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.bnvBottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.settingFragment ||
-                destination.id == R.id.selectPictureFragment ||
-                destination.id == R.id.uploadContentFragment ||
-                destination.id == R.id.mapFragment ||
-                destination.id == R.id.postDetailFragment ||
-                destination.id == R.id.mapInfoFragment ||
-                destination.id == R.id.postListFragment
+            if (destination.id == R.id.settingFragment
+                || destination.id == R.id.selectPictureFragment
+                || destination.id == R.id.uploadContentFragment
+                || destination.id == R.id.mapFragment
+                || destination.id == R.id.postDetailFragment
+                || destination.id == R.id.mapInfoFragment
+                || destination.id == R.id.postListFragment
+                || destination.id == R.id.postListByCityFragment
             ) {
                 binding.bnvBottomNav.visibility = View.GONE
             } else {

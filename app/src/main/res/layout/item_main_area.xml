@@ -12,8 +12,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_areaImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:scaleType="centerCrop"
             android:background="@color/white"
             android:padding="2dp"
@@ -22,13 +22,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/Circle"
-            app:strokeColor="@color/purple_500"
+            app:strokeColor="#999999"
             app:strokeWidth="2dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:textColor="@color/white"
             android:text="@{areaModel.areaName}"
             android:textStyle="bold"

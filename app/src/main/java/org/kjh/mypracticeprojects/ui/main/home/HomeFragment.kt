@@ -8,47 +8,75 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentHomeBinding
 import org.kjh.mypracticeprojects.model.AreaModel
 import org.kjh.mypracticeprojects.model.PostModel
+import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.MainActivity
-import org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment
-import org.kjh.mypracticeprojects.ui.main.post.PostSmallListFragment
+import org.kjh.mypracticeprojects.ui.main.*
 import org.kjh.mypracticeprojects.util.DataState
 import org.kjh.mypracticeprojects.util.LinearItemDecoration
+import org.kjh.mypracticeprojects.util.LinearVerticalItemDecoration
 
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var recentPostListAdapter: PostListAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initFragment()
+        if (viewModel.recentPostList.value == null) {
+            viewModel.getRecentPostList()
+        }
+
+        viewModel.recentPostList.observe(viewLifecycleOwner, { dataState ->
+            when (dataState) {
+                is DataState.Success -> {
+                    recentPostListAdapter.submitList(dataState.data)
+                }
+            }
+        })
+
+        initRecentPostList()
+        initCityItemList()
         initToolbarWithNavigation()
-        initLocalAreaList()
     }
 
-    private fun initFragment() {
-        (activity as MainActivity).supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.fr_postDetail, PostSmallListFragment.newInstance(
-                    param1 = "HOME"
+    private fun initRecentPostList() {
+        recentPostListAdapter = PostListAdapter(object: PostListClickEventListener {
+            override fun onClickPost(item: PostModel) {
+                navigate(
+                    action = R.id.action_homeFragment_to_postDetailFragment,
+                    bundle = bundleOf(
+                        "postList" to viewModel.recentPostList.value!!.successData(),
+                        "postId" to item.postId
+                    )
                 )
-            )
-            .commit()
+            }
+        }, POST_TYPE_MEDIUM)
+
+        with (binding.rvRecentPostList) {
+            adapter = recentPostListAdapter
+            layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.VERTICAL
+                addItemDecoration(LinearVerticalItemDecoration(context))
+            }
+        }
     }
 
-    private fun initLocalAreaList() {
+    private fun initCityItemList() {
         with (binding.rvAreaList) {
             adapter = LocalAreaListAdapter(object: LocalAreaListClickEventListener {
                 override fun onClickArea(area: AreaModel) {
-
+                    navigate(
+                        action = R.id.action_homeFragment_to_postListByCityFragment,
+                        bundle = bundleOf("areaModel" to area)
+                    )
                 }
             })
             layoutManager = LinearLayoutManager(activity).apply {

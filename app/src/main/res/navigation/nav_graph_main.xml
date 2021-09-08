@@ -17,6 +17,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_postListByCityFragment"
+            app:destination="@id/postListByCityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
@@ -105,6 +112,10 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_postDetailFragment_to_postListByCityFragment"
+            app:popUpTo="@id/postListByCityFragment"
+            app:popUpToSaveState="true"/>
     </fragment>
     <fragment
         android:id="@+id/mapInfoFragment"
@@ -132,5 +143,19 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/postListByCityFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.post.PostListByCityFragment"
+        android:label="PostListByCityFragment"
+        tools:layout="@layout/fragment_post_list_by_city">
+        <action
+            android:id="@+id/action_postListByCityFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:restoreState="true"/>
     </fragment>
 </navigation>

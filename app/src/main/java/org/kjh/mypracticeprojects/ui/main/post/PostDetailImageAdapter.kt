@@ -1,11 +1,16 @@
 package org.kjh.mypracticeprojects.ui.main.post
 
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.orhanobut.logger.Logger
+import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.ItemPostDetailImageBinding
+import org.kjh.mypracticeprojects.model.PostModel
 
 /**
  * MyPracticeProjects
@@ -14,7 +19,7 @@ import org.kjh.mypracticeprojects.databinding.ItemPostDetailImageBinding
  *
  * Description:
  */
-class PostDetailImageAdapter
+class PostDetailImageAdapter(val onClick: () -> Unit)
     : RecyclerView.Adapter<PostDetailImageAdapter.PostDetailViewHolder>() {
     private lateinit var imageUrls: List<String>
 
@@ -26,8 +31,7 @@ class PostDetailImageAdapter
         PostDetailViewHolder(
             ItemPostDetailImageBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
-        )
+            ), onClick)
 
 
     override fun onBindViewHolder(holder: PostDetailViewHolder, position: Int) {
@@ -35,14 +39,22 @@ class PostDetailImageAdapter
     }
 
     inner class PostDetailViewHolder(
-        val binding: ItemPostDetailImageBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+        val binding: ItemPostDetailImageBinding,
+        onClick: () -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(imgUrl: String, position: Int) {
             Glide.with(binding.ivPostImage)
                 .load(imgUrl)
                 .thumbnail(0.33f)
                 .centerCrop()
                 .into(binding.ivPostImage)
+        }
+
+        init {
+            binding.ivPostImage.setOnClickListener {
+                onClick()
+            }
         }
     }
 

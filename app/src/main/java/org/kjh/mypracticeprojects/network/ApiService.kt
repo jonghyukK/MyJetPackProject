@@ -99,9 +99,12 @@ interface ApiService {
 
     /***************************************************
      *
-     * [GET] Get All Posts by Recent.
+     * [GET] Get Posts.
      *
      ***************************************************/
     @GET("post")
-    suspend fun getAllPost(): List<PostModel>
+    suspend fun getPosts(
+        @Query("city") cityName: String? = null
+    ): List<PostModel>
+
 }

@@ -45,11 +45,13 @@ class PostDetailListAdapter(
             binding.postModel = item
             binding.tvImageCount.text = String.format("%d/%d", 1, item.imageUrl.size)
 
-            with (binding.vpPostDetail) {
-                adapter = PostDetailImageAdapter().apply {
+            with(binding.vpPostDetail) {
+                adapter = PostDetailImageAdapter {
+                    
+                }.apply {
                     setImageList(item.imageUrl)
 
-                    registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+                    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                         override fun onPageSelected(position: Int) {
                             binding.tvImageCount.text =
                                 String.format("%d/%d", position + 1, item.imageUrl.size)

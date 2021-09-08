@@ -1,6 +1,8 @@
 package org.kjh.mypracticeprojects.model
 
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 /**
  * MyPracticeProjects
@@ -9,7 +11,8 @@ import android.graphics.drawable.Drawable
  *
  * Description:
  */
+@Parcelize
 data class AreaModel(
     val areaName: String,
     val areaImg : Int
-)
+): Parcelable

@@ -48,27 +48,12 @@ class MainViewModel @Inject constructor(
     private val _myUserData = MutableLiveData<UserModel>()
     val myUserData: LiveData<UserModel> = _myUserData
 
-    private val _recentPostData = MutableLiveData<List<PostModel>>()
-    val recentPostData: LiveData<List<PostModel>> = _recentPostData
-
     fun reqMyUserData() {
         viewModelScope.launch {
             userRepository.reqUser(email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""))
                 .onEach { dataState ->
                     when (dataState) {
                         is DataState.Success -> _myUserData.value = dataState.data!!
-                    }
-                }
-                .launchIn(viewModelScope)
-        }
-    }
-
-    fun getRecentPostData() {
-        viewModelScope.launch {
-            postRepository.getAllPost()
-                .onEach { dataState ->
-                    when (dataState) {
-                        is DataState.Success -> _recentPostData.value = dataState.data!!
                     }
                 }
                 .launchIn(viewModelScope)

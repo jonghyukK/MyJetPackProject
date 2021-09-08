@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
  */
 class LinearVerticalItemDecoration(context: Context) : ItemDecoration() {
     private val size20: Int
+    private val size35: Int
     private val size10: Int
     private val size5: Int
 
@@ -36,7 +37,11 @@ class LinearVerticalItemDecoration(context: Context) : ItemDecoration() {
         val position = parent.getChildAdapterPosition(view)
         val itemCount = state.itemCount
 
-        outRect.bottom = size20
+        if (position == 0) {
+            outRect.top = size20
+        }
+
+        outRect.bottom = size35
     }
 
     // dp -> pixel 단위로 변경
@@ -50,6 +55,7 @@ class LinearVerticalItemDecoration(context: Context) : ItemDecoration() {
     }
 
     init {
+        size35 = dpToPx(context, 35)
         size20 = dpToPx(context, 20)
         size10 = dpToPx(context, 10)
         size5 = dpToPx(context, 5)

@@ -28,4 +28,14 @@ class HomeViewModel @Inject constructor(
 
     private val _recentPostList = MutableLiveData<DataState<List<PostModel>>>()
     val recentPostList: LiveData<DataState<List<PostModel>>> = _recentPostList
+
+    fun getRecentPostList() {
+        viewModelScope.launch {
+            postRepository.getPosts()
+                .onEach { dataState ->
+                    _recentPostList.value = dataState
+                }
+                .launchIn(viewModelScope)
+        }
+    }
 }

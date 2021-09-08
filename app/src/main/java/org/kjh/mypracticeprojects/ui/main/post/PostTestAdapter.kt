@@ -14,9 +14,9 @@ import org.kjh.mypracticeprojects.model.PostModel
  *
  * Description:
  */
-class PostListAdapter(
+class PostTestAdapter(
     val listener: PostListClickEventListener
-) : ListAdapter<PostModel, PostListAdapter.PostListViewHolder>(PostModel.DiffCallback) {
+) : ListAdapter<PostModel, PostTestAdapter.PostListViewHolder>(PostModel.DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder =
         PostListViewHolder(
