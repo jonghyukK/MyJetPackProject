@@ -1,21 +1,14 @@
 package org.kjh.mypracticeprojects.ui.main.post
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.MyApplication
 import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
@@ -36,7 +29,7 @@ class PostDetailFragment :
         const val LOCATION_INFO = "LOCATION_INFO"
     }
 
-    private val viewModel: PostDetailViewModel by viewModels()
+    private val viewModelDeprecated: PostDetailViewModel_deprecated by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var navController: NavController
@@ -110,7 +103,7 @@ class PostDetailFragment :
         val btmSheet = PostBottomSheetFragment(object: PostBottomSheetEventListener {
             override fun onClickDeletePost() {
                 val myEmail = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
-                viewModel.deletePost(
+                viewModelDeprecated.deletePost(
                     postId = postId,
                     email  = myEmail
                 )

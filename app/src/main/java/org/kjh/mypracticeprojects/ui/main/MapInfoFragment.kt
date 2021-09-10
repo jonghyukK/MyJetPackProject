@@ -82,7 +82,7 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
         )
 
         val point = MapPOIItem().apply {
-            itemName = postData.place_name
+            itemName = postData.placeName
             mapPoint = MapPoint.mapPointWithGeoCoord(
                 yValue,
                 xValue

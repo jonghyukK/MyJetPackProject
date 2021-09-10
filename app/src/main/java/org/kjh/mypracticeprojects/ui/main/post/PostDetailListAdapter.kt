@@ -47,7 +47,7 @@ class PostDetailListAdapter(
 
             with(binding.vpPostDetail) {
                 adapter = PostDetailImageAdapter {
-                    
+
                 }.apply {
                     setImageList(item.imageUrl)
 

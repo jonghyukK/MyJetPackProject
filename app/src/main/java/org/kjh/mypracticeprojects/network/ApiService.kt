@@ -104,7 +104,8 @@ interface ApiService {
      ***************************************************/
     @GET("post")
     suspend fun getPosts(
-        @Query("city") cityName: String? = null
+        @Query("city") cityName: String? = null,
+        @Query("placeName") placeName: String? = null
     ): List<PostModel>
 
 }

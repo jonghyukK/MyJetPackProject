@@ -55,9 +55,9 @@ data class PostModel(
     @Expose
     val phone: String,
 
-    @SerializedName("place_name")
+    @SerializedName("placeName")
     @Expose
-    val place_name: String,
+    val placeName: String,
 
     @SerializedName("place_url")
     @Expose

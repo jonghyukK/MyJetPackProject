@@ -28,7 +28,7 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="@{postModel.place_name}"
+            android:text="@{postModel.placeName}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 

@@ -12,7 +12,7 @@
             type="org.kjh.mypracticeprojects.model.PostModel" />
         <variable
             name="viewModel"
-            type="org.kjh.mypracticeprojects.ui.main.post.PostDetailViewModel" />
+            type="org.kjh.mypracticeprojects.ui.main.post.PostDetailViewModel_deprecated" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
             android:id="@+id/tb_post_detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@{postModel.place_name}"
+            app:title="@{postModel.placeName}"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView

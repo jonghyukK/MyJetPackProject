@@ -51,11 +51,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         recentPostListAdapter = PostListAdapter(object: PostListClickEventListener {
             override fun onClickPost(item: PostModel) {
                 navigate(
-                    action = R.id.action_homeFragment_to_postDetailFragment,
-                    bundle = bundleOf(
-                        "postList" to viewModel.recentPostList.value!!.successData(),
-                        "postId" to item.postId
-                    )
+                    action = R.id.action_homeFragment_to_postDetailFragment2,
+                    bundle = bundleOf("postItem" to item)
                 )
             }
         }, POST_TYPE_MEDIUM)

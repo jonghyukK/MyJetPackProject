@@ -11,15 +11,15 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_postDetailFragment"
-            app:destination="@id/postDetailFragment"
+            android:id="@+id/action_homeFragment_to_postListByCityFragment"
+            app:destination="@id/postListByCityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_homeFragment_to_postListByCityFragment"
-            app:destination="@id/postListByCityFragment"
+            android:id="@+id/action_homeFragment_to_postDetailFragment2"
+            app:destination="@id/postDetailFragment2"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -157,5 +157,16 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:restoreState="true"/>
+        <action
+            android:id="@+id/action_postListByCityFragment_to_postDetailFragment2"
+            app:destination="@id/postDetailFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment2"
+        android:name="org.kjh.mypracticeprojects.ui.main.postdetail.PostDetailFragment2"
+        android:label="PostDetailFragment2" />
 </navigation>
