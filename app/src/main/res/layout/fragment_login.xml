@@ -12,9 +12,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         tools:context=".LoginFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_login"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ProgressBar
             android:id="@+id/pb_loading"
@@ -43,6 +47,8 @@
             android:id="@+id/et_login_email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:hint="이메일 입력"
             android:textSize="15sp"
             android:text="@={viewModel.email}"
@@ -55,6 +61,8 @@
             android:id="@+id/tv_login_email_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColor="@color/design_default_color_error"
             android:textSize="11sp"
             android:text="@{viewModel.emailValidState.getError()}"
@@ -68,6 +76,8 @@
             android:id="@+id/et_login_pw"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:hint="비밀번호"
             android:textSize="15sp"
             android:text="@={viewModel.pw}"
@@ -80,6 +90,8 @@
             android:id="@+id/tv_login_pw_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColor="@color/design_default_color_error"
             android:textSize="11sp"
             android:text="@{viewModel.pwValidState.getError()}"
@@ -93,6 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/btn_round_corner"
             android:text="@string/login"
             android:textColor="@color/white"
@@ -101,32 +115,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_pw_error" />
-
-
-        <TextView
-            android:id="@+id/tv_signup_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="@string/desc_dont_have_email"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_signup" />
-
-        <TextView
-            android:id="@+id/tv_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/do_signup"
-            android:textColor="@color/purple_500"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/tv_signup_desc"
-            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

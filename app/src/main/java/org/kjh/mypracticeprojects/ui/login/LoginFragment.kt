@@ -1,23 +1,18 @@
 package org.kjh.mypracticeprojects.ui.login
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
-import com.orhanobut.logger.Logger
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.FragmentLoginBinding
-import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.MainActivity
 import org.kjh.mypracticeprojects.util.DataState
 
 @AndroidEntryPoint
@@ -29,12 +24,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
-        // Go To Sign Up.
-        binding.tvSignup.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.next_action, null)
-        )
-
+        initToolbarWithNavigation()
         subscribeObserver()
+    }
+
+    private fun initToolbarWithNavigation() {
+        binding.tbLogin.setupWithNavController(findNavController())
     }
 
     private fun subscribeObserver() {
@@ -44,8 +39,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_STATE, LoginState.LOGIN.value)
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
 
-                    startActivity(Intent(activity, MainActivity::class.java))
-                    (activity as LoginActivity).finish()
+                    lifecycleScope.launch {
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_homeFragment2)
+                    }
                 }
             }
         })

@@ -18,8 +18,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_homeFragment_to_postDetailFragment2"
-            app:destination="@id/postDetailFragment2"
+            android:id="@+id/action_homeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -66,6 +66,11 @@
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.SettingFragment"
         android:label="설정"
         tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_settingFragment_to_homeFragment"
+            app:destination="@+id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/uploadContentFragment"
@@ -74,7 +79,9 @@
         tools:layout="@layout/fragment_upload_content" >
         <action
             android:id="@+id/action_uploadContentFragment_to_myPageFragment"
-            app:popUpTo="@id/myPageFragment" />
+            app:destination="@+id/myPageFragment"
+            app:popUpTo="@id/myPageFragment"
+            app:popUpToInclusive="true"  />
         <action
             android:id="@+id/action_uploadContentFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
@@ -87,47 +94,6 @@
         <action
             android:id="@+id/action_mapFragment_to_uploadContentFragment"
             app:popUpTo="@id/uploadContentFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/postDetailFragment"
-        android:name="org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment"
-        tools:layout="@layout/fragment_post_detail">
-        <action
-            android:id="@+id/action_postDetailFragment_to_mapInfoFragment"
-            app:destination="@id/mapInfoFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_postDetailFragment_to_postListFragment"
-            app:popUpTo="@id/postListFragment" />
-        <action
-            android:id="@+id/action_postDetailFragment_to_myPageFragment"
-            app:popUpTo="@id/myPageFragment" />
-        <action
-            android:id="@+id/action_postDetailFragment_to_homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_postDetailFragment_to_postListByCityFragment"
-            app:popUpTo="@id/postListByCityFragment"
-            app:popUpToSaveState="true"/>
-    </fragment>
-    <fragment
-        android:id="@+id/mapInfoFragment"
-        android:name="org.kjh.mypracticeprojects.ui.main.MapInfoFragment"
-        tools:layout="@layout/fragment_map_info">
-        <action
-            android:id="@+id/action_mapInfoFragment_to_postDetailFragment"
-            app:popUpTo="@id/postDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/postListFragment"
@@ -155,18 +121,38 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:restoreState="true"/>
-        <action
-            android:id="@+id/action_postListByCityFragment_to_postDetailFragment2"
-            app:destination="@id/postDetailFragment2"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/postDetailFragment2"
-        android:name="org.kjh.mypracticeprojects.ui.main.postdetail.PostDetailFragment2"
-        android:label="PostDetailFragment2" />
+        android:id="@+id/postDetailFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.postdetail.PostDetailFragment"
+        android:label="PostDetailFragment2"
+        tools:layout="@layout/fragment_post_detail"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="org.kjh.mypracticeprojects.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment2"
+            app:destination="@+id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="org.kjh.mypracticeprojects.ui.login.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_homeFragment"
+            app:destination="@+id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
+
+    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+    <action android:id="@+id/action_global_signUpFragment" app:destination="@id/signUpFragment"/>
 </navigation>

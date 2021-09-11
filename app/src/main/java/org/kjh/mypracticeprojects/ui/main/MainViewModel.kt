@@ -45,8 +45,8 @@ class MainViewModel @Inject constructor(
     fun setUploadLocationData(data: LocationItem?) { _uploadLocationData.value = data }
     fun setMultipleImages(data: List<MediaStoreImage>) { _multipleImages.value = data }
 
-    private val _myUserData = MutableLiveData<UserModel>()
-    val myUserData: LiveData<UserModel> = _myUserData
+    private val _myUserData = MutableLiveData<UserModel?>()
+    val myUserData: LiveData<UserModel?> = _myUserData
 
     fun reqMyUserData() {
         viewModelScope.launch {
@@ -62,5 +62,9 @@ class MainViewModel @Inject constructor(
 
     fun updateMyUserData(userData: UserModel) {
         _myUserData.value = userData
+    }
+
+    fun clearMyUserData() {
+        _myUserData.value = null
     }
 }

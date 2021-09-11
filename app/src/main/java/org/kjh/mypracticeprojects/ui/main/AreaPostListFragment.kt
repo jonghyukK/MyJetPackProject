@@ -35,21 +35,23 @@ class AreaPostListFragment :
         }
 
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myUserData ->
-            val userPosts = myUserData.posts
+            val userPosts = myUserData?.posts
 
-            if (userPosts.keys.isNotEmpty()) {
-                val areaInfoList = mutableListOf<AreaInfoModel>()
+            userPosts?.let {
+                if (userPosts.keys.isNotEmpty()) {
+                    val areaInfoList = mutableListOf<AreaInfoModel>()
 
-                for ((key, value) in userPosts) {
-                    areaInfoList.add(
-                        AreaInfoModel(
-                            areaName = key,
-                            areaImgUrl = value[0].imageUrl[0],
-                            areaPostCount = value.size
+                    for ((key, value) in userPosts) {
+                        areaInfoList.add(
+                            AreaInfoModel(
+                                areaName = key,
+                                areaImgUrl = value[0].imageUrl[0],
+                                areaPostCount = value.size
+                            )
                         )
-                    )
+                    }
+                    areaPostListAdapter.submitList(areaInfoList)
                 }
-                areaPostListAdapter.submitList(areaInfoList)
             }
         })
     }

@@ -124,7 +124,6 @@ class SelectPictureFragment :
 
                 if (!selected) {
                     for (num in selectedImageTracker.selection) {
-                        Logger.d("$num")
                         selectPictureAdapter.notifyItemChanged(num.toInt())
                     }
                 }

@@ -1,28 +1,23 @@
 package org.kjh.mypracticeprojects.ui.main.postdetail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
-import org.kjh.mypracticeprojects.databinding.FragmentPostDetail2Binding
+import org.kjh.mypracticeprojects.databinding.FragmentPostDetailBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.util.DataState
 
 private const val ARG_PARAM2 = "postItem"
 
 private val TAB_NAMES = listOf("데이로그", "정보")
 
 @AndroidEntryPoint
-class PostDetailFragment2: BaseFragment<FragmentPostDetail2Binding>(R.layout.fragment_post_detail2) {
+class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragment_post_detail) {
 
     private val viewModel: PostDetailViewModel by activityViewModels()
     private lateinit var argPostItem: PostModel

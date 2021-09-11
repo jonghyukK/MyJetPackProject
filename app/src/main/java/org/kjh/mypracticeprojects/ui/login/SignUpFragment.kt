@@ -8,8 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.kjh.mypracticeprojects.R
+import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.FragmentSignUpBinding
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
@@ -25,15 +26,21 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
+        initToolbarWithNavigation()
         subscribeObserver()
+    }
+
+    private fun initToolbarWithNavigation() {
+        binding.tbSignUp.setupWithNavController(findNavController())
     }
 
     private fun subscribeObserver() {
         viewModel.signUpDataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<DataResponse> -> {
-                    findNavController().navigate(R.id.next_action)
-                    Toast.makeText(activity, getString(R.string.success_sign_up), Toast.LENGTH_SHORT).show()
+                    MyApplication.prefs.setPref(PREF_KEY_LOGIN_STATE, LoginState.LOGIN.value)
+                    MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
+                    findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
                 }
 
                 is DataState.Error -> {

@@ -100,7 +100,7 @@ class PostListByCityFragment
         postListByCityAdapter = PostListAdapter(object: PostListClickEventListener {
             override fun onClickPost(item: PostModel) {
                 navigate(
-                    action = R.id.action_postListByCityFragment_to_postDetailFragment2,
+                    action = R.id.action_postListByCityFragment_to_postDetailFragment,
                     bundle = bundleOf("postItem" to item)
                 )
             }

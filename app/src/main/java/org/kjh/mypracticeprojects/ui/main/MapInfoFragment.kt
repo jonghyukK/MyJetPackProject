@@ -15,7 +15,6 @@ import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMapInfoBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.post.PostDetailFragment.Companion.LOCATION_INFO
 
 /**
  * MyPracticeProjects
@@ -32,7 +31,7 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postData = arguments?.get(LOCATION_INFO) as PostModel
+        postData = arguments?.get("test") as PostModel
         binding.postModel = postData
 
         initToolbarWithNavigation()

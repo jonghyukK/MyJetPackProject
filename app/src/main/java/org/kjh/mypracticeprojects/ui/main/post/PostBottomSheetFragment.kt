@@ -1,5 +1,6 @@
 package org.kjh.mypracticeprojects.ui.main.post
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,8 +40,14 @@ class PostBottomSheetFragment(
             dismiss()
         }
     }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        listener.onDismiss()
+    }
 }
 
 interface PostBottomSheetEventListener {
     fun onClickDeletePost()
+    fun onDismiss()
 }

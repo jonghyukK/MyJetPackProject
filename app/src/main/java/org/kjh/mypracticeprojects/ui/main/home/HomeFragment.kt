@@ -8,6 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentHomeBinding
@@ -42,16 +45,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         })
 
+        initSwipeRefreshLayout()
         initRecentPostList()
         initCityItemList()
         initToolbarWithNavigation()
+    }
+
+    private fun initSwipeRefreshLayout() {
+        binding.ablHome.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            binding.srlSwipeLayout.isEnabled = verticalOffset == 0
+        })
+
+        binding.srlSwipeLayout.setOnRefreshListener {
+            viewModel.getRecentPostList()
+            binding.srlSwipeLayout.isRefreshing = false
+        }
+
     }
 
     private fun initRecentPostList() {
         recentPostListAdapter = PostListAdapter(object: PostListClickEventListener {
             override fun onClickPost(item: PostModel) {
                 navigate(
-                    action = R.id.action_homeFragment_to_postDetailFragment2,
+                    action = R.id.action_homeFragment_to_postDetailFragment,
                     bundle = bundleOf("postItem" to item)
                 )
             }

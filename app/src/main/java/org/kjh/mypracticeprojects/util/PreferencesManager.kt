@@ -3,6 +3,7 @@ package org.kjh.mypracticeprojects.util
 import android.content.Context
 import android.content.SharedPreferences
 import okhttp3.internal.cache2.Relay.Companion.edit
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_STATE
 import java.lang.IllegalArgumentException
 
 /**
@@ -26,7 +27,7 @@ class PreferencesManager(ctx: Context) {
                 is Int      -> putInt(key, value)
                 else -> throw IllegalArgumentException("This type cant be saved into Prefrences")
             }
-
+        }.run {
             apply()
         }
     }

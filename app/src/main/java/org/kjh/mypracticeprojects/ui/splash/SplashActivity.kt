@@ -3,26 +3,20 @@ package org.kjh.mypracticeprojects.ui.splash
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.*
-import org.kjh.mypracticeprojects.ui.login.LoginActivity
+import org.kjh.mypracticeprojects.databinding.ActivitySplashBinding
+import org.kjh.mypracticeprojects.ui.base.BaseActivity
 import org.kjh.mypracticeprojects.ui.main.MainActivity
 
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
     companion object {
         val permissions = arrayOf(
@@ -35,7 +29,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
 
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()) {
@@ -46,13 +39,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goToNextActivity() {
-        val targetActivity = when (
-            MyApplication.prefs.getPref(PREF_KEY_LOGIN_STATE, 0)) {
-            LoginState.LOGIN.value -> MainActivity::class.java
-            else                   -> LoginActivity::class.java
-        }
-
-        startActivity(Intent(this@SplashActivity, targetActivity))
+        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
     }
 
     private fun onCheckPermission() {

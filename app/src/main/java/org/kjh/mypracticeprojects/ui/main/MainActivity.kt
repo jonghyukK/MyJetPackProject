@@ -5,12 +5,14 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
-import org.kjh.mypracticeprojects.R
+import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.ActivityMainBinding
 import org.kjh.mypracticeprojects.ui.base.BaseActivity
+import org.kjh.mypracticeprojects.ui.main.home.LoginSignUpBottomSheet
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -21,7 +23,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
-        viewModel.reqMyUserData()
     }
 
     private fun initBottomNavigationView() {
@@ -30,23 +31,51 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController = navHost.navController
 
         // Setup Bottom Navigation View
-        binding.bnvBottomNav.setupWithNavController(navController)
+        with (binding.bnvBottomNav) {
+            setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.settingFragment
-                || destination.id == R.id.selectPictureFragment
-                || destination.id == R.id.uploadContentFragment
-                || destination.id == R.id.mapFragment
-                || destination.id == R.id.postDetailFragment
-                || destination.id == R.id.mapInfoFragment
-                || destination.id == R.id.postListFragment
-                || destination.id == R.id.postListByCityFragment
-                || destination.id == R.id.postDetailFragment2
-            ) {
-                binding.bnvBottomNav.visibility = View.GONE
-            } else {
-                binding.bnvBottomNav.visibility = View.VISIBLE
+            setOnItemSelectedListener {
+                if (it.itemId == R.id.myPageFragment &&
+                    MyApplication.prefs.getPref(PREF_KEY_LOGIN_STATE, 0) == LoginState.LOGOUT.value) {
+                    showLoginSignUpBottomSheet()
+                    return@setOnItemSelectedListener false
+                }
+
+                NavigationUI.onNavDestinationSelected(it, navController)
+                true
+            }
+
+            setOnItemReselectedListener {
+                navController.popBackStack(it.itemId, inclusive = false)
             }
         }
+
+        navController.addOnDestinationChangedListener { controller, destination, _ ->
+            binding.bnvBottomNav.visibility =
+                if (destination.id != R.id.homeFragment
+                    && destination.id != R.id.myPageFragment)
+                    View.GONE
+                else
+                    View.VISIBLE
+        }
+
+        navHost.childFragmentManager.addOnBackStackChangedListener {
+            Logger.d("${navHost.childFragmentManager.backStackEntryCount}")
+        }
+    }
+
+    private fun showLoginSignUpBottomSheet() {
+        val btmSheet = LoginSignUpBottomSheet(
+            object : LoginSignUpBottomSheet.LoginSignUpBottomSheetEventListener {
+                override fun onClickLogin() {
+                    navController.navigate(R.id.action_global_loginFragment)
+                }
+
+                override fun onClickSignUp() {
+                    navController.navigate(R.id.action_global_signUpFragment)
+                }
+            })
+
+        btmSheet.show(supportFragmentManager, "tag")
     }
 }

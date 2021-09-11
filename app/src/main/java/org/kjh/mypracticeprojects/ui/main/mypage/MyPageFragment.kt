@@ -30,6 +30,9 @@ class MyPageFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (mainViewModel.myUserData.value == null) {
+            mainViewModel.reqMyUserData()
+        }
 
         binding.mainViewModel = mainViewModel
 
@@ -44,6 +47,8 @@ class MyPageFragment :
             tab.text = TAB_LIST[position]
         }.attach()
     }
+
+
 
     private fun initToolbarWithNavigation() {
         val navController = findNavController()
