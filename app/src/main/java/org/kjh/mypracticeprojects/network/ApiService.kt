@@ -85,6 +85,18 @@ interface ApiService {
     ): UserModel
 
 
+    /***************************************************
+     *
+     * [PUT] Update User.
+     *
+     ***************************************************/
+    @Multipart
+    @PUT("user")
+    suspend fun updateUser(
+        @Part file: MultipartBody.Part,
+        @Query("email") email: String,
+    ): UserModel
+
 
     /***************************************************
      *

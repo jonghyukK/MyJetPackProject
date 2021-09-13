@@ -2,6 +2,7 @@ package org.kjh.mypracticeprojects.ui.main.mypage
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
+import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.AreaPostListFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
@@ -38,6 +40,13 @@ class MyPageFragment :
 
         initTabLayoutWithPager()
         initToolbarWithNavigation()
+
+        binding.btnEditProfile.setOnClickListener {
+            navigate(
+                action = R.id.action_myPageFragment_to_profileEditFragment,
+                bundle = bundleOf("profileImg" to mainViewModel.myUserData.value?.profileImg)
+            )
+        }
     }
 
     private fun initTabLayoutWithPager() {
@@ -47,8 +56,6 @@ class MyPageFragment :
             tab.text = TAB_LIST[position]
         }.attach()
     }
-
-
 
     private fun initToolbarWithNavigation() {
         val navController = findNavController()

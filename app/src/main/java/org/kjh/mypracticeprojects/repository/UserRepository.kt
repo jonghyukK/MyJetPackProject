@@ -135,6 +135,25 @@ constructor(
         }
     }
 
+    // Update User.
+    suspend fun updateUser(
+        file: MultipartBody.Part,
+        email: String
+    ): Flow<DataState<UserModel>> = flow {
+        emit(DataState.Loading)
+
+        try {
+            val result = apiService.updateUser(
+                file = file,
+                email = email
+            )
+
+            emit(DataState.Success(result))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
 
     // [KAKAO] Search Location.
     suspend fun searchLocation(

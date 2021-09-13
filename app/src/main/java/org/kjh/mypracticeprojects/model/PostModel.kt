@@ -23,6 +23,10 @@ data class PostModel(
     @Expose
     val email: String,
 
+    @SerializedName("profileImg")
+    @Expose
+    val profileImg: String? = null,
+
     @SerializedName("cityCategory")
     @Expose
     val cityCategory: String,

@@ -14,6 +14,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.ui.login.FocusEventHandler
 import org.kjh.mypracticeprojects.util.GlideApp
 
@@ -91,6 +92,10 @@ object BindingAdapters {
                 .thumbnail(0.33f)
                 .centerCrop()
                 .into(view)
-        }
+        } ?: GlideApp.with(view)
+            .load(R.drawable.ic_launcher_background)
+            .thumbnail(0.33f)
+            .centerCrop()
+            .into(view)
     }
 }

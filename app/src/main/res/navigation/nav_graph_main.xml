@@ -50,6 +50,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_myPageFragment_to_profileEditFragment"
+            app:destination="@id/profileEditFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/selectPictureFragment"
@@ -155,4 +162,9 @@
 
     <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
     <action android:id="@+id/action_global_signUpFragment" app:destination="@id/signUpFragment"/>
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.mypage.ProfileEditFragment"
+        android:label="프로필 편집"
+        tools:layout="@layout/fragment_profile_edit"/>
 </navigation>

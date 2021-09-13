@@ -60,7 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             viewModel.getRecentPostList()
             binding.srlSwipeLayout.isRefreshing = false
         }
-
     }
 
     private fun initRecentPostList() {
