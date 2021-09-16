@@ -133,8 +133,11 @@
     <fragment
         android:id="@+id/postDetailFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.postdetail.PostDetailFragment"
-        android:label="PostDetailFragment2"
-        tools:layout="@layout/fragment_post_detail"/>
+        tools:layout="@layout/fragment_post_detail">
+        <action
+            android:id="@+id/action_postDetailFragment_to_mapInfoFragment"
+            app:destination="@id/mapInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="org.kjh.mypracticeprojects.ui.login.LoginFragment"
@@ -167,4 +170,22 @@
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.ProfileEditFragment"
         android:label="프로필 편집"
         tools:layout="@layout/fragment_profile_edit"/>
+    <fragment
+        android:id="@+id/mapInfoFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.MapInfoFragment"
+        android:label="위치 정보"
+        tools:layout="@layout/fragment_map_info"/>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.bookmark.BookmarkFragment"
+        android:label="북마크"
+        tools:layout="@layout/fragment_bookmark">
+        <action
+            android:id="@+id/action_bookmarkFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 </navigation>

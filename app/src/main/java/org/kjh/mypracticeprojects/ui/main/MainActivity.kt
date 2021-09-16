@@ -54,7 +54,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.addOnDestinationChangedListener { controller, destination, _ ->
             binding.bnvBottomNav.visibility =
                 if (destination.id != R.id.homeFragment
-                    && destination.id != R.id.myPageFragment)
+                    && destination.id != R.id.myPageFragment
+                    && destination.id != R.id.bookmarkFragment)
                     View.GONE
                 else
                     View.VISIBLE

@@ -4,6 +4,12 @@
         android:id="@+id/homeFragment"
         android:title="Home"
         android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/bookmarkFragment"
+        android:title="Bookmark"
+        android:icon="@drawable/ic_bookmark_none"/>
+
     <item
         android:id="@+id/myPageFragment"
         android:title="MyPage"

@@ -35,6 +35,10 @@ data class UserModel(
     @Expose
     var profileImg: String? = null,
 
+    @SerializedName("bookMarks")
+    @Expose
+    var bookMarks: List<PostModel>? = listOf(),
+
     @SerializedName("posts")
     @Expose
     var posts: Map<String, List<PostModel>> = mapOf(),

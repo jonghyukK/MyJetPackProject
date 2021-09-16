@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/dialog_fragment_map.xml" value="0.14074074074074075" />
         <entry key="app/src/main/res/layout/fragment_area_image.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_area_post_list.xml" value="0.11388888888888889" />
+        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.67" />
@@ -31,8 +32,8 @@
         <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_post_detail2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_post_detail_day_log.xml" value="0.6786458333333333" />
-        <entry key="app/src/main/res/layout/fragment_post_detail_info.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_post_list.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_post_detail_info.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_post_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_post_list_by_city.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_post_small_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile_edit.xml" value="0.7223958333333333" />
@@ -63,6 +64,7 @@
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.9241025641025641" />
         <entry key="app/src/main/res/menu/main_bottom_nav.xml" value="0.5979166666666667" />
         <entry key="app/src/main/res/menu/menu_add.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_bookmark.xml" value="0.5854166666666667" />
         <entry key="app/src/main/res/menu/menu_bottom_nav.xml" value="0.3296296296296296" />
         <entry key="app/src/main/res/menu/menu_mypage.xml" value="0.3296296296296296" />
         <entry key="app/src/main/res/menu/menu_next.xml" value="0.1" />

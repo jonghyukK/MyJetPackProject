@@ -1,5 +1,6 @@
 package org.kjh.mypracticeprojects.repository
 
+import android.service.autofill.Dataset
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -146,6 +147,27 @@ constructor(
             val result = apiService.updateUser(
                 file = file,
                 email = email
+            )
+
+            emit(DataState.Success(result))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    // Update User BookMarks.
+    suspend fun updateUserBookMark(
+        email: String,
+        postId: Int,
+        placeName: String
+    ): Flow<DataState<UserModel>> = flow {
+        emit(DataState.Loading)
+
+        try {
+            val result = apiService.updateUserBookMark(
+                email = email,
+                postId = postId,
+                placeName = placeName
             )
 
             emit(DataState.Success(result))

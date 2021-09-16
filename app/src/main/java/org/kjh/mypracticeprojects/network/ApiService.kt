@@ -97,6 +97,18 @@ interface ApiService {
         @Query("email") email: String,
     ): UserModel
 
+    /***************************************************
+     *
+     * [PUT] Update User BookMark List.
+     *
+     ***************************************************/
+    @PUT("user/bookmark")
+    suspend fun updateUserBookMark(
+        @Query("email") email: String,
+        @Query("postId") postId: Int,
+        @Query("placeName") placeName: String
+    ): UserModel
+
 
     /***************************************************
      *

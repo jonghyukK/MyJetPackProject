@@ -8,8 +8,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.kjh.mypracticeprojects.MyApplication
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.model.PostModel
+import org.kjh.mypracticeprojects.model.UserModel
 import org.kjh.mypracticeprojects.repository.PostRepository
+import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.util.DataState
 import javax.inject.Inject
 
@@ -22,12 +26,15 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val userRepository: UserRepository
 ): ViewModel() {
-
 
     private val _postListByPlace = MutableLiveData<DataState<List<PostModel>>>()
     val postListByPlace: LiveData<DataState<List<PostModel>>> = _postListByPlace
+
+    private val _resultUpdateBookMark = MutableLiveData<DataState<UserModel>>()
+    val resultUpdateBookMark : LiveData<DataState<UserModel>> = _resultUpdateBookMark
 
     fun getPostsByPlaceName(placeName: String) {
         viewModelScope.launch {
@@ -35,6 +42,24 @@ class PostDetailViewModel @Inject constructor(
                 .onEach { dataState ->
                     _postListByPlace.value = dataState
                 }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    fun updateUserBookMark(
+        postId: Int,
+        placeName: String
+    ) {
+        val email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
+
+        viewModelScope.launch {
+            userRepository.updateUserBookMark(
+                email = email,
+                postId = postId,
+                placeName = placeName
+            ).onEach { dataState ->
+                _resultUpdateBookMark.value = dataState
+            }
                 .launchIn(viewModelScope)
         }
     }

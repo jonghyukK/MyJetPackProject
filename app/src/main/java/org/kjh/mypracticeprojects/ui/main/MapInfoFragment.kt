@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.orhanobut.logger.Logger
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -31,7 +32,7 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postData = arguments?.get("test") as PostModel
+        postData = arguments?.get("postItem") as PostModel
         binding.postModel = postData
 
         initToolbarWithNavigation()
@@ -91,6 +92,11 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
         }
 
         mapView.addPOIItem(point)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.flMapView.removeView(mapView)
     }
 
     override fun onCurrentLocationUpdate(p0: MapView?, p1: MapPoint?, p2: Float) {}
