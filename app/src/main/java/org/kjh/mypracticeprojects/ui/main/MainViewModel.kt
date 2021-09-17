@@ -60,6 +60,26 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateUserBookMark(
+        postId: Int,
+        placeName: String
+    ) {
+        val email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
+
+        viewModelScope.launch {
+            userRepository.updateUserBookMark(
+                email = email,
+                postId = postId,
+                placeName = placeName
+            ).onEach { dataState ->
+                when (dataState) {
+                    is DataState.Success -> _myUserData.value = dataState.data!!
+                }
+            }
+                .launchIn(viewModelScope)
+        }
+    }
+
     fun updateMyUserData(userData: UserModel) {
         _myUserData.value = userData
     }

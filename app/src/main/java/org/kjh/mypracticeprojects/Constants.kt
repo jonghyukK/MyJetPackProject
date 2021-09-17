@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
  * Description:
  */
 
-const val BASE_API_URL       = "http://192.168.219.108:8080/"
+const val BASE_API_URL       = "http://192.168.219.105:8080/"
 const val BASE_KAKAO_API_URL = "https://dapi.kakao.com/"
 const val KakaoRestAPI_KEY   = "KakaoAK 2d5a4fcef5ee358d99f97ae0a7083732"
 

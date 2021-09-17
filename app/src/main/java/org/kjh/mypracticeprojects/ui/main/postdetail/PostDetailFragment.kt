@@ -43,14 +43,6 @@ class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragm
         initTabLayoutWithViewPager2()
         initToolbarWithNavigation()
 
-        viewModel.resultUpdateBookMark.observe(viewLifecycleOwner, { dataState ->
-            when (dataState) {
-                is DataState.Success -> {
-                    mainViewModel.updateMyUserData(dataState.data!!)
-                }
-            }
-        })
-
         mainViewModel.myUserData.observe(viewLifecycleOwner, { data ->
             data?.bookMarks?.let {
                 val hasBookMarkHere = it.any { it.placeName == argPostItem.placeName}
@@ -60,7 +52,6 @@ class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragm
                 } else {
                     binding.tbPostDetailToolbar.menu.getItem(0).setIcon(R.drawable.ic_bookmark_none)
                 }
-
             }
         })
     }
@@ -83,7 +74,7 @@ class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragm
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.menu_bookmark -> {
-                        viewModel.updateUserBookMark(
+                        mainViewModel.updateUserBookMark(
                             argPostItem.postId,
                             argPostItem.placeName
                         )
