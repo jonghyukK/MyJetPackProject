@@ -30,14 +30,16 @@ constructor(
     // Sign up.
     suspend fun reqSignUp(
         email: String,
-        pw   : String
+        pw   : String,
+        token: String
     ): Flow<DataState<DataResponse>> = flow {
         emit(DataState.Loading)
 
         try {
             val result = apiService.reqSignUp(
                 email = email,
-                pw    = pw
+                pw    = pw,
+                token = token
             )
 
             if (result.result == "Failed")
@@ -85,14 +87,16 @@ constructor(
     // Login.
     suspend fun reqLogin(
         email: String,
-        pw: String
+        pw: String,
+        token: String
     ): Flow<DataState<DataResponse>> = flow {
         emit(DataState.Loading)
 
         try {
             val result = apiService.reqLogin(
                 email = email,
-                pw    = pw
+                pw    = pw,
+                token = token
             )
 
             if (result.result == "Failed")

@@ -23,4 +23,6 @@
 
     <string name="transition_name_upload_image">upload_image</string>
     <string name="empty_posts">해당 지역의 게시물이 없습니다! \n 이번 주말, 놀러가시는 건 어떨까요?</string>
+
+    <string name="default_fcm_channel_id">Jonghyuk FCM Channel</string>
 </resources>

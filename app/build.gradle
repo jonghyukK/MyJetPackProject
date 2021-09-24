@@ -4,6 +4,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -127,5 +128,9 @@ dependencies {
 
     // Image Cropper
     implementation 'com.github.CanHub:Android-Image-Cropper:3.3.5'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    implementation 'com.google.firebase:firebase-messaging'
 
 }

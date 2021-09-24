@@ -1,6 +1,5 @@
 package org.kjh.mypracticeprojects.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -8,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.*
@@ -24,6 +24,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBottomNavigationView()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if (!it.isSuccessful) {
+                Logger.e("Failed FCM registration Token")
+                return@addOnCompleteListener
+            }
+
+            val token = it.result
+            MyApplication.prefs.setPref(PREF_KEY_FCM_TOKEN, token)
+        }
     }
 
     private fun initBottomNavigationView() {
@@ -63,7 +73,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         navHost.childFragmentManager.addOnBackStackChangedListener {
             Logger.d("${navHost.childFragmentManager.backStackEntryCount}")
-        }
+        }F
     }
 
     private fun showLoginSignUpBottomSheet() {

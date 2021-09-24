@@ -8,9 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.kjh.mypracticeprojects.ERROR_NOTHING_EMAIL
-import org.kjh.mypracticeprojects.ERROR_WRONG_PW
-import org.kjh.mypracticeprojects.isValidPattern
+import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.util.DataState
@@ -42,10 +40,12 @@ class LoginViewModel @Inject constructor(
 
     // API Result - Login API.
     private fun requestLogin() {
+        val userToken = MyApplication.prefs.getPref(PREF_KEY_FCM_TOKEN, "")
         viewModelScope.launch {
             userRepository.reqLogin(
                 email = email.value.toString(),
-                pw    = pw.value.toString()
+                pw    = pw.value.toString(),
+                token = userToken
             )
                 .onEach { dataState ->
                     when (dataState) {

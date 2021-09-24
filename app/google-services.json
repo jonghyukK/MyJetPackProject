@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1050650433931",
+    "project_id": "myjetpackpractice",
+    "storage_bucket": "myjetpackpractice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050650433931:android:5de6f381a78fa412f1778e",
+        "android_client_info": {
+          "package_name": "org.kjh.mypracticeprojects"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050650433931-49ioma95nm64qhqnl2mocs8963rtsriv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP344wTyDwUyixzb8ByIumtnoLwh5uDfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050650433931-49ioma95nm64qhqnl2mocs8963rtsriv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

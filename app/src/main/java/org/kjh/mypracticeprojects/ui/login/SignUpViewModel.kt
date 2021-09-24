@@ -6,6 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.kjh.mypracticeprojects.MyApplication
+import org.kjh.mypracticeprojects.PREF_KEY_FCM_TOKEN
 import org.kjh.mypracticeprojects.isValidPattern
 import org.kjh.mypracticeprojects.model.DataResponse
 import org.kjh.mypracticeprojects.model.UserModel
@@ -62,10 +64,13 @@ class SignUpViewModel @Inject constructor(
 
     // API - Request SignUp.
     private fun requestSignUp() {
+        val userToken = MyApplication.prefs.getPref(PREF_KEY_FCM_TOKEN, "")
+
         viewModelScope.launch {
             userRepository.reqSignUp(
                 email = email.value!!,
                 pw    = pw.value!!,
+                token = userToken,
             )
                 .onEach { dataState ->
                     _signUpDataState.value = dataState

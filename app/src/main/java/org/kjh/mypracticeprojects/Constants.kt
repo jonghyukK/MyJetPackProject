@@ -43,6 +43,7 @@ val AREA_LIST = mapOf(
 
 const val PREF_KEY_LOGIN_STATE = "LOGIN_STATE"
 const val PREF_KEY_LOGIN_ID    = "LOGIN_ID"
+const val PREF_KEY_FCM_TOKEN   = "PREF_KEY_FCM_TOKEN"
 
 enum class LoginState(val value: Int = 0) {
     LOGOUT(0),

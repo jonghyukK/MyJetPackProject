@@ -24,6 +24,7 @@ interface ApiService {
     suspend fun reqSignUp(
         @Query("email") email: String,
         @Query("pw"   ) pw   : String,
+        @Query("token") token: String,
     ): DataResponse
 
 
@@ -58,6 +59,7 @@ interface ApiService {
     suspend fun reqLogin(
         @Query("email") email: String,
         @Query("pw") pw: String,
+        @Query("token") token: String,
     ): DataResponse
 
 
