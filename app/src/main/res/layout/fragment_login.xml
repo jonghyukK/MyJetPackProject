@@ -30,23 +30,11 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_title_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_title"
-            android:textColor="@color/purple_500"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_login_pw_error"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_login_email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="이메일 입력"
@@ -54,17 +42,16 @@
             android:text="@={viewModel.email}"
             android:inputType="textEmailAddress"
             android:onTextChanged="@{(text, start, before, count) -> viewModel.clearErrorWhenTextChanged(text)}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_login"
+            app:layout_constraintTop_toBottomOf="@+id/tb_login"
             app:layout_constraintBottom_toTopOf="@+id/tv_login_email_error"/>
 
         <TextView
             android:id="@+id/tv_login_email_error"
+            style="@style/error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:textColor="@color/design_default_color_error"
-            android:textSize="11sp"
             android:text="@{viewModel.emailValidState.getError()}"
             android:paddingStart="5dp"
             android:paddingEnd="0dp"
@@ -88,28 +75,24 @@
 
         <TextView
             android:id="@+id/tv_login_pw_error"
+            style="@style/error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:textColor="@color/design_default_color_error"
-            android:textSize="11sp"
             android:text="@{viewModel.pwValidState.getError()}"
             android:paddingStart="5dp"
             android:paddingEnd="0dp"
             app:layout_constraintTop_toBottomOf="@+id/et_login_pw"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/BtnSolidPurpleCorner_Large"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/btn_round_corner"
             android:text="@string/login"
-            android:textColor="@color/white"
             android:enabled="@{viewModel.email.length > 0 &amp;&amp; viewModel.pw.length > 0}"
             android:onClick="@{() -> viewModel.checkLoginData()}"
             app:layout_constraintLeft_toLeftOf="parent"

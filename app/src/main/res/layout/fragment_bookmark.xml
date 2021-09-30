@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="org.kjh.mypracticeprojects.ui.main.bookmark.BookmarkViewModel" />
+        <variable
+            name="mainViewModel"
+            type="org.kjh.mypracticeprojects.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,12 +22,35 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            app:visibility="@{mainViewModel.myUserData.isLoading()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tb_bookmark" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bookmarks"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@+id/tb_bookmark"
             app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_emptyBookmark"
+            style="@style/Text26"
+            android:textColor="@color/purple_500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_bookmark"
+            app:layout_constraintTop_toBottomOf="@+id/tb_bookmark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:visibility="@{mainViewModel.myUserData.successData().bookMarks.size == 0}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="100dp"
@@ -33,7 +59,8 @@
             android:background="@color/purple_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:visibility="@{mainViewModel.myUserData.successData().bookMarks.size > 0}">
 
             <ImageButton
                 android:id="@+id/btn_showSmall"

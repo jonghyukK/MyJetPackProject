@@ -17,34 +17,28 @@ import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.AreaPostListFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
-import org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment.Companion.TAB_LIST
 
 
 @AndroidEntryPoint
 class MyPageFragment :
     BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
-    companion object {
-        val TAB_LIST = listOf("내 여행지", "내 여행계획")
-    }
-
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (mainViewModel.myUserData.value == null) {
-            mainViewModel.reqMyUserData()
-        }
-
         binding.mainViewModel = mainViewModel
 
         initTabLayoutWithPager()
         initToolbarWithNavigation()
 
         binding.btnEditProfile.setOnClickListener {
+            val myProfileImg = mainViewModel.myUserData.value?.let {
+                it.successData()?.profileImg
+            }
             navigate(
                 action = R.id.action_myPageFragment_to_profileEditFragment,
-                bundle = bundleOf("profileImg" to mainViewModel.myUserData.value?.profileImg)
+                bundle = bundleOf("profileImg" to myProfileImg)
             )
         }
     }
@@ -52,8 +46,8 @@ class MyPageFragment :
     private fun initTabLayoutWithPager() {
         binding.pager.adapter = MyPagePagerAdapter(this)
 
-        TabLayoutMediator(binding.tlTabLayout, binding.pager) { tab, position ->
-            tab.text = TAB_LIST[position]
+        TabLayoutMediator(binding.tlTabLayout, binding.pager) { tab, _ ->
+            tab.text = getString(R.string.my_travel)
         }.attach()
     }
 
@@ -70,7 +64,7 @@ class MyPageFragment :
             setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.selectPictureFragment -> {
-                        navController.navigate(R.id.action_myPageFragment_to_writeFragment)
+                        navController.navigate(R.id.action_myPageFragment_to_selectPictureFragment)
                         true
                     }
                     R.id.settingFragment -> {
@@ -85,7 +79,7 @@ class MyPageFragment :
 }
 
 class MyPagePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    override fun getItemCount(): Int = TAB_LIST.size
+    override fun getItemCount(): Int = 1
 
     override fun createFragment(position: Int): Fragment = AreaPostListFragment()
 }

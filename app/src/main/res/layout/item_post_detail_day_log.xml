@@ -29,12 +29,10 @@
 
         <TextView
             android:id="@+id/tv_email"
+            style="@style/Text13_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="@color/black"
             android:layout_marginStart="8dp"
-            android:textStyle="bold"
             android:text="@{postModel.email}"
             app:layout_constraintStart_toEndOf="@+id/iv_profileImg"
             app:layout_constraintTop_toTopOf="@id/iv_profileImg"
@@ -54,12 +52,11 @@
 
         <TextView
             android:id="@+id/tv_content"
+            style="@style/Text13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginStart="20dp"
-            android:textSize="13sp"
-            android:textColor="@color/black"
             android:text="@{postModel.content}"
             app:layout_constraintTop_toBottomOf="@+id/rv_postDetailDayLog"
             app:layout_constraintStart_toStartOf="parent"/>

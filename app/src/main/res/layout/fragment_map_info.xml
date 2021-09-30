@@ -34,24 +34,20 @@
 
             <TextView
                 android:id="@+id/tv_address"
+                style="@style/Text15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:text="@{postModel.address_name}"
                 android:layout_centerVertical="true"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_addressCopy"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
+                style="@style/BtnStrokePurpleCorner_Small"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_stroke_corner_purple"
-                android:text="주소복사"
-                android:textColor="@color/purple_500" />
+                android:text="주소복사" />
         </RelativeLayout>
 
         <Button

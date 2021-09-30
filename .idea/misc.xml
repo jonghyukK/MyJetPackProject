@@ -10,9 +10,19 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.9177083333333333" />
         <entry key="app/src/main/res/drawable/bg_round.xml" value="0.38796296296296295" />
+        <entry key="app/src/main/res/drawable/bg_solid_gray.xml" value="0.6111111111111112" />
+        <entry key="app/src/main/res/drawable/bg_solid_purple.xml" value="0.6111111111111112" />
         <entry key="app/src/main/res/drawable/bg_solid_selected.xml" value="0.38796296296296295" />
         <entry key="app/src/main/res/drawable/bg_stroke_corner_purple.xml" value="0.646875" />
+        <entry key="app/src/main/res/drawable/bg_stroke_gray.xml" value="0.9546875" />
+        <entry key="app/src/main/res/drawable/bg_stroke_purple.xml" value="0.25833333333333336" />
+        <entry key="app/src/main/res/drawable/bg_stroke_purple_disabled.xml" value="0.6286458333333333" />
+        <entry key="app/src/main/res/drawable/bg_stroke_purple_enabled.xml" value="0.6416666666666667" />
         <entry key="app/src/main/res/drawable/btn_round_corner.xml" value="0.38796296296296295" />
+        <entry key="app/src/main/res/drawable/btn_solid.xml" value="0.6111111111111112" />
+        <entry key="app/src/main/res/drawable/btn_stroke.xml" value="0.9546875" />
+        <entry key="app/src/main/res/drawable/btn_stroke_purple.xml" value="0.4239583333333333" />
+        <entry key="app/src/main/res/drawable/btn_stroke_purple_solid_white_corner.xml" value="0.44166666666666665" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.9177083333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.575" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -21,7 +31,7 @@
         <entry key="app/src/main/res/layout/dialog_fragment_map.xml" value="0.14074074074074075" />
         <entry key="app/src/main/res/layout/fragment_area_image.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_area_post_list.xml" value="0.11388888888888889" />
-        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.67" />
@@ -32,8 +42,8 @@
         <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_post_detail2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_post_detail_day_log.xml" value="0.6786458333333333" />
-        <entry key="app/src/main/res/layout/fragment_post_detail_info.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_post_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_post_detail_info.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_post_list.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_post_list_by_city.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_post_small_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile_edit.xml" value="0.7223958333333333" />
@@ -54,9 +64,9 @@
         <entry key="app/src/main/res/layout/item_post_detail_day_log.xml" value="0.6729166666666667" />
         <entry key="app/src/main/res/layout/item_post_detail_image.xml" value="0.30462962962962964" />
         <entry key="app/src/main/res/layout/item_post_detail_list.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/item_post_large.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/item_post_large.xml" value="0.67" />
         <entry key="app/src/main/res/layout/item_post_medium_multiple.xml" value="0.35555555555555557" />
-        <entry key="app/src/main/res/layout/item_post_medium_single.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_post_medium_single.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_post_smal.xml" value="0.5552083333333333" />
         <entry key="app/src/main/res/layout/item_post_small.xml" value="0.4612476370510397" />
         <entry key="app/src/main/res/layout/item_post_small_multiple.xml" value="0.6390625" />

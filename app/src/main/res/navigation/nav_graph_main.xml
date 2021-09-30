@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.home.HomeFragment"
-        android:label="Home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_postListByCityFragment"
@@ -30,7 +30,7 @@
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.MyPageFragment"
         tools:layout="@layout/fragment_mypage" >
         <action
-            android:id="@+id/action_myPageFragment_to_writeFragment"
+            android:id="@+id/action_myPageFragment_to_selectPictureFragment"
             app:destination="@id/selectPictureFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/selectPictureFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.SelectPictureFragment"
-        android:label="사진 선택"
+        android:label="@string/select_photo"
         tools:layout="@layout/fragment_select_picture">
         <action
             android:id="@+id/action_selectPictureFragment_to_uploadContentFragment"
@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.SettingFragment"
-        android:label="설정"
+        android:label="@string/setting"
         tools:layout="@layout/fragment_setting">
         <action
             android:id="@+id/action_settingFragment_to_homeFragment"
@@ -82,7 +82,7 @@
     <fragment
         android:id="@+id/uploadContentFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.UploadContentFragment"
-        android:label="게시글 작성"
+        android:label="@string/write_post"
         tools:layout="@layout/fragment_upload_content" >
         <action
             android:id="@+id/action_uploadContentFragment_to_myPageFragment"
@@ -96,7 +96,7 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.MapFragment"
-        android:label="위치 찾기"
+        android:label="@string/find_location"
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_mapFragment_to_uploadContentFragment"
@@ -120,7 +120,6 @@
     <fragment
         android:id="@+id/postListByCityFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.post.PostListByCityFragment"
-        android:label="PostListByCityFragment"
         tools:layout="@layout/fragment_post_list_by_city">
         <action
             android:id="@+id/action_postListByCityFragment_to_postDetailFragment"
@@ -141,7 +140,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="org.kjh.mypracticeprojects.ui.login.LoginFragment"
-        android:label="LoginFragment"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment2"
@@ -152,7 +151,7 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="org.kjh.mypracticeprojects.ui.login.SignUpFragment"
-        android:label="SignUpFragment"
+        android:label="@string/signup"
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_homeFragment"
@@ -160,25 +159,20 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
-
-    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
-
-    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
-    <action android:id="@+id/action_global_signUpFragment" app:destination="@id/signUpFragment"/>
     <fragment
         android:id="@+id/profileEditFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.mypage.ProfileEditFragment"
-        android:label="프로필 편집"
+        android:label="@string/edit_profile"
         tools:layout="@layout/fragment_profile_edit"/>
     <fragment
         android:id="@+id/mapInfoFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.MapInfoFragment"
-        android:label="위치 정보"
+        android:label="@string/location_info"
         tools:layout="@layout/fragment_map_info"/>
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="org.kjh.mypracticeprojects.ui.main.bookmark.BookmarkFragment"
-        android:label="북마크"
+        android:label="@string/bookmark"
         tools:layout="@layout/fragment_bookmark">
         <action
             android:id="@+id/action_bookmarkFragment_to_postDetailFragment"
@@ -188,4 +182,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
+    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+    <action android:id="@+id/action_global_signUpFragment" app:destination="@id/signUpFragment"/>
 </navigation>

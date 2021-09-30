@@ -32,7 +32,7 @@
     </style>
 
     <style name="MyButton" parent="Theme.MyPracticeProjects">
-        <item name="background">@drawable/bg_stroke_corner_purple</item>
+        <item name="background">@drawable/bg_stroke_purple</item>
     </style>
 
 </resources>

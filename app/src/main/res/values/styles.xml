@@ -16,4 +16,107 @@
     <style name="ExpandedTitleStyle">
         <item name="android:textColor">#ffffff</item>
     </style>
+
+
+
+    <style name="default_text">
+        <item name="android:textSize">@dimen/default_text</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Text40" parent="default_text">
+        <item name="android:textSize">@dimen/text_40</item>
+    </style>
+
+    <style name="Text40_Bold" parent="Text40">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text26" parent="default_text">
+        <item name="android:textSize">@dimen/text_26</item>
+    </style>
+
+    <style name="Text26_Bold" parent="Text26">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text20" parent="default_text">
+        <item name="android:textSize">@dimen/text_20</item>
+    </style>
+
+    <style name="Text20_Bold" parent="Text20">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text18" parent="default_text">
+        <item name="android:textSize">@dimen/text_18</item>
+    </style>
+
+    <style name="Text18_Bold" parent="Text18">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text15" parent="default_text">
+        <item name="android:textSize">@dimen/text_15</item>
+    </style>
+
+    <style name="Text15_Bold" parent="Text15">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text13" parent="default_text">
+        <item name="android:textSize">@dimen/text_13</item>
+    </style>
+
+    <style name="Text13_Bold" parent="Text13">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="error_text" parent="default_text">
+        <item name="android:textColor">@color/design_default_color_error</item>
+    </style>
+
+
+    <!-- Btn Stroke -->
+    <style name="BtnStrokePurpleCorner_Small">
+        <item name="android:background">@drawable/btn_stroke</item>
+        <item name="android:textColor">@color/btn_text_stroke_color</item>
+        <item name="android:textSize">@dimen/btn_small_textSize</item>
+        <item name="android:layout_width">@dimen/btn_small_width</item>
+        <item name="android:layout_height">@dimen/btn_small_height</item>
+    </style>
+
+    <style name="BtnStrokePurpleCorner_Medium">
+        <item name="android:background">@drawable/btn_stroke</item>
+        <item name="android:textColor">@color/btn_text_stroke_color</item>
+        <item name="android:textSize">@dimen/btn_medium_textSize</item>
+        <item name="android:layout_width">@dimen/btn_medium_width</item>
+        <item name="android:layout_height">@dimen/btn_medium_height</item>
+    </style>
+
+    <style name="BtnStrokePurpleCorner_Large">
+        <item name="android:background">@drawable/btn_stroke</item>
+        <item name="android:textColor">@color/btn_text_stroke_color</item>
+        <item name="android:textSize">@dimen/btn_large_textSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/btn_large_height</item>
+    </style>
+
+
+    <!-- Btn Solid -->
+    <style name="BtnSolidPurpleCorner_Small">
+        <item name="android:background">@drawable/btn_solid</item>
+        <item name="android:textColor">@color/btn_text_solid_color</item>
+        <item name="android:textSize">@dimen/btn_small_textSize</item>
+        <item name="android:layout_width">@dimen/btn_small_width</item>
+        <item name="android:layout_height">@dimen/btn_small_height</item>
+    </style>
+
+    <style name="BtnSolidPurpleCorner_Large">
+        <item name="android:background">@drawable/btn_solid</item>
+        <item name="android:textColor">@color/btn_text_solid_color</item>
+        <item name="android:textSize">@dimen/btn_large_textSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/btn_large_height</item>
+    </style>
 </resources>

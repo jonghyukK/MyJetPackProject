@@ -24,21 +24,6 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_title_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/signup"
-            android:textColor="@color/purple_500"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/cl_email_box"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_signUp"
-            app:layout_constraintVertical_chainStyle="packed" />
-
         <!-- Email Box -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_email_box"
@@ -46,19 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintBottom_toTopOf="@+id/cl_pw_box"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_signup">
+            app:layout_constraintTop_toBottomOf="@+id/tb_signUp">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_email_validate"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
                 android:enabled="@{viewModel.email.length > 0}"
                 android:onClick="@{() -> viewModel.checkPatternEmail()}"
                 android:text="@string/duplicate_email"
-                android:textSize="11sp"
+                style="@style/BtnStrokePurpleCorner_Small"
                 app:layout_constraintLeft_toRightOf="@+id/et_signup_email"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_signup_email" />
@@ -168,14 +152,13 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/BtnSolidPurpleCorner_Large"
                 android:layout_marginTop="30dp"
                 android:enabled="@{viewModel.pw.length > 0 &amp;&amp; viewModel.pwConfirm.length > 0}"
                 android:onClick="@{() -> viewModel.checkPwMatch()}"
                 android:text="@string/signup"
-                android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@id/et_signup_pw_confirm" />
+                app:layout_constraintTop_toBottomOf="@id/et_signup_pw_confirm"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_signup_pw_confirm_error"

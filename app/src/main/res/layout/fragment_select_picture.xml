@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="org.kjh.mypracticeprojects.ui.main.mypage.SelectPictureViewModel" />
-        <variable
             name="mainViewModel"
             type="org.kjh.mypracticeprojects.ui.main.MainViewModel" />
     </data>

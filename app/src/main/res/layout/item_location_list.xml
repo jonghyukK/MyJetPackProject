@@ -8,24 +8,22 @@
 
     <TextView
         android:id="@+id/tv_placeName"
+        style="@style/Text15_Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:text="Hello my name is jonghyuk."
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/tv_address"
+        style="@style/Text13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:textSize="13sp"
         android:text="Hello my name is jonghyuk."
         app:layout_constraintTop_toBottomOf="@+id/tv_placeName"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,11 +31,11 @@
 
     <TextView
         android:id="@+id/tv_roadAddress"
+        style="@style/Text13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginStart="20dp"
-        android:textSize="13sp"
         android:text="Hello my name is jonghyuk."
         app:layout_constraintTop_toBottomOf="@+id/tv_address"
         app:layout_constraintStart_toStartOf="parent"/>

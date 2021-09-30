@@ -43,23 +43,32 @@ class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragm
         initTabLayoutWithViewPager2()
         initToolbarWithNavigation()
 
-        mainViewModel.myUserData.observe(viewLifecycleOwner, { data ->
-            data?.bookMarks?.let {
-                val hasBookMarkHere = it.any { it.placeName == argPostItem.placeName}
-
-                if (hasBookMarkHere) {
-                    binding.tbPostDetailToolbar.menu.getItem(0).setIcon(R.drawable.ic_bookmark_on)
-                } else {
-                    binding.tbPostDetailToolbar.menu.getItem(0).setIcon(R.drawable.ic_bookmark_none)
+        mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
+            when (myData) {
+                is DataState.Success -> {
+                    myData.data?.let {
+                        it.bookMarks?.let { bookMarkItem ->
+                            val hasBookMarkHere = bookMarkItem.any { it.placeName == argPostItem.placeName}
+                            binding.tbPostDetailToolbar.menu
+                                .getItem(0)
+                                .setIcon(
+                                    if (hasBookMarkHere)
+                                        R.drawable.ic_bookmark_on
+                                    else
+                                        R.drawable.ic_bookmark_none)
+                        }
+                    }
                 }
             }
         })
     }
 
     private fun initTabLayoutWithViewPager2() {
-        binding.vpPager.adapter = PostDetailPagerAdapter(this)
-        binding.vpPager.offscreenPageLimit = 2
-        binding.vpPager.isUserInputEnabled = false
+        binding.vpPager.apply {
+            adapter = PostDetailPagerAdapter(this@PostDetailFragment)
+            offscreenPageLimit = 2
+            isUserInputEnabled = false
+        }
         TabLayoutMediator(binding.tlTabLayout, binding.vpPager) { tab, position ->
             tab.text = TAB_NAMES[position]
         }.attach()

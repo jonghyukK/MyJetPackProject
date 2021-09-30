@@ -26,12 +26,12 @@
             app:strokeWidth="2dp"/>
 
         <TextView
+            style="@style/Text26_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="26sp"
             android:textColor="@color/white"
             android:text="@{areaModel.areaName}"
-            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="@+id/iv_areaImg"
             app:layout_constraintBottom_toBottomOf="@+id/iv_areaImg"
             app:layout_constraintStart_toStartOf="@+id/iv_areaImg"

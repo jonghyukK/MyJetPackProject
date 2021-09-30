@@ -34,6 +34,10 @@ import org.kjh.mypracticeprojects.util.SpacesItemDecoration
 class SelectPictureFragment :
     BaseFragment<FragmentSelectPictureBinding>(R.layout.fragment_select_picture) {
 
+    companion object {
+        const val SELECTION_ID = "my_selection_id"
+    }
+
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel    : SelectPictureViewModel by viewModels()
     private lateinit var selectPictureAdapter: SelectPictureAdapter
@@ -64,7 +68,6 @@ class SelectPictureFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainViewModel = mainViewModel
-        binding.viewModel = viewModel
 
         initToolbarWithNavigation()
         initRecyclerView()
@@ -107,7 +110,7 @@ class SelectPictureFragment :
         }
 
         val selectedImageTracker = SelectionTracker.Builder(
-            "selected-my-image",
+            SELECTION_ID,
             binding.rvGallery,
             StableIdKeyProvider(binding.rvGallery),
             MediaStoreImageDetailsLookup(binding.rvGallery),
@@ -176,9 +179,9 @@ class SelectPictureFragment :
 
     private fun showNoAccess() {
         MaterialAlertDialogBuilder(activity as MainActivity)
-            .setTitle("권한")
-            .setMessage("해당 권한을 허용하지 않으면 글쓰기 기능을 이용하실 수 없습니다.")
-            .setPositiveButton("허용") { _, _ ->
+            .setTitle(getString(R.string.permission))
+            .setMessage(getString(R.string.permission_rationale_msg))
+            .setPositiveButton(getString(R.string.agree)) { _, _ ->
                 checkPermission()
             }
             .show()

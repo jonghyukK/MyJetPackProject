@@ -14,7 +14,6 @@ import org.kjh.mypracticeprojects.ui.main.POST_TYPE_SMALL
  */
 
 class BookmarkViewModel: ViewModel() {
-
     private val _bookmarkViewType = MutableLiveData(POST_TYPE_SMALL)
     val bookmarkViewType: LiveData<Int> = _bookmarkViewType
 

@@ -5,32 +5,17 @@ import android.app.Application
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.database.ContentObserver
-import android.database.DataSetObservable
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Handler
 import android.provider.MediaStore
-import androidx.lifecycle.*
-import com.orhanobut.logger.Logger
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.ResponseBody
-import org.kjh.mypracticeprojects.MyApplication
-import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
-import org.kjh.mypracticeprojects.model.DataResponse
-import org.kjh.mypracticeprojects.model.UserModel
-import org.kjh.mypracticeprojects.repository.UserRepository
-import org.kjh.mypracticeprojects.util.DataState
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -45,7 +30,6 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SelectPictureViewModel @Inject constructor(
-    private val userRepository: UserRepository,
     application: Application
 ): AndroidViewModel(application) {
 

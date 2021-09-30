@@ -45,16 +45,14 @@ class MainViewModel @Inject constructor(
     fun setUploadLocationData(data: LocationItem?) { _uploadLocationData.value = data }
     fun setMultipleImages(data: List<MediaStoreImage>) { _multipleImages.value = data }
 
-    private val _myUserData = MutableLiveData<UserModel?>()
-    val myUserData: LiveData<UserModel?> = _myUserData
+    private val _myUserData = MutableLiveData<DataState<UserModel>?>()
+    val myUserData: LiveData<DataState<UserModel>?> = _myUserData
 
-    fun reqMyUserData() {
+    init {
         viewModelScope.launch {
             userRepository.reqUser(email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""))
-                .onEach { dataState ->
-                    when (dataState) {
-                        is DataState.Success -> _myUserData.value = dataState.data!!
-                    }
+                .onEach { result ->
+                    _myUserData.value = result
                 }
                 .launchIn(viewModelScope)
         }
@@ -71,16 +69,14 @@ class MainViewModel @Inject constructor(
                 email = email,
                 postId = postId,
                 placeName = placeName
-            ).onEach { dataState ->
-                when (dataState) {
-                    is DataState.Success -> _myUserData.value = dataState.data!!
-                }
+            ).onEach { result ->
+                _myUserData.value = result
             }
                 .launchIn(viewModelScope)
         }
     }
 
-    fun updateMyUserData(userData: UserModel) {
+    fun updateMyUserData(userData: DataState<UserModel>) {
         _myUserData.value = userData
     }
 

@@ -22,12 +22,10 @@
 
         <TextView
             android:id="@+id/tv_placeName"
+            style="@style/Text18_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
             android:text="@{postModel.placeName}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -45,11 +43,11 @@
 
         <TextView
             android:id="@+id/tv_address"
+            style="@style/Text15"
+            android:textColor="@color/sub_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="15sp"
-            android:textColor="#777777"
             android:text="@{postModel.address_name}"
             app:layout_constraintTop_toBottomOf="@+id/tv_placeName"
             app:layout_constraintStart_toEndOf="@+id/iv_icLocation"/>
@@ -80,17 +78,14 @@
 
             <TextView
                 android:id="@+id/tv_imageCount"
+                style="@style/Text13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:text="@{`1/` + postModel.imageUrl.size}"/>
+                android:text="@{`1/` + postModel.imageUrl.size}"
+                android:textColor="@color/white" />
         </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

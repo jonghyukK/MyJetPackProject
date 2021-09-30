@@ -28,10 +28,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         binding.btnLogout.setOnClickListener {
             MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, "")
             MyApplication.prefs.setPref(PREF_KEY_LOGIN_STATE, LoginState.LOGOUT.value)
+
             mainViewModel.clearMyUserData()
-            findNavController().navigate(R.id.action_settingFragment_to_homeFragment)
+
+            navigate(action = R.id.action_settingFragment_to_homeFragment)
         }
     }
-
-
 }

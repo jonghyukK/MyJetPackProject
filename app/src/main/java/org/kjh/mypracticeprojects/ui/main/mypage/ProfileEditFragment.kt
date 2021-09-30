@@ -55,7 +55,7 @@ class ProfileEditFragment
             when (dataState) {
                 is DataState.Loading -> binding.pbLoading.visibility = View.VISIBLE
                 is DataState.Success -> {
-                    mainViewModel.updateMyUserData(dataState.data!!)
+                    mainViewModel.updateMyUserData(dataState)
                     binding.pbLoading.visibility = View.GONE
                     findNavController().popBackStack()
                 }

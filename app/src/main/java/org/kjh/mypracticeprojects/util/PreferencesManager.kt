@@ -3,6 +3,8 @@ package org.kjh.mypracticeprojects.util
 import android.content.Context
 import android.content.SharedPreferences
 import okhttp3.internal.cache2.Relay.Companion.edit
+import org.kjh.mypracticeprojects.LoginState
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_STATE
 import java.lang.IllegalArgumentException
 
@@ -42,4 +44,7 @@ class PreferencesManager(ctx: Context) {
 
         return res as T
     }
+
+    fun isLogin() = getPref(PREF_KEY_LOGIN_STATE, 0) == LoginState.LOGIN.value
+    fun getLoginEmail() = getPref(PREF_KEY_LOGIN_ID, "")
 }

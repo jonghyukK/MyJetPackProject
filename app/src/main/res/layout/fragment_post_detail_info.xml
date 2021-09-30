@@ -15,12 +15,10 @@
 
         <TextView
             android:id="@+id/tv_addressDesc"
+            style="@style/Text18_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
             android:layout_marginTop="30dp"
             android:text="주소"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,24 +26,21 @@
 
         <TextView
             android:id="@+id/tv_address"
+            style="@style/Text15"
+            android:textColor="@color/sub_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            android:textColor="#777777"
             android:text="@{postModel.address_name}"
             app:layout_constraintTop_toBottomOf="@+id/tv_addressDesc"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_showBigMap"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            style="@style/BtnStrokePurpleCorner_Small"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_stroke_corner_purple"
-            android:textColor="@color/purple_500"
             android:text="크게보기"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

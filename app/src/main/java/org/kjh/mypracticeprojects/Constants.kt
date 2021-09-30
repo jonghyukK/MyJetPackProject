@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
  * Description:
  */
 
-const val BASE_API_URL       = "http://192.168.219.105:8080/"
+const val BASE_API_URL       = "http://192.168.219.106:8080/"
 const val BASE_KAKAO_API_URL = "https://dapi.kakao.com/"
 const val KakaoRestAPI_KEY   = "KakaoAK 2d5a4fcef5ee358d99f97ae0a7083732"
 
@@ -26,8 +26,6 @@ const val ERROR_PW_LESS_THAN_8       = "비밀번호는 8자리 이상 입력해
 const val ERROR_PW_CONFIRM_NOT_MATCH = "비밀번호가 일치하지 않습니다."
 const val ERROR_WRONG_PW             = "비밀번호가 맞지 않습니다."
 
-
-//val countryList = listOf("서울", "경기", "인천", "충북", "충남", "경북", "경남", "전북", "전남", "강원")
 val AREA_LIST = mapOf(
     "서울" to R.drawable.local_img_seoul,
     "경기" to R.drawable.local_img_gyeonggido,

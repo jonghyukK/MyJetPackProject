@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -23,40 +24,75 @@ import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.ui.main.POST_TYPE_SMALL
 import org.kjh.mypracticeprojects.ui.main.PostListAdapter
 import org.kjh.mypracticeprojects.ui.main.PostListClickEventListener
+import org.kjh.mypracticeprojects.util.DataState
 import org.kjh.mypracticeprojects.util.LinearVerticalItemDecoration
 import org.kjh.mypracticeprojects.util.SpacesItemDecoration
 
 @AndroidEntryPoint
-class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(R.layout.fragment_bookmark) {
+class BookmarkFragment
+    : BaseFragment<FragmentBookmarkBinding>(R.layout.fragment_bookmark) {
+
+    companion object {
+        const val FAILED_FETCH_BOOKMARK = "Failed Get Bookmark List"
+    }
 
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: BookmarkViewModel by viewModels()
+    private val viewModel    : BookmarkViewModel by viewModels()
 
     private lateinit var bookmarkListAdapter: PostListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (mainViewModel.myUserData.value == null) {
-            mainViewModel.reqMyUserData()
-        }
+        binding.viewModel     = viewModel
+        binding.mainViewModel = mainViewModel
 
-        binding.viewModel = viewModel
         initToolbarWithNavigation()
         initRecyclerView()
 
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
-            myData?.bookMarks?.let {
-                bookmarkListAdapter.submitList(it)
+            when (myData) {
+                is DataState.Success -> bookmarkListAdapter.submitList(myData.data?.bookMarks)
+                is DataState.Error ->
+                    Toast.makeText(context, FAILED_FETCH_BOOKMARK, Toast.LENGTH_SHORT).show()
             }
         })
 
         viewModel.bookmarkViewType.observe(viewLifecycleOwner, {
-            setRecyclerViewLayoutManager(it)
-            bookmarkListAdapter.changePostViewType(it)
+            updateBookMarkLayoutManager(it)
         })
     }
 
-    private fun setRecyclerViewLayoutManager(type: Int) {
+    private fun initRecyclerView() {
+        bookmarkListAdapter = PostListAdapter(object: PostListClickEventListener {
+            override fun onClickPost(item: PostModel) {
+                navigate(
+                    action = R.id.action_bookmarkFragment_to_postDetailFragment,
+                    bundle = bundleOf("postItem" to item)
+                )
+            }
+        }, POST_TYPE_SMALL)
+
+        binding.rvBookmarks.apply {
+            adapter = bookmarkListAdapter
+            layoutManager = GridLayoutManager(activity, 3)
+            addItemDecoration(SpacesItemDecoration(context))
+        }
+    }
+
+    private fun initToolbarWithNavigation() {
+        val navController = findNavController()
+        val appBarConfig = AppBarConfiguration(setOf(
+            R.id.homeFragment,
+            R.id.bookmarkFragment,
+            R.id.myPageFragment
+        ))
+
+        binding.tbBookmark.apply {
+            setupWithNavController(navController, appBarConfig)
+        }
+    }
+
+    private fun updateBookMarkLayoutManager(type: Int) {
         val itemDecoration = when (type) {
             POST_TYPE_SMALL -> SpacesItemDecoration(this.requireContext())
             else -> LinearVerticalItemDecoration(this.requireContext())
@@ -73,33 +109,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(R.layout.fragment
 
             addItemDecoration(itemDecoration)
         }
-    }
 
-    private fun initRecyclerView() {
-        bookmarkListAdapter = PostListAdapter(object: PostListClickEventListener {
-            override fun onClickPost(item: PostModel) {
-                navigate(
-                    action = R.id.action_bookmarkFragment_to_postDetailFragment,
-                    bundle = bundleOf("postItem" to item)
-                )
-            }
-        }, POST_TYPE_SMALL)
-
-        binding.rvBookmarks.apply {
-            adapter = bookmarkListAdapter
-        }
-    }
-
-    private fun initToolbarWithNavigation() {
-        val navController = findNavController()
-        val appBarConfig = AppBarConfiguration(setOf(
-            R.id.homeFragment,
-            R.id.bookmarkFragment,
-            R.id.myPageFragment
-        ))
-
-        binding.tbBookmark.apply {
-            setupWithNavController(navController, appBarConfig)
-        }
+        bookmarkListAdapter.changePostViewType(type)
     }
 }

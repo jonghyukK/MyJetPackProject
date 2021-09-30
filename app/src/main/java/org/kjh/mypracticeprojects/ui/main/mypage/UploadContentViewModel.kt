@@ -32,7 +32,6 @@ import javax.inject.Inject
 class UploadContentViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
-
     val content = MutableLiveData<String>()
 
     private val _uploadResult = MutableLiveData<DataState<UserModel>>()

@@ -35,11 +35,10 @@
 
         <TextView
             android:id="@+id/tv_userEmail"
+            style="@style/Text15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textSize="15sp"
-            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/cv_profileImg"
             app:layout_constraintTop_toTopOf="@+id/cv_profileImg"
             app:layout_constraintBottom_toTopOf="@+id/tv_address"
@@ -47,12 +46,12 @@
 
         <TextView
             android:id="@+id/tv_address"
+            style="@style/Text13"
+            android:textColor="@color/sub_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"
-            android:textSize="12sp"
-            android:textColor="#999999"
             android:text="@{postModel.address_name}"
             app:layout_constraintTop_toBottomOf="@+id/tv_userEmail"
             app:layout_constraintStart_toEndOf="@+id/cv_profileImg"
@@ -94,6 +93,7 @@
 
             <TextView
                 android:id="@+id/tv_imageCount"
+                style="@style/Text13_Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -102,8 +102,6 @@
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 android:text="@{`1/` + postModel.imageUrl.size}"/>
         </RelativeLayout>
 
@@ -113,7 +111,7 @@
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_stroke_corner_purple"
+            android:background="@drawable/bg_stroke_purple"
             app:layout_constraintTop_toBottomOf="@+id/vp_postDetail"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -127,6 +125,7 @@
 
             <TextView
                 android:id="@+id/tv_showLocation"
+                style="@style/Text15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -134,12 +133,12 @@
                 android:paddingStart="4dp"
                 android:paddingEnd="10dp"
                 android:text="위치보기"
-                android:textColor="@color/purple_500"
-                android:textSize="15sp" />
+                android:textColor="@color/purple_500" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_content"
+            style="@style/Text15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

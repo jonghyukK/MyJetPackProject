@@ -1,7 +1,9 @@
 package org.kjh.mypracticeprojects.ui.main
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,24 +16,35 @@ import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.ActivityMainBinding
 import org.kjh.mypracticeprojects.ui.base.BaseActivity
 import org.kjh.mypracticeprojects.ui.main.home.LoginSignUpBottomSheet
+import org.kjh.mypracticeprojects.util.PreferencesManager
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val viewModel: MainViewModel by viewModels()
+    companion object {
+        const val LOGIN_SIGNUP_BOTTOM_SHEET = "LOGIN_SIGNUP_BOTTOM_SHEET"
+        const val ERROR_GET_FCM_TOKEN       = "Failed FCM registration Token"
+    }
+
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBottomNavigationView()
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            if (!it.isSuccessful) {
-                Logger.e("Failed FCM registration Token")
+        initBottomNavigationView()
+        initFirebaseMessagingToken()
+    }
+
+    private fun initFirebaseMessagingToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { fcmTask ->
+            // when error
+            if (!fcmTask.isSuccessful) {
+                Logger.e(ERROR_GET_FCM_TOKEN)
+                Toast.makeText(this, ERROR_GET_FCM_TOKEN, Toast.LENGTH_SHORT).show()
                 return@addOnCompleteListener
             }
 
-            val token = it.result
+            val token = fcmTask.result
             MyApplication.prefs.setPref(PREF_KEY_FCM_TOKEN, token)
         }
     }
@@ -41,13 +54,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment? ?: return
         navController = navHost.navController
 
-        // Setup Bottom Navigation View
-        with (binding.bnvBottomNav) {
+        binding.bnvBottomNav.apply {
+            // set NavController.
             setupWithNavController(navController)
 
+            // set BNV ItemSelectedListener.
             setOnItemSelectedListener {
-                if (it.itemId == R.id.myPageFragment &&
-                    MyApplication.prefs.getPref(PREF_KEY_LOGIN_STATE, 0) == LoginState.LOGOUT.value) {
+                val isNotLogin =
+                    !PreferencesManager(context).isLogin() &&
+                            (it.itemId == R.id.myPageFragment || it.itemId == R.id.bookmarkFragment)
+
+                if (isNotLogin) {
                     showLoginSignUpBottomSheet()
                     return@setOnItemSelectedListener false
                 }
@@ -56,12 +73,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 true
             }
 
+            // set BNV ItemReselectedListener.
             setOnItemReselectedListener {
                 navController.popBackStack(it.itemId, inclusive = false)
             }
         }
 
-        navController.addOnDestinationChangedListener { controller, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bnvBottomNav.visibility =
                 if (destination.id != R.id.homeFragment
                     && destination.id != R.id.myPageFragment
@@ -70,10 +88,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 else
                     View.VISIBLE
         }
-
-        navHost.childFragmentManager.addOnBackStackChangedListener {
-            Logger.d("${navHost.childFragmentManager.backStackEntryCount}")
-        }F
     }
 
     private fun showLoginSignUpBottomSheet() {
@@ -88,6 +102,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             })
 
-        btmSheet.show(supportFragmentManager, "tag")
+        btmSheet.show(supportFragmentManager, LOGIN_SIGNUP_BOTTOM_SHEET)
     }
 }

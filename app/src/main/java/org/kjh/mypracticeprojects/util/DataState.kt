@@ -28,6 +28,6 @@ sealed class DataState<out T> {
     object Loading: DataState<Nothing>()
 
     fun successData(): T? = if (this is Success) this.data else null
-    fun isLoading(): Boolean? = if (this is Loading) true else null
+    fun isLoading(): Boolean = this is Loading
     fun toErrorMessage(): String? = if (this is Error) this.exception.message else null
 }

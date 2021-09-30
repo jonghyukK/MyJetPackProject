@@ -87,25 +87,23 @@
 
             <TextView
                 android:id="@+id/tv_placeName"
+                style="@style/Text18_Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{postModel.placeName}"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_postThumb" />
 
             <TextView
                 android:id="@+id/tv_address"
+                style="@style/Text15"
+                android:textColor="@color/sub_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:paddingBottom="20dp"
                 android:text="@{postModel.address_name}"
-                android:textColor="#444444"
-                android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/iv_icLocation"
                 app:layout_constraintTop_toBottomOf="@+id/tv_placeName" />
         </androidx.constraintlayout.widget.ConstraintLayout>

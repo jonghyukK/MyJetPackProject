@@ -40,14 +40,12 @@
 
                 <TextView
                     android:id="@+id/tv_areaByArea"
+                    style="@style/Text18_Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="지역별 여행지"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     app:layout_scrollFlags="scroll" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -78,17 +76,14 @@
                         android:layout_height="15dp"
                         android:background="#e1e1e1" />
 
-
                     <TextView
                         android:id="@+id/tv_recentText"
+                        style="@style/Text18_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:text="최신 여행지"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:text="최신 여행지" />
 
 
                     <androidx.recyclerview.widget.RecyclerView

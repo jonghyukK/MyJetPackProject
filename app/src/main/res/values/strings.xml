@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">MyPracticeProjects</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="home">Home</string>
+    <string name="select_photo">사진 선택</string>
+    <string name="setting">설정</string>
+    <string name="write_post">게시글 작성</string>
+    <string name="find_location">위치 찾기</string>
+    <string name="login">로그인</string>
+    <string name="logout">로그아웃</string>
+    <string name="signup">회원가입</string>
+    <string name="edit_profile">프로필 편집</string>
+    <string name="location_info">위치 정보</string>
+    <string name="bookmark">북마크</string>
+    <string name="empty_bookmark">북마크된 게시물이 없습니다.</string>
+    <string name="post">게시물</string>
+    <string name="following">팔로잉</string>
+    <string name="follow">팔로우</string>
+    <string name="my_travel">내 여행지</string>
+    <string name="permission">권한</string>
+    <string name="permission_rationale_msg">해당 권한을 허용하지 않으면 글쓰기 기능을 이용하실 수 없습니다.</string>
+    <string name="agree">허용</string>
+    <string name="input_content">내용 입력</string>
+    <string name="add_location">위치 추가</string>
+    <string name="failed_upload_post">업로드가 실패하였습니다.</string>
 
     <string name="splash_title">Splash</string>
     <string name="login_title">Login</string>
@@ -9,8 +31,7 @@
     <string name="hint_pw_input">비밀번호</string>
     <string name="desc_dont_have_email">계정이 없으신가요?</string>
     <string name="do_signup">가입하기</string>
-    <string name="login">로그인</string>
-    <string name="signup">회원가입</string>
+
     <string name="email">이메일</string>
     <string name="duplicate_email">중복확인</string>
 

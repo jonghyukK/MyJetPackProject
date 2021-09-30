@@ -51,7 +51,7 @@
                 android:layout_height="100dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="15dp"
-                android:hint="내용 입력.."
+                android:hint="@string/input_content"
                 android:textSize="13sp"
                 android:background="@null"
                 android:text="@={viewModel.content}"
@@ -79,20 +79,20 @@
 
                 <TextView
                     android:id="@+id/tv_location"
+                    style="@style/Text13"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/ic_location"
                     android:gravity="center_vertical"
-                    android:text="@{mainViewModel.uploadLocationData == null ? `위치 추가` : mainViewModel.uploadLocationData.address_name}"
-                    android:textSize="13sp" />
+                    android:text="@{mainViewModel.uploadLocationData == null ? `위치 추가` : mainViewModel.uploadLocationData.address_name}" />
             </RelativeLayout>
 
             <ProgressBar
                 android:id="@+id/pb_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                app:visibility="@{viewModel.uploadResult.isLoading()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
