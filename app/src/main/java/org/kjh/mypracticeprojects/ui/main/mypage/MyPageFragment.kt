@@ -15,7 +15,6 @@ import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
 import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.AreaPostListFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 
 
@@ -45,7 +44,6 @@ class MyPageFragment :
 
     private fun initTabLayoutWithPager() {
         binding.pager.adapter = MyPagePagerAdapter(this)
-
         TabLayoutMediator(binding.tlTabLayout, binding.pager) { tab, _ ->
             tab.text = getString(R.string.my_travel)
         }.attach()
@@ -80,6 +78,5 @@ class MyPageFragment :
 
 class MyPagePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 1
-
-    override fun createFragment(position: Int): Fragment = AreaPostListFragment()
+    override fun createFragment(position: Int): Fragment = MyPostsByCityFragment()
 }

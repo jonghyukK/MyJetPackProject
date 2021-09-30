@@ -22,7 +22,7 @@ import org.kjh.mypracticeprojects.util.DataState
 class ProfileEditFragment
     : BaseFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit) {
 
-    private val viewModel: ProfileEditViewModel by viewModels()
+    private val viewModel    : ProfileEditViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var profileFilePath: String
 
@@ -39,8 +39,10 @@ class ProfileEditFragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initToolbarWithNavigation()
         binding.profileImg = arguments?.getString("profileImg")
+
+        initToolbarWithNavigation()
+        subscribeObserver()
 
         binding.btnProfileEdit.setOnClickListener {
             cropImage.launch(
@@ -50,7 +52,9 @@ class ProfileEditFragment
                 }
             )
         }
+    }
 
+    private fun subscribeObserver() {
         viewModel.resultProfileEdit.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Loading -> binding.pbLoading.visibility = View.VISIBLE
@@ -60,7 +64,7 @@ class ProfileEditFragment
                     findNavController().popBackStack()
                 }
                 is DataState.Error -> {
-                    Logger.e("${dataState.exception}")
+                    Toast.makeText(requireContext(), dataState.exception.toString(), Toast.LENGTH_SHORT).show()
                     binding.pbLoading.visibility = View.GONE
                 }
             }

@@ -1,7 +1,6 @@
 package org.kjh.mypracticeprojects.ui.main
 
 import androidx.lifecycle.*
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -9,13 +8,11 @@ import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.MyApplication
 import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
 import org.kjh.mypracticeprojects.model.LocationItem
-import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.model.UserModel
 import org.kjh.mypracticeprojects.repository.PostRepository
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.ui.main.mypage.MediaStoreImage
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.SingleLiveEvent
 import javax.inject.Inject
 
 /**
@@ -28,8 +25,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val postRepository: PostRepository,
-    private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
     private val _uploadImgData = MutableLiveData<MediaStoreImage?>()
@@ -49,11 +44,15 @@ class MainViewModel @Inject constructor(
     val myUserData: LiveData<DataState<UserModel>?> = _myUserData
 
     init {
+        reqMyUserData()
+    }
+
+    fun reqMyUserData() {
         viewModelScope.launch {
-            userRepository.reqUser(email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""))
-                .onEach { result ->
-                    _myUserData.value = result
-                }
+            userRepository.reqUser(
+                email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
+            )
+                .onEach { result -> _myUserData.value = result }
                 .launchIn(viewModelScope)
         }
     }
@@ -62,16 +61,13 @@ class MainViewModel @Inject constructor(
         postId: Int,
         placeName: String
     ) {
-        val email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
-
         viewModelScope.launch {
             userRepository.updateUserBookMark(
-                email = email,
-                postId = postId,
+                email     = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, ""),
+                postId    = postId,
                 placeName = placeName
-            ).onEach { result ->
-                _myUserData.value = result
-            }
+            )
+                .onEach { result -> _myUserData.value = result }
                 .launchIn(viewModelScope)
         }
     }

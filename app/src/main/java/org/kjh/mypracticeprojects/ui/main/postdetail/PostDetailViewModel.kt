@@ -28,7 +28,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
     private val postRepository: PostRepository,
-    private val userRepository: UserRepository
 ): ViewModel() {
 
     private val _postListByPlace = MutableLiveData<DataState<List<PostModel>>>()

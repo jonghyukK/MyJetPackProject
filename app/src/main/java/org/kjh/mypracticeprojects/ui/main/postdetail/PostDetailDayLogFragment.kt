@@ -1,21 +1,15 @@
 package org.kjh.mypracticeprojects.ui.main.postdetail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentPostDetailDayLogBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
 
 @AndroidEntryPoint
 class PostDetailDayLogFragment
@@ -28,6 +22,10 @@ class PostDetailDayLogFragment
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        subscribeObserver()
+    }
+
+    private fun subscribeObserver() {
         viewModel.postListByPlace.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success -> postDetailListAdapter.submitList(dataState.data)
@@ -38,9 +36,9 @@ class PostDetailDayLogFragment
     private fun initRecyclerView() {
         postDetailListAdapter = PostDetailDayLogListAdapter()
         binding.rvPostDayLog.apply {
-            adapter = postDetailListAdapter
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(LinearVerticalItemDecoration(this.context))
+            adapter       = postDetailListAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(LinearVerticalItemDecoration(requireContext()))
         }
     }
 

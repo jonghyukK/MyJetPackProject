@@ -2,16 +2,14 @@ package org.kjh.mypracticeprojects.ui.main.postdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
+import com.bumptech.glide.Glide
 import org.kjh.mypracticeprojects.databinding.ItemPostDetailDayLogBinding
 import org.kjh.mypracticeprojects.databinding.ItemPostDetailImageBinding
 import org.kjh.mypracticeprojects.model.PostModel
-import org.kjh.mypracticeprojects.util.GlideApp
 
 /**
  * MyPracticeProjects
@@ -81,7 +79,7 @@ class PostDetailDayLogImageAdapter
         val binding: ItemPostDetailImageBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(imgUrl: String) {
-            GlideApp.with(binding.ivPostImage)
+            Glide.with(binding.ivPostImage)
                 .load(imgUrl)
                 .thumbnail(0.33f)
                 .centerCrop()

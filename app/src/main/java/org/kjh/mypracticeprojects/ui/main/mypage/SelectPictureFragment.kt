@@ -21,14 +21,13 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentSelectPictureBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainActivity
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
-import org.kjh.mypracticeprojects.util.SpacesItemDecoration
+import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
 
 @AndroidEntryPoint
 class SelectPictureFragment :
@@ -52,7 +51,6 @@ class SelectPictureFragment :
                         activity as MainActivity,
                         READ_EXTERNAL_STORAGE
                     )
-
                 if (showRationale)
                     showNoAccess()
                 else
@@ -71,8 +69,10 @@ class SelectPictureFragment :
 
         initToolbarWithNavigation()
         initRecyclerView()
+        subscribeObserver()
+    }
 
-        // Gallery Images Observe.
+    private fun subscribeObserver() {
         viewModel.localImages.observe(viewLifecycleOwner, { images ->
             selectPictureAdapter.submitList(images)
             mainViewModel.setUploadImgData(mainViewModel.uploadImgData.value ?: images[0])
@@ -103,10 +103,11 @@ class SelectPictureFragment :
 
     private fun initRecyclerView() {
         selectPictureAdapter = SelectPictureAdapter()
+
         binding.rvGallery.apply {
-            adapter = selectPictureAdapter
+            adapter       = selectPictureAdapter
             layoutManager = GridLayoutManager(activity, 3)
-            addItemDecoration(SpacesItemDecoration(this.context))
+            addItemDecoration(GridItemDecoration(requireContext(), 3))
         }
 
         val selectedImageTracker = SelectionTracker.Builder(

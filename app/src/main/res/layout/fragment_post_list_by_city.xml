@@ -8,8 +8,8 @@
             name="View"
             type="android.view.View" />
         <variable
-            name="areaModel"
-            type="org.kjh.mypracticeprojects.model.AreaModel" />
+            name="cityModel"
+            type="org.kjh.mypracticeprojects.model.CityModel" />
 
         <variable
             name="viewModel"
@@ -37,7 +37,7 @@
                     android:id="@+id/ctl_collapseToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:title="@{areaModel.areaName}"
+                    app:title="@{cityModel.cityName}"
                     app:contentScrim="@color/white"
                     app:collapsedTitleTextAppearance="@style/CollapsingTitleStyle"
                     app:expandedTitleTextAppearance="@style/ExpandedTitleStyle"
@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
                         android:scaleType="centerCrop"
-                        app:imgDrawable="@{areaModel.areaImg}"
+                        app:imgDrawable="@{cityModel.cityImg}"
                         app:layout_collapseMode="parallax" />
 
                     <androidx.appcompat.widget.Toolbar

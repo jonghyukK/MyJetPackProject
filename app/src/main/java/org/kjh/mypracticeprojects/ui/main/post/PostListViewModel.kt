@@ -15,11 +15,7 @@ import javax.inject.Inject
  *
  * Description:
  */
-@HiltViewModel
-class PostListViewModel @Inject constructor(
-    private val userRepository: UserRepository
-): ViewModel() {
-
+class PostListViewModel: ViewModel() {
     private val _postListViewType = MutableLiveData(POST_TYPE_SMALL)
     val postListViewType: LiveData<Int> = _postListViewType
 

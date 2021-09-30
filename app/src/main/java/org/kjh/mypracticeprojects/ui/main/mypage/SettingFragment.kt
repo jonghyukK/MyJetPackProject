@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.FragmentSettingBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.login.LoginState
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 
 @AndroidEntryPoint

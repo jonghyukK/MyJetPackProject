@@ -1,15 +1,13 @@
 package org.kjh.mypracticeprojects.repository
 
-import android.service.autofill.Dataset
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
-import org.kjh.mypracticeprojects.KakaoRestAPI_KEY
-import org.kjh.mypracticeprojects.model.DataResponse
+import org.kjh.mypracticeprojects.KAKAO_API_KEY
 import org.kjh.mypracticeprojects.model.LocationItem
 import org.kjh.mypracticeprojects.model.LocationResponse
 import org.kjh.mypracticeprojects.model.UserModel
+import org.kjh.mypracticeprojects.model.UserResponse
 import org.kjh.mypracticeprojects.network.ApiService
 import org.kjh.mypracticeprojects.network.KaKaoApiService
 import org.kjh.mypracticeprojects.util.DataState
@@ -23,7 +21,7 @@ import org.kjh.mypracticeprojects.util.DataState
  */
 class UserRepository
 constructor(
-    private val apiService: ApiService,
+    private val apiService     : ApiService,
     private val kakaoApiService: KaKaoApiService
 ) {
 
@@ -32,7 +30,7 @@ constructor(
         email: String,
         pw   : String,
         token: String
-    ): Flow<DataState<DataResponse>> = flow {
+    ): Flow<DataState<UserResponse>> = flow {
         emit(DataState.Loading)
 
         try {
@@ -54,7 +52,7 @@ constructor(
     // Duplicate Check for Email.
     suspend fun reqValidateEmail(
         email: String
-    ): Flow<DataState<DataResponse>> = flow {
+    ): Flow<DataState<UserResponse>> = flow {
         emit(DataState.Loading)
 
         try {
@@ -87,9 +85,9 @@ constructor(
     // Login.
     suspend fun reqLogin(
         email: String,
-        pw: String,
+        pw   : String,
         token: String
-    ): Flow<DataState<DataResponse>> = flow {
+    ): Flow<DataState<UserResponse>> = flow {
         emit(DataState.Loading)
 
         try {
@@ -142,14 +140,14 @@ constructor(
 
     // Update User.
     suspend fun updateUser(
-        file: MultipartBody.Part,
+        file : MultipartBody.Part,
         email: String
     ): Flow<DataState<UserModel>> = flow {
         emit(DataState.Loading)
 
         try {
             val result = apiService.updateUser(
-                file = file,
+                file  = file,
                 email = email
             )
 
@@ -161,16 +159,16 @@ constructor(
 
     // Update User BookMarks.
     suspend fun updateUserBookMark(
-        email: String,
-        postId: Int,
+        email    : String,
+        postId   : Int,
         placeName: String
     ): Flow<DataState<UserModel>> = flow {
         emit(DataState.Loading)
 
         try {
             val result = apiService.updateUserBookMark(
-                email = email,
-                postId = postId,
+                email     = email,
+                postId    = postId,
                 placeName = placeName
             )
 
@@ -189,7 +187,7 @@ constructor(
 
         try {
             val result = kakaoApiService.searchLocation(
-                key   = KakaoRestAPI_KEY,
+                key   = KAKAO_API_KEY,
                 query = keyword
             )
 

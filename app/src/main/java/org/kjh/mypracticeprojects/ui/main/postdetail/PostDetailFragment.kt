@@ -18,15 +18,19 @@ import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.DataState
 
-private const val POST_ITEM = "postItem"
 
-private val TAB_NAMES = listOf("데이로그", "정보")
 
 @AndroidEntryPoint
-class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragment_post_detail) {
+class PostDetailFragment
+    : BaseFragment<FragmentPostDetailBinding>(R.layout.fragment_post_detail) {
+
+    companion object {
+        private const val POST_ITEM = "postItem"
+        private val TAB_NAMES = listOf("데이로그", "정보")
+    }
 
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: PostDetailViewModel by activityViewModels()
+    private val viewModel    : PostDetailViewModel by activityViewModels()
     private lateinit var argPostItem: PostModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +46,10 @@ class PostDetailFragment: BaseFragment<FragmentPostDetailBinding>(R.layout.fragm
 
         initTabLayoutWithViewPager2()
         initToolbarWithNavigation()
+        subscribeObserver()
+    }
 
+    private fun subscribeObserver() {
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
             when (myData) {
                 is DataState.Success -> {

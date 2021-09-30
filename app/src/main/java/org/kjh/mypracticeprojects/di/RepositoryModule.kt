@@ -20,21 +20,17 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object RepositoryModule {
-
     @Singleton
     @Provides
     fun provideUserRepository(
-        apiService: ApiService,
-        kakaoApiService: KaKaoApiService
-    ): UserRepository {
-        return UserRepository(apiService, kakaoApiService)
-    }
+        apiService      : ApiService,
+        kakaoApiService : KaKaoApiService
+    ) = UserRepository(apiService, kakaoApiService)
+
 
     @Singleton
     @Provides
     fun providePostRepository(
         apiService: ApiService
-    ): PostRepository {
-        return PostRepository(apiService)
-    }
+    ) = PostRepository(apiService)
 }

@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.AreaPostListFragment">
+        tools:context=".ui.main.mypage.MyPostsByCityFragment">
 
         <ProgressBar
             android:layout_width="wrap_content"

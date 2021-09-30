@@ -1,6 +1,5 @@
-package org.kjh.mypracticeprojects.ui
+package org.kjh.mypracticeprojects.ui.common
 
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.EditText
@@ -8,15 +7,9 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.ui.login.FocusEventHandler
-import org.kjh.mypracticeprojects.util.GlideApp
 
 /**
  * MyPracticeProjects
@@ -64,7 +57,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("app:imgDrawable")
     fun bindImageWithDrawable(view: ImageView, imgDrawable: Int) {
-        GlideApp.with(view)
+        Glide.with(view)
             .load(imgDrawable)
             .thumbnail(0.33f)
             .centerCrop()
@@ -75,7 +68,7 @@ object BindingAdapters {
     @BindingAdapter("app:imgUri")
     fun bindImageWithUri(view: ImageView, imgUri: Uri?) {
         imgUri?.run {
-            GlideApp.with(view)
+            Glide.with(view)
                 .load(imgUri)
                 .thumbnail(0.33f)
                 .centerCrop()
@@ -87,12 +80,12 @@ object BindingAdapters {
     @BindingAdapter("app:imgUrl")
     fun bindImageWithUrl(view: ImageView, imgUrl: String?) {
         imgUrl?.run {
-            GlideApp.with(view)
+            Glide.with(view)
                 .load(imgUrl)
                 .thumbnail(0.33f)
                 .centerCrop()
                 .into(view)
-        } ?: GlideApp.with(view)
+        } ?: Glide.with(view)
             .load(R.drawable.ic_launcher_background)
             .thumbnail(0.33f)
             .centerCrop()

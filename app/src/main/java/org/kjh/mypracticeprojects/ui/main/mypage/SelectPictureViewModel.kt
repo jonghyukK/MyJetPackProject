@@ -35,6 +35,7 @@ class SelectPictureViewModel @Inject constructor(
 
     private val _localImages = MutableLiveData<List<MediaStoreImage>>()
     val localImages: LiveData<List<MediaStoreImage>> = _localImages
+
     private var contentObserver: ContentObserver? = null
 
     fun loadLocalImages() {

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="org.kjh.mypracticeprojects.ui.main.MapViewModel" />
+            type="org.kjh.mypracticeprojects.ui.main.map.MapViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

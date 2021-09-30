@@ -30,6 +30,20 @@ class PostDetailInfoFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initMapView()
+        subscribeObserver()
+
+        binding.btnShowBigMap.setOnClickListener {
+            binding.flPostDetailMapView.removeView(mapView)
+            navigate(
+                action = R.id.action_postDetailFragment_to_mapInfoFragment,
+                bundle = bundleOf("postItem" to postData)
+            )
+        }
+    }
+
+    private fun subscribeObserver() {
         viewModel.postListByPlace.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success -> {
@@ -39,16 +53,6 @@ class PostDetailInfoFragment
                 }
             }
         })
-
-        initMapView()
-
-        binding.btnShowBigMap.setOnClickListener {
-            binding.flPostDetailMapView.removeView(mapView)
-            navigate(
-                action = R.id.action_postDetailFragment_to_mapInfoFragment,
-                bundle = bundleOf("postItem" to postData)
-            )
-        }
     }
 
     private fun initMapView() {

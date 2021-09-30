@@ -8,20 +8,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentHomeBinding
-import org.kjh.mypracticeprojects.model.AreaModel
+import org.kjh.mypracticeprojects.model.CityModel
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.*
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.LinearItemDecoration
-import org.kjh.mypracticeprojects.util.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
 
 
 @AndroidEntryPoint
@@ -84,10 +82,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun initCityItemList() {
         with (binding.rvAreaList) {
             adapter = LocalAreaListAdapter(object: LocalAreaListClickEventListener {
-                override fun onClickArea(area: AreaModel) {
+                override fun onClickCity(city: CityModel) {
                     navigate(
                         action = R.id.action_homeFragment_to_postListByCityFragment,
-                        bundle = bundleOf("areaModel" to area)
+                        bundle = bundleOf("cityModel" to city)
                     )
                 }
             })

@@ -12,13 +12,20 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.FragmentSignUpBinding
-import org.kjh.mypracticeprojects.model.DataResponse
+import org.kjh.mypracticeprojects.model.UserResponse
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.util.DataState
 
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up) {
+class SignUpFragment
+    : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up) {
+
+    companion object {
+        const val TAG_EMAIL     = "email"
+        const val TAG_PW        = "pw"
+        const val TAG_PwConfirm = "pw"
+    }
 
     private val viewModel: SignUpViewModel by viewModels()
 
@@ -37,10 +44,11 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     private fun subscribeObserver() {
         viewModel.signUpDataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
-                is DataState.Success<DataResponse> -> {
+                is DataState.Success -> {
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_STATE, LoginState.LOGIN.value)
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
-                    findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+
+                    navigate(action = R.id.action_signUpFragment_to_homeFragment)
                 }
 
                 is DataState.Error -> {

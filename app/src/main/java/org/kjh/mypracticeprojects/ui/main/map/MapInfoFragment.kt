@@ -1,4 +1,4 @@
-package org.kjh.mypracticeprojects.ui.main
+package org.kjh.mypracticeprojects.ui.main.map
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.orhanobut.logger.Logger
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -16,6 +15,7 @@ import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMapInfoBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.main.MainActivity
 
 /**
  * MyPracticeProjects
@@ -103,7 +103,6 @@ MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
     override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {}
     override fun onCurrentLocationUpdateFailed(p0: MapView?) {}
     override fun onCurrentLocationUpdateCancelled(p0: MapView?) {}
-
 
     override fun onMapViewInitialized(p0: MapView?) {}
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {}

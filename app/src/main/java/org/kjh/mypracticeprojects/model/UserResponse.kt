@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * MyPracticeProjects
- * Class: DataResponse
+ * Class: UserResponse
  * Created by mac on 2021/08/03.
  *
  * Description:
  */
-data class DataResponse(
+data class UserResponse(
     @SerializedName("result")
     @Expose
     var result: String,

@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="org.kjh.mypracticeprojects.ui.main.MapFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.map.MapFragment"
         android:label="@string/find_location"
         tools:layout="@layout/fragment_map" >
         <action
@@ -143,7 +143,7 @@
         android:label="@string/login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment2"
+            android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@+id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
@@ -166,7 +166,7 @@
         tools:layout="@layout/fragment_profile_edit"/>
     <fragment
         android:id="@+id/mapInfoFragment"
-        android:name="org.kjh.mypracticeprojects.ui.main.MapInfoFragment"
+        android:name="org.kjh.mypracticeprojects.ui.main.map.MapInfoFragment"
         android:label="@string/location_info"
         tools:layout="@layout/fragment_map_info"/>
     <fragment

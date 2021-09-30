@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="areaModel"
-            type="org.kjh.mypracticeprojects.model.AreaModel" />
+            name="cityModel"
+            type="org.kjh.mypracticeprojects.model.CityModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
             android:scaleType="centerCrop"
             android:background="@color/white"
             android:padding="2dp"
-            app:imgDrawable="@{areaModel.areaImg}"
+            app:imgDrawable="@{cityModel.cityImg}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="26sp"
             android:textColor="@color/white"
-            android:text="@{areaModel.areaName}"
+            android:text="@{cityModel.cityName}"
             app:layout_constraintTop_toTopOf="@+id/iv_areaImg"
             app:layout_constraintBottom_toBottomOf="@+id/iv_areaImg"
             app:layout_constraintStart_toStartOf="@+id/iv_areaImg"

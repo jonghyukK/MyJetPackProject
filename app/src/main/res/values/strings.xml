@@ -23,27 +23,23 @@
     <string name="input_content">내용 입력</string>
     <string name="add_location">위치 추가</string>
     <string name="failed_upload_post">업로드가 실패하였습니다.</string>
-
-    <string name="splash_title">Splash</string>
-    <string name="login_title">Login</string>
-    <string name="hint_login_email_input">이메일 주소 입력</string>
-    <string name="hint_signup_email_input">이메일을 입력해주세요.</string>
+    <string name="hint_email_input">이메일 입력</string>
     <string name="hint_pw_input">비밀번호</string>
-    <string name="desc_dont_have_email">계정이 없으신가요?</string>
-    <string name="do_signup">가입하기</string>
-
+    <string name="hint_do_input_pw">비밀번호를 입력해 주세요.</string>
+    <string name="hint_re_input_pw">비밀번호를 재입력해 주세요.</string>
+    <string name="hint_check_pw">비밀번호 확인</string>
+    <string name="splash_title">떠나자! 여행</string>
     <string name="email">이메일</string>
     <string name="duplicate_email">중복확인</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="error_email_not_valid">이메일 주소가 올바르지 않습니다.</string>
-    <string name="error_pw_less_than_8">비밀번호는 8자리 이상 입력해 주세요.</string>
-    <string name="error_pw_confirm_not_match">비밀번호가 같지 않습니다.</string>
-
+    <string name="address">주소</string>
+    <string name="show_big">크게보기</string>
+    <string name="copy_address">주소복사</string>
+    <string name="should_select_location">장소를 선택해 주세요.</string>
+    <string name="hint_login_email_input">이메일 주소 입력</string>
+    <string name="hint_signup_email_input">이메일을 입력해주세요.</string>
+    <string name="desc_dont_have_email">계정이 없으신가요?</string>
+    <string name="do_signup">가입하기</string>
     <string name="success_sign_up">회원가입이 완료되었습니다.\n 로그인 해주세요.</string>
-
     <string name="transition_name_upload_image">upload_image</string>
-    <string name="empty_posts">해당 지역의 게시물이 없습니다! \n 이번 주말, 놀러가시는 건 어떨까요?</string>
-
     <string name="default_fcm_channel_id">Jonghyuk FCM Channel</string>
 </resources>

@@ -1,10 +1,7 @@
 package org.kjh.mypracticeprojects.ui.main.bookmark
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -25,8 +22,8 @@ import org.kjh.mypracticeprojects.ui.main.POST_TYPE_SMALL
 import org.kjh.mypracticeprojects.ui.main.PostListAdapter
 import org.kjh.mypracticeprojects.ui.main.PostListClickEventListener
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.LinearVerticalItemDecoration
-import org.kjh.mypracticeprojects.util.SpacesItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
 
 @AndroidEntryPoint
 class BookmarkFragment
@@ -48,7 +45,10 @@ class BookmarkFragment
 
         initToolbarWithNavigation()
         initRecyclerView()
+        subscribeObserver()
+    }
 
+    private fun subscribeObserver() {
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
             when (myData) {
                 is DataState.Success -> bookmarkListAdapter.submitList(myData.data?.bookMarks)
@@ -75,7 +75,7 @@ class BookmarkFragment
         binding.rvBookmarks.apply {
             adapter = bookmarkListAdapter
             layoutManager = GridLayoutManager(activity, 3)
-            addItemDecoration(SpacesItemDecoration(context))
+            addItemDecoration(GridItemDecoration(context, 3))
         }
     }
 
@@ -94,8 +94,8 @@ class BookmarkFragment
 
     private fun updateBookMarkLayoutManager(type: Int) {
         val itemDecoration = when (type) {
-            POST_TYPE_SMALL -> SpacesItemDecoration(this.requireContext())
-            else -> LinearVerticalItemDecoration(this.requireContext())
+            POST_TYPE_SMALL -> GridItemDecoration(requireContext(), 3)
+            else -> LinearVerticalItemDecoration(requireContext())
         }
 
         binding.rvBookmarks.apply {

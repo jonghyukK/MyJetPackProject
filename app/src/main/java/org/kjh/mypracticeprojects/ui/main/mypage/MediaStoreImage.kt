@@ -17,11 +17,11 @@ import java.util.*
 
 @Parcelize
 data class MediaStoreImage(
-    val id: Long,
-    val displayName: String,
-    val dateAdded: Date,
-    val contentUri: Uri,
-    val realPath: String,
+    val id          : Long,
+    val displayName : String,
+    val dateAdded   : Date,
+    val contentUri  : Uri,
+    val realPath    : String,
 ) : Parcelable {
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<MediaStoreImage>() {

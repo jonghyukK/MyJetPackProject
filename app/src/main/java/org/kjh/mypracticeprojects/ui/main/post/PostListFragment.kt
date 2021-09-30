@@ -22,8 +22,8 @@ import org.kjh.mypracticeprojects.ui.main.POST_TYPE_SMALL
 import org.kjh.mypracticeprojects.ui.main.PostListAdapter
 import org.kjh.mypracticeprojects.ui.main.PostListClickEventListener
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.LinearVerticalItemDecoration
-import org.kjh.mypracticeprojects.util.SpacesItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
 
 /**
  * MyPracticeProjects
@@ -41,8 +41,9 @@ class PostListFragment:
     }
 
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: PostListViewModel by viewModels()
-    private val args: PostListFragmentArgs by navArgs()
+    private val viewModel    : PostListViewModel by viewModels()
+    private val args         : PostListFragmentArgs by navArgs()
+
     private lateinit var postListAdapter: PostListAdapter
     private lateinit var cityKey: String
 
@@ -53,7 +54,10 @@ class PostListFragment:
 
         initToolbarWithNavigation()
         initCityItemList()
+        subscribeObserver()
+    }
 
+    private fun subscribeObserver() {
         mainViewModel.myUserData.observe(viewLifecycleOwner, { myData ->
             when (myData) {
                 is DataState.Success -> {
@@ -75,11 +79,11 @@ class PostListFragment:
 
     private fun updatePostListLayoutManager(type: Int) {
         val itemDecoration = when (type) {
-            POST_TYPE_SMALL -> SpacesItemDecoration(this.requireContext())
-            else -> LinearVerticalItemDecoration(this.requireContext())
+            POST_TYPE_SMALL -> GridItemDecoration(requireContext(), 3)
+            else -> LinearVerticalItemDecoration(requireContext())
         }
 
-        with (binding.rvMyImages) {
+        binding.rvMyImages.apply {
             layoutManager = when (type) {
                 POST_TYPE_SMALL -> GridLayoutManager(activity, 3)
                 else -> LinearLayoutManager(activity)
@@ -104,10 +108,10 @@ class PostListFragment:
             }
         }, POST_TYPE_SMALL)
 
-        with (binding.rvMyImages) {
+        binding.rvMyImages.apply {
             adapter       = postListAdapter
             layoutManager = GridLayoutManager(activity, 3)
-            addItemDecoration(SpacesItemDecoration(context))
+            addItemDecoration(GridItemDecoration(context, 3))
         }
     }
 

@@ -18,7 +18,6 @@ class PostRepository
 constructor(
     private val apiService: ApiService
 ){
-
     suspend fun deletePost(
         postId: Int,
         email : String
@@ -38,7 +37,7 @@ constructor(
     }
 
     suspend fun getPosts(
-        cityName: String? = null,
+        cityName : String? = null,
         placeName: String? = null
     ): Flow<DataState<List<PostModel>>> = flow {
         emit(DataState.Loading)

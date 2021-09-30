@@ -1,9 +1,9 @@
 package org.kjh.mypracticeprojects.network
 
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import org.kjh.mypracticeprojects.model.*
+import org.kjh.mypracticeprojects.model.PostModel
+import org.kjh.mypracticeprojects.model.UserModel
+import org.kjh.mypracticeprojects.model.UserResponse
 import retrofit2.http.*
 
 /**
@@ -25,7 +25,7 @@ interface ApiService {
         @Query("email") email: String,
         @Query("pw"   ) pw   : String,
         @Query("token") token: String,
-    ): DataResponse
+    ): UserResponse
 
 
     /***************************************************
@@ -36,7 +36,7 @@ interface ApiService {
     @GET("user/duplicate")
     suspend fun reqValidateEmail(
         @Query("email") email: String
-    ): DataResponse
+    ): UserResponse
 
 
     /***************************************************
@@ -58,9 +58,9 @@ interface ApiService {
     @GET("user/login")
     suspend fun reqLogin(
         @Query("email") email: String,
-        @Query("pw") pw: String,
+        @Query("pw"   ) pw   : String,
         @Query("token") token: String,
-    ): DataResponse
+    ): UserResponse
 
 
     /***************************************************
@@ -72,16 +72,16 @@ interface ApiService {
     @POST("user/upload")
     suspend fun uploadPost(
         @Part file: List<MultipartBody.Part>,
-        @Query("email"          ) email: String,
-        @Query("content"        ) content: String,
-        @Query("address_name"   ) address_name: String,
-        @Query("category_name"  ) category_name: String,
-        @Query("phone"          ) phone: String,
-        @Query("place_name"     ) place_name: String,
-        @Query("place_url"      ) place_url: String,
-        @Query("x"              ) x: String,
-        @Query("y"              ) y: String,
-        @Query("road_address_name"  ) road_address_name: String,
+        @Query("email"          ) email         : String,
+        @Query("content"        ) content       : String,
+        @Query("address_name"   ) address_name  : String,
+        @Query("category_name"  ) category_name : String,
+        @Query("phone"          ) phone         : String,
+        @Query("place_name"     ) place_name    : String,
+        @Query("place_url"      ) place_url     : String,
+        @Query("x"              ) x             : String,
+        @Query("y"              ) y             : String,
+        @Query("road_address_name"  ) road_address_name  : String,
         @Query("category_group_code") category_group_code: String,
         @Query("category_group_name") category_group_name: String,
     ): UserModel
@@ -106,8 +106,8 @@ interface ApiService {
      ***************************************************/
     @PUT("user/bookmark")
     suspend fun updateUserBookMark(
-        @Query("email") email: String,
-        @Query("postId") postId: Int,
+        @Query("email"    ) email    : String,
+        @Query("postId"   ) postId   : Int,
         @Query("placeName") placeName: String
     ): UserModel
 
@@ -120,7 +120,7 @@ interface ApiService {
     @DELETE("post")
     suspend fun deletePost(
         @Query("postId") postId: Int,
-        @Query("email") email: String,
+        @Query("email" ) email : String,
     ): UserModel
 
     /***************************************************
@@ -130,7 +130,7 @@ interface ApiService {
      ***************************************************/
     @GET("post")
     suspend fun getPosts(
-        @Query("city") cityName: String? = null,
+        @Query("city"     ) cityName : String? = null,
         @Query("placeName") placeName: String? = null
     ): List<PostModel>
 

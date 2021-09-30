@@ -9,9 +9,11 @@ import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.MyApplication
 import org.kjh.mypracticeprojects.PREF_KEY_FCM_TOKEN
 import org.kjh.mypracticeprojects.isValidPattern
-import org.kjh.mypracticeprojects.model.DataResponse
-import org.kjh.mypracticeprojects.model.UserModel
+import org.kjh.mypracticeprojects.model.UserResponse
 import org.kjh.mypracticeprojects.repository.UserRepository
+import org.kjh.mypracticeprojects.ui.login.SignUpFragment.Companion.TAG_EMAIL
+import org.kjh.mypracticeprojects.ui.login.SignUpFragment.Companion.TAG_PW
+import org.kjh.mypracticeprojects.ui.login.SignUpFragment.Companion.TAG_PwConfirm
 import org.kjh.mypracticeprojects.util.DataState
 import javax.inject.Inject
 
@@ -25,8 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val savedStateHandle: SavedStateHandle,
+    private val userRepository: UserRepository
 ) : ViewModel(), FocusEventHandler {
 
     val email     : MutableLiveData<String> = MutableLiveData()
@@ -42,8 +43,8 @@ class SignUpViewModel @Inject constructor(
     private val _pwConfirmValidState: MutableLiveData<ValidateState> = MutableLiveData()
     val pwConfirmValidState: LiveData<ValidateState> = _pwConfirmValidState
 
-    private val _signUpDataState: MutableLiveData<DataState<DataResponse>> = MutableLiveData()
-    val signUpDataState: LiveData<DataState<DataResponse>> = _signUpDataState
+    private val _signUpDataState: MutableLiveData<DataState<UserResponse>> = MutableLiveData()
+    val signUpDataState: LiveData<DataState<UserResponse>> = _signUpDataState
 
     // API - Check Validate Email.
     private fun requestDuplicateCheckEmail() {
@@ -107,10 +108,10 @@ class SignUpViewModel @Inject constructor(
 
     fun clearErrorWhenTextChanged(s: CharSequence?, tag: String) {
         when (tag) {
-            "email" -> if (_emailValidState.value != ValidateState.INIT)
+            TAG_EMAIL -> if (_emailValidState.value != ValidateState.INIT)
                 _emailValidState.value = ValidateState.INIT
 
-            "pw", "pwConfirm" -> {
+            TAG_PW, TAG_PwConfirm -> {
                 if (_pwConfirmValidState.value != ValidateState.INIT)
                     _pwConfirmValidState.value = ValidateState.INIT
                 if (_pwValidState.value != ValidateState.INIT)

@@ -15,10 +15,6 @@ data class UserModel(
     @Expose
     var email: String,
 
-    @SerializedName("pw")
-    @Expose
-    var pw: String,
-
     @SerializedName("postCount")
     @Expose
     var postCount: Int = 0,

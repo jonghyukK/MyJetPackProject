@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.kjh.mypracticeprojects.*
-import org.kjh.mypracticeprojects.model.DataResponse
+import org.kjh.mypracticeprojects.model.UserResponse
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.util.DataState
 import javax.inject.Inject
@@ -35,12 +35,13 @@ class LoginViewModel @Inject constructor(
     private val _pwValidState: MutableLiveData<ValidateState> = MutableLiveData()
     val pwValidState: LiveData<ValidateState> = _pwValidState
 
-    private val _loginDataState: MutableLiveData<DataState<DataResponse>> = MutableLiveData()
-    val loginDataState: LiveData<DataState<DataResponse>> = _loginDataState
+    private val _loginDataState: MutableLiveData<DataState<UserResponse>> = MutableLiveData()
+    val loginDataState: LiveData<DataState<UserResponse>> = _loginDataState
 
     // API Result - Login API.
     private fun requestLogin() {
         val userToken = MyApplication.prefs.getPref(PREF_KEY_FCM_TOKEN, "")
+
         viewModelScope.launch {
             userRepository.reqLogin(
                 email = email.value.toString(),

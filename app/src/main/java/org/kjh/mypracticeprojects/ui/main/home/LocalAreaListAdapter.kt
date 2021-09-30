@@ -2,11 +2,10 @@ package org.kjh.mypracticeprojects.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
-import org.kjh.mypracticeprojects.AREA_LIST
+import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.ItemMainAreaBinding
-import org.kjh.mypracticeprojects.model.AreaModel
+import org.kjh.mypracticeprojects.model.CityModel
 
 /**
  * MyPracticeProjects
@@ -15,13 +14,27 @@ import org.kjh.mypracticeprojects.model.AreaModel
  *
  * Description:
  */
+
+val CITY_ITEMS = mapOf(
+    "서울" to R.drawable.local_img_seoul,
+    "경기" to R.drawable.local_img_gyeonggido,
+    "인천" to R.drawable.local_img_incheon,
+    "충북" to R.drawable.local_img_chungbook,
+    "충남" to R.drawable.local_img_chungnam,
+    "경북" to R.drawable.local_img_gyeongbuk,
+    "경남" to R.drawable.local_img_gyeongnam,
+    "전북" to R.drawable.local_img_jeunbook,
+    "전남" to R.drawable.local_img_jeonnam,
+    "강원" to R.drawable.local_img_gangwon
+)
+
 class LocalAreaListAdapter(
     val listener: LocalAreaListClickEventListener
 ): RecyclerView.Adapter<LocalAreaListAdapter.LocalAreaListViewHolder>() {
-    private val areaList = AREA_LIST.map {
-        AreaModel(
-            areaName = it.key,
-            areaImg = it.value
+    private val areaList = CITY_ITEMS.map {
+        CityModel(
+            cityName = it.key,
+            cityImg = it.value
         )
     }
 
@@ -40,10 +53,10 @@ class LocalAreaListAdapter(
         val binding: ItemMainAreaBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: AreaModel) {
-            binding.areaModel   = item
+        fun bind(item: CityModel) {
+            binding.cityModel   = item
             binding.ivAreaImg.setOnClickListener {
-                listener.onClickArea(item)
+                listener.onClickCity(item)
             }
         }
     }
@@ -52,5 +65,5 @@ class LocalAreaListAdapter(
 }
 
 interface LocalAreaListClickEventListener {
-    fun onClickArea(area: AreaModel)
+    fun onClickCity(area: CityModel)
 }

@@ -26,17 +26,20 @@ import org.kjh.mypracticeprojects.ui.main.MainActivity
  * Description:
  */
 class MyFirebaseMessagingService: FirebaseMessagingService() {
+    companion object {
+        const val CHANNEL_NAME_BOOKMARK = "Alram about Bookmark"
+    }
 
-    override fun onMessageReceived(p0: RemoteMessage) {
-        super.onMessageReceived(p0)
+    override fun onMessageReceived(rm: RemoteMessage) {
+        super.onMessageReceived(rm)
 
         Logger.d("""
-            data : ${p0.notification?.body}
-            data : ${p0.notification?.title}
+            body  : ${rm.notification?.body  ?: "empty Body"}
+            title : ${rm.notification?.title ?: "empty Title"}
         """.trimIndent())
 
-        p0.notification?.let {
-            sendNotification(it.title!!, it.body!!)
+        rm.notification?.let {
+            sendNotification(it.title, it.body)
         }
     }
 
@@ -44,7 +47,10 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         super.onNewToken(p0)
     }
 
-    private fun sendNotification(title: String, body: String) {
+    private fun sendNotification(
+        title: String? = "empty Title",
+        body : String? = "empty Body"
+    ) {
         val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
@@ -71,7 +77,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "Channel human readable title",
+                CHANNEL_NAME_BOOKMARK,
                 NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
         }

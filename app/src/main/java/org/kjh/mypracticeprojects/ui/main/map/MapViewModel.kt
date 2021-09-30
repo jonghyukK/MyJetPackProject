@@ -1,15 +1,13 @@
-package org.kjh.mypracticeprojects.ui.main
+package org.kjh.mypracticeprojects.ui.main.map
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.kjh.mypracticeprojects.model.LocationItem
 import org.kjh.mypracticeprojects.model.LocationResponse
 import org.kjh.mypracticeprojects.repository.UserRepository
 import org.kjh.mypracticeprojects.util.DataState
@@ -27,14 +25,10 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
-
     val inputLocation : MutableLiveData<String> = MutableLiveData()
 
     private val _locationList: MutableLiveData<LocationResponse> = MutableLiveData()
     val locationList: LiveData<LocationResponse> = _locationList
-
-    private val _selectedLocation: MutableLiveData<LocationItem?> = MutableLiveData()
-    val selectedLocation: LiveData<LocationItem?> = _selectedLocation
 
     fun searchLocation() {
         viewModelScope.launch {
@@ -46,9 +40,5 @@ class MapViewModel @Inject constructor(
                 }
                 .launchIn(viewModelScope)
         }
-    }
-
-    fun setSelectedLocation(item: LocationItem) {
-        _selectedLocation.value = item
     }
 }

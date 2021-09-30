@@ -19,8 +19,9 @@ import org.kjh.mypracticeprojects.model.PostModel
  *
  * Description:
  */
-class PostDetailImageAdapter(val onClick: () -> Unit)
-    : RecyclerView.Adapter<PostDetailImageAdapter.PostDetailViewHolder>() {
+class PostDetailImageAdapter(
+    private val onClick: () -> Unit
+) : RecyclerView.Adapter<PostDetailImageAdapter.PostDetailViewHolder>() {
     private lateinit var imageUrls: List<String>
 
     fun setImageList(imgList: List<String>) {

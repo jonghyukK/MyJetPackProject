@@ -35,15 +35,15 @@ class ProfileEditViewModel @Inject constructor(
     val resultProfileEdit: LiveData<DataState<UserModel>> = _resultProfileEdit
 
     fun updateProfile(filePath: String) {
-        val file = File(filePath)
+        val file        = File(filePath)
         val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        val body        = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
         val email = MyApplication.prefs.getPref(PREF_KEY_LOGIN_ID, "")
 
         viewModelScope.launch {
             userRepository.updateUser(
-                file = body,
+                file  = body,
                 email = email
             ).onEach { dataState ->
                 _resultProfileEdit.value = dataState

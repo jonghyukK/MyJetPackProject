@@ -19,7 +19,7 @@ abstract class BaseFragment<B: ViewDataBinding>(
     private val layoutId: Int
 ): Fragment() {
 
-    protected var _binding: B? = null
+    private var _binding: B? = null
     protected val binding get() = _binding!!
 
     override fun onCreateView(

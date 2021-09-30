@@ -1,15 +1,10 @@
-package org.kjh.mypracticeprojects.util
+package org.kjh.mypracticeprojects.ui.common
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Rect
+import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import android.util.TypedValue
-
-import androidx.recyclerview.widget.GridLayoutManager
-
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 
@@ -24,27 +19,23 @@ class LinearVerticalItemDecoration(context: Context) : ItemDecoration() {
     private val size20: Int
     private val size35: Int
     private val size10: Int
-    private val size5: Int
+    private val size5 : Int
 
     override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
+        outRect : Rect,
+        view    : View,
+        parent  : RecyclerView,
+        state   : RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
 
         val position = parent.getChildAdapterPosition(view)
-        val itemCount = state.itemCount
-
-        if (position == 0) {
+        if (position == 0)
             outRect.top = size20
-        }
 
         outRect.bottom = size35
     }
 
-    // dp -> pixel 단위로 변경
     private fun dpToPx(context: Context, dp: Int): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -58,6 +49,6 @@ class LinearVerticalItemDecoration(context: Context) : ItemDecoration() {
         size35 = dpToPx(context, 35)
         size20 = dpToPx(context, 20)
         size10 = dpToPx(context, 10)
-        size5 = dpToPx(context, 5)
+        size5  = dpToPx(context, 5)
     }
 }

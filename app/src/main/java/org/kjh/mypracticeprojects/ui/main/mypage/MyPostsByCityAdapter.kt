@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.kjh.mypracticeprojects.databinding.ItemAreaBinding
-import org.kjh.mypracticeprojects.model.AreaInfoModel
+import org.kjh.mypracticeprojects.model.CityInfoModel
 
 /**
  * MyPracticeProjects
@@ -16,10 +16,10 @@ import org.kjh.mypracticeprojects.model.AreaInfoModel
  */
 class AreaPostAdapter(
     val listener: AreaClickEventListener
-): ListAdapter<AreaInfoModel, AreaPostAdapter.AreaPostViewHolder>(AreaInfoModel.DiffCallback) {
+): ListAdapter<CityInfoModel, AreaPostAdapter.AreaPostViewHolder>(CityInfoModel.DiffCallback) {
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
+        parent  : ViewGroup,
         viewType: Int
     ): AreaPostAdapter.AreaPostViewHolder =
         AreaPostViewHolder(
@@ -34,8 +34,9 @@ class AreaPostAdapter(
 
     inner class AreaPostViewHolder(val binding: ItemAreaBinding)
         : RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: AreaInfoModel) {
-                binding.areaItem = item
+
+            fun bind(item: CityInfoModel) {
+                binding.cityItem = item
                 binding.ivAreaImg.setOnClickListener {
                     listener.onClickArea(item)
                 }
@@ -44,5 +45,5 @@ class AreaPostAdapter(
 }
 
 interface AreaClickEventListener {
-    fun onClickArea(item: AreaInfoModel)
+    fun onClickArea(item: CityInfoModel)
 }
