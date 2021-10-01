@@ -14,8 +14,7 @@ import org.kjh.mypracticeprojects.util.DataState
  *
  * Description:
  */
-class PostRepository
-constructor(
+class PostRepository constructor(
     private val apiService: ApiService
 ){
     suspend fun deletePost(

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -14,6 +15,7 @@ import org.kjh.mypracticeprojects.*
 import org.kjh.mypracticeprojects.databinding.FragmentSignUpBinding
 import org.kjh.mypracticeprojects.model.UserResponse
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.DataState
 
 
@@ -27,6 +29,7 @@ class SignUpFragment
         const val TAG_PwConfirm = "pw"
     }
 
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: SignUpViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +51,7 @@ class SignUpFragment
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_STATE, LoginState.LOGIN.value)
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
 
+                    mainViewModel.reqMyUserData()
                     navigate(action = R.id.action_signUpFragment_to_homeFragment)
                 }
 

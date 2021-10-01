@@ -19,8 +19,8 @@ import org.kjh.mypracticeprojects.util.DataState
  *
  * Description:
  */
-class UserRepository
-constructor(
+
+class UserRepository constructor(
     private val apiService     : ApiService,
     private val kakaoApiService: KaKaoApiService
 ) {

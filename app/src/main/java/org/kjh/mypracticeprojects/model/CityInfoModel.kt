@@ -16,11 +16,15 @@ data class CityInfoModel(
 ) {
     companion object {
         val DiffCallback = object: DiffUtil.ItemCallback<CityInfoModel>() {
-            override fun areItemsTheSame(oldItem: CityInfoModel, newItem: CityInfoModel): Boolean =
-                oldItem.cityName == newItem.cityName
+            override fun areItemsTheSame(
+                oldItem: CityInfoModel,
+                newItem: CityInfoModel
+            ): Boolean = oldItem.cityName == newItem.cityName
 
-            override fun areContentsTheSame(oldItem: CityInfoModel, newItem: CityInfoModel): Boolean =
-                oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: CityInfoModel,
+                newItem: CityInfoModel
+            ): Boolean = oldItem == newItem
         }
     }
 }

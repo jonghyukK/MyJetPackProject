@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">MyPracticeProjects</string>
+    <string name="app_name">여기 어땠어</string>
 
-    <string name="home">Home</string>
+    <string name="home">여기 어땠어</string>
     <string name="select_photo">사진 선택</string>
     <string name="setting">설정</string>
     <string name="write_post">게시글 작성</string>
@@ -28,7 +28,7 @@
     <string name="hint_do_input_pw">비밀번호를 입력해 주세요.</string>
     <string name="hint_re_input_pw">비밀번호를 재입력해 주세요.</string>
     <string name="hint_check_pw">비밀번호 확인</string>
-    <string name="splash_title">떠나자! 여행</string>
+    <string name="splash_title">여기 어땠어</string>
     <string name="email">이메일</string>
     <string name="duplicate_email">중복확인</string>
     <string name="address">주소</string>

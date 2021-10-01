@@ -27,17 +27,11 @@ import org.kjh.mypracticeprojects.ui.main.MainActivity
  */
 class MyFirebaseMessagingService: FirebaseMessagingService() {
     companion object {
-        const val CHANNEL_NAME_BOOKMARK = "Alram about Bookmark"
+        const val CHANNEL_NAME_BOOKMARK = "북마크 알림"
     }
 
     override fun onMessageReceived(rm: RemoteMessage) {
         super.onMessageReceived(rm)
-
-        Logger.d("""
-            body  : ${rm.notification?.body  ?: "empty Body"}
-            title : ${rm.notification?.title ?: "empty Title"}
-        """.trimIndent())
-
         rm.notification?.let {
             sendNotification(it.title, it.body)
         }
