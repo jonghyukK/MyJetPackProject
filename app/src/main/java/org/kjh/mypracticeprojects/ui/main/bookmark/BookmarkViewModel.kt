@@ -3,7 +3,7 @@ package org.kjh.mypracticeprojects.ui.main.bookmark
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.kjh.mypracticeprojects.ui.main.POST_TYPE_SMALL
+import org.kjh.mypracticeprojects.ui.main.post.POST_TYPE_SMALL
 
 /**
  * MyPracticeProjects

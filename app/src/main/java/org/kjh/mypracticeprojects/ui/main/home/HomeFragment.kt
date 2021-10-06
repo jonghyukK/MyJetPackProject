@@ -16,10 +16,13 @@ import org.kjh.mypracticeprojects.model.CityModel
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.*
-import org.kjh.mypracticeprojects.util.DataState
 import org.kjh.mypracticeprojects.ui.common.LinearItemDecoration
 import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.main.*
+import org.kjh.mypracticeprojects.ui.main.post.POST_TYPE_MEDIUM
+import org.kjh.mypracticeprojects.ui.main.post.PostListAdapter
+import org.kjh.mypracticeprojects.ui.main.post.PostListClickEventListener
+import org.kjh.mypracticeprojects.util.DataState
 
 
 @AndroidEntryPoint

@@ -17,13 +17,10 @@ import org.kjh.mypracticeprojects.databinding.FragmentPostListBinding
 import org.kjh.mypracticeprojects.model.PostModel
 import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.MainViewModel
-import org.kjh.mypracticeprojects.ui.main.POST_TYPE_SMALL
-import org.kjh.mypracticeprojects.ui.main.PostListAdapter
-import org.kjh.mypracticeprojects.ui.main.PostListClickEventListener
-import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
 import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
+import org.kjh.mypracticeprojects.util.DataState
 
 /**
  * MyPracticeProjects

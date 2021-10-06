@@ -1,4 +1,4 @@
-package org.kjh.mypracticeprojects.ui.main
+package org.kjh.mypracticeprojects.ui.main.post
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
