@@ -51,37 +51,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:visibility="@{mainViewModel.myUserData.successData().bookMarks.size == 0}"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="40dp"
-            android:background="@color/purple_500"
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:visibility="@{mainViewModel.myUserData.successData().bookMarks.size > 0}"
+            app:constraint_referenced_ids="btn_showSmall, btn_showMedium"/>
+
+        <ImageButton
+            android:id="@+id/btn_showSmall"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_grid"
+            android:backgroundTint="@color/purple_500"
+            android:onClick="@{() -> viewModel.setViewType(0)}"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_showMedium"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_showMedium"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_list"
+            android:backgroundTint="@color/purple_500"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="15dp"
+            android:onClick="@{() -> viewModel.setViewType(2)}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:visibility="@{mainViewModel.myUserData.successData().bookMarks.size > 0}">
-
-            <ImageButton
-                android:id="@+id/btn_showSmall"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/ic_grid"
-                android:onClick="@{() -> viewModel.setViewType(0)}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_showMedium"/>
-
-            <ImageButton
-                android:id="@+id/btn_showMedium"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/ic_list"
-                android:onClick="@{() -> viewModel.setViewType(2)}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_showSmall"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toEndOf="@+id/btn_showSmall" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

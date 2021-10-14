@@ -22,7 +22,6 @@ import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.util.MyGlideApp
 
 @AndroidEntryPoint
 class UploadContentFragment :

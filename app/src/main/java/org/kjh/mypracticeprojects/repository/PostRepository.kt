@@ -35,7 +35,7 @@ class PostRepository constructor(
         }
     }
 
-    suspend fun getPosts(
+    fun getPosts(
         cityName : String? = null,
         placeName: String? = null
     ): Flow<DataState<List<PostModel>>> = flow {
