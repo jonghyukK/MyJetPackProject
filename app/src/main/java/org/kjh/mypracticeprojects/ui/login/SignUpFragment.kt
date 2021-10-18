@@ -1,19 +1,18 @@
 package org.kjh.mypracticeprojects.ui.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.kjh.mypracticeprojects.*
+import org.kjh.mypracticeprojects.MyApplication
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_STATE
+import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentSignUpBinding
-import org.kjh.mypracticeprojects.model.UserResponse
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.DataState
@@ -52,7 +51,7 @@ class SignUpFragment
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
 
                     mainViewModel.reqMyUserData()
-                    navigate(action = R.id.action_signUpFragment_to_homeFragment)
+                    findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
                 }
 
                 is DataState.Error -> {

@@ -14,16 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentBookmarkBinding
-import org.kjh.mypracticeprojects.model.PostModel
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
-import org.kjh.mypracticeprojects.ui.main.MainViewModel
-import org.kjh.mypracticeprojects.util.DataState
-import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
 import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
+import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
+import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.ui.main.post.POST_TYPE_SMALL
 import org.kjh.mypracticeprojects.ui.main.post.PostListAdapter
-import org.kjh.mypracticeprojects.ui.main.post.PostListClickEventListener
+import org.kjh.mypracticeprojects.util.DataState
 
 @AndroidEntryPoint
 class BookmarkFragment
@@ -36,7 +33,14 @@ class BookmarkFragment
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel    : BookmarkViewModel by viewModels()
 
-    private lateinit var bookmarkListAdapter: PostListAdapter
+    private val bookmarkListAdapter by lazy {
+        PostListAdapter(POST_TYPE_SMALL) {
+            findNavController().navigate(
+                resId = R.id.action_bookmarkFragment_to_postDetailFragment,
+                args  = bundleOf("postItem" to it)
+            )
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,15 +67,6 @@ class BookmarkFragment
     }
 
     private fun initRecyclerView() {
-        bookmarkListAdapter = PostListAdapter(object: PostListClickEventListener {
-            override fun onClickPost(item: PostModel) {
-                navigate(
-                    action = R.id.action_bookmarkFragment_to_postDetailFragment,
-                    bundle = bundleOf("postItem" to item)
-                )
-            }
-        }, POST_TYPE_SMALL)
-
         binding.rvBookmarks.apply {
             adapter = bookmarkListAdapter
             layoutManager = GridLayoutManager(activity, 3)

@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentPostListBinding
-import org.kjh.mypracticeprojects.model.PostModel
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
 import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
@@ -41,7 +39,15 @@ class PostListFragment:
     private val viewModel    : PostListViewModel by viewModels()
     private val args         : PostListFragmentArgs by navArgs()
 
-    private lateinit var postListAdapter: PostListAdapter
+    private val postListAdapter by lazy {
+        PostListAdapter(POST_TYPE_SMALL) {
+            findNavController().navigate(
+                resId = R.id.action_postListFragment_to_postDetailFragment,
+                args = bundleOf("postItem" to it)
+            )
+        }
+    }
+
     private lateinit var cityKey: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,15 +102,6 @@ class PostListFragment:
     }
 
     private fun initCityItemList() {
-        postListAdapter = PostListAdapter(object: PostListClickEventListener {
-            override fun onClickPost(item: PostModel) {
-                navigate(
-                    action = R.id.action_postListFragment_to_postDetailFragment,
-                    bundle = bundleOf("postItem" to item)
-                )
-            }
-        }, POST_TYPE_SMALL)
-
         binding.rvMyImages.apply {
             adapter       = postListAdapter
             layoutManager = GridLayoutManager(activity, 3)

@@ -32,8 +32,8 @@ const val POST_TYPE_MEDIUM_SINGLE = 11
 const val POST_TYPE_MEDIUM_MULTIPLE = 12
 
 class PostListAdapter(
-    val listener: PostListClickEventListener,
-    var postViewType: Int = 0
+    var postViewType: Int = 0,
+    private val onClickPostItem: (item: PostModel) -> Unit,
 ): ListAdapter<PostModel, RecyclerView.ViewHolder>(PostModel.DiffCallback) {
 
     fun changePostViewType(viewType: Int) {
@@ -92,7 +92,7 @@ class PostListAdapter(
         fun bind(item: PostModel) {
             binding.postModel = item
             binding.cvPostItem.setOnClickListener {
-                listener.onClickPost(item)
+                onClickPostItem(item)
             }
         }
     }
@@ -102,7 +102,7 @@ class PostListAdapter(
         fun bind(item: PostModel) {
             binding.postModel = item
             binding.cvPostItem.setOnClickListener {
-                listener.onClickPost(item)
+                onClickPostItem(item)
             }
         }
     }
@@ -112,7 +112,7 @@ class PostListAdapter(
         fun bind(item: PostModel) {
             binding.postModel = item
             binding.cvPostItem.setOnClickListener {
-                listener.onClickPost(item)
+                onClickPostItem(item)
             }
         }
     }
@@ -123,7 +123,7 @@ class PostListAdapter(
         fun bind(item: PostModel) {
             binding.postModel = item
             binding.cvPostItem.setOnClickListener {
-                listener.onClickPost(item)
+                onClickPostItem(item)
             }
 
             binding.tvImageCount.text = String.format("%d/%d", 1, item.imageUrl.size)
@@ -132,7 +132,7 @@ class PostListAdapter(
                 orientation = ORIENTATION_HORIZONTAL
                 offscreenPageLimit = 4
                 adapter = PostDetailImageAdapter {
-                    listener.onClickPost(item)
+                    onClickPostItem(item)
                 }.apply {
                     setImageList(item.imageUrl)
                     registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -154,8 +154,4 @@ class PostListAdapter(
             }
         }
     }
-}
-
-interface PostListClickEventListener {
-    fun onClickPost(item: PostModel)
 }

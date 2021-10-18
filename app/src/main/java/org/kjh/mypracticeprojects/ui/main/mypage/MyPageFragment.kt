@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentMypageBinding
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 
@@ -35,9 +34,9 @@ class MyPageFragment :
             val myProfileImg = mainViewModel.myUserData.value?.let {
                 it.successData()?.profileImg
             }
-            navigate(
-                action = R.id.action_myPageFragment_to_profileEditFragment,
-                bundle = bundleOf("profileImg" to myProfileImg)
+            findNavController().navigate(
+                resId = R.id.action_myPageFragment_to_profileEditFragment,
+                args  = bundleOf("profileImg" to myProfileImg)
             )
         }
     }

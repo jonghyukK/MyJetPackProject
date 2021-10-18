@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentUploadContentBinding
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
 import org.kjh.mypracticeprojects.util.DataState
@@ -42,14 +41,14 @@ class UploadContentFragment :
         postponeEnterTransition()
 
         binding.rlAddLocation.setOnClickListener {
-            navigate(action = R.id.action_uploadContentFragment_to_mapFragment)
+            findNavController().navigate(R.id.action_uploadContentFragment_to_mapFragment)
         }
 
         viewModel.uploadResult.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success -> {
                     mainViewModel.updateMyUserData(dataState)
-                    navigate(action = R.id.action_uploadContentFragment_to_myPageFragment)
+                    findNavController().navigate(R.id.action_uploadContentFragment_to_myPageFragment)
                 }
                 is DataState.Error -> Toast.makeText(context, getString(R.string.failed_upload_post), Toast.LENGTH_LONG).show()
             }

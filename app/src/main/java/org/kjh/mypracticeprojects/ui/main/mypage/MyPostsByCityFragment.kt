@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentAreaPostListBinding
 import org.kjh.mypracticeprojects.model.CityInfoModel
 import org.kjh.mypracticeprojects.model.PostModel
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
 import org.kjh.mypracticeprojects.ui.main.AreaClickEventListener
@@ -82,6 +82,6 @@ class MyPostsByCityFragment :
 
     override fun onClickArea(item: CityInfoModel) {
         val action = MyPageFragmentDirections.actionMyPageFragmentToPostListFragment(item.cityName)
-        navigate(action)
+        findNavController().navigate(action)
     }
 }

@@ -29,7 +29,7 @@ val CITY_ITEMS = mapOf(
 )
 
 class LocalAreaListAdapter(
-    val listener: LocalAreaListClickEventListener
+    private val onClickCity: (item: CityModel) -> Unit,
 ): RecyclerView.Adapter<LocalAreaListAdapter.LocalAreaListViewHolder>() {
     private val areaList = CITY_ITEMS.map {
         CityModel(
@@ -56,14 +56,10 @@ class LocalAreaListAdapter(
         fun bind(item: CityModel) {
             binding.cityModel   = item
             binding.ivAreaImg.setOnClickListener {
-                listener.onClickCity(item)
+                onClickCity(item)
             }
         }
     }
 
     override fun getItemCount(): Int = areaList.size
-}
-
-interface LocalAreaListClickEventListener {
-    fun onClickCity(area: CityModel)
 }

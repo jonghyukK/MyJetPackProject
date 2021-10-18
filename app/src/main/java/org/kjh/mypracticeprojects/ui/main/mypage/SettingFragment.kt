@@ -7,7 +7,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.kjh.mypracticeprojects.*
+import org.kjh.mypracticeprojects.MyApplication
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_STATE
+import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentSettingBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.login.LoginState
@@ -32,7 +35,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
             mainViewModel.clearMyUserData()
 
-            navigate(action = R.id.action_settingFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_settingFragment_to_homeFragment)
         }
     }
 }

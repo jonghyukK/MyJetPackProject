@@ -12,23 +12,35 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentPostListByCityBinding
 import org.kjh.mypracticeprojects.model.CityModel
-import org.kjh.mypracticeprojects.model.PostModel
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.common.GridItemDecoration
 import org.kjh.mypracticeprojects.ui.common.LinearItemDecoration
 import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
 import org.kjh.mypracticeprojects.ui.main.home.LocalAreaListAdapter
-import org.kjh.mypracticeprojects.ui.main.home.LocalAreaListClickEventListener
 import org.kjh.mypracticeprojects.util.DataState
 
 @AndroidEntryPoint
 class PostListByCityFragment
     : BaseFragment<FragmentPostListByCityBinding>(R.layout.fragment_post_list_by_city) {
 
-    private val viewModel: PostListByCityViewModel by viewModels()
     private lateinit var cityData: CityModel
-    private lateinit var postListByCityAdapter: PostListAdapter
+    private val viewModel: PostListByCityViewModel by viewModels()
+
+    private val postListByCityAdapter by lazy {
+        PostListAdapter(POST_TYPE_LARGE) {
+            findNavController().navigate(
+                resId = R.id.action_postListByCityFragment_to_postDetailFragment,
+                args  = bundleOf("postItem" to it)
+            )
+        }
+    }
+
+    private val localAreaListAdapter by lazy {
+        LocalAreaListAdapter {
+            viewModel.getPostListByCity(it.cityName)
+            cityData = it
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,15 +101,6 @@ class PostListByCityFragment
     }
 
     private fun initPostListByCity() {
-        postListByCityAdapter = PostListAdapter(object: PostListClickEventListener {
-            override fun onClickPost(item: PostModel) {
-                navigate(
-                    action = R.id.action_postListByCityFragment_to_postDetailFragment,
-                    bundle = bundleOf("postItem" to item)
-                )
-            }
-        }, POST_TYPE_LARGE)
-
         binding.rvPostListByCity.apply {
             adapter       = postListByCityAdapter
             layoutManager = LinearLayoutManager(activity)
@@ -107,12 +110,7 @@ class PostListByCityFragment
 
     private fun initCityItemList() {
         binding.rvCityList.apply {
-            adapter = LocalAreaListAdapter(object: LocalAreaListClickEventListener {
-                override fun onClickCity(city: CityModel) {
-                    viewModel.getPostListByCity(city.cityName)
-                    cityData = city
-                }
-            })
+            adapter = localAreaListAdapter
             layoutManager = LinearLayoutManager(activity).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
                 addItemDecoration(LinearItemDecoration(context))

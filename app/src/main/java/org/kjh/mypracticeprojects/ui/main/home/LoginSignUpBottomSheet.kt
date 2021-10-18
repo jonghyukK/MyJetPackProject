@@ -1,6 +1,5 @@
 package org.kjh.mypracticeprojects.ui.main.home
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,16 +17,16 @@ import org.kjh.mypracticeprojects.databinding.BottomSheetLoginSignupBinding
  * Description:
  */
 class LoginSignUpBottomSheet(
-    private val listener: LoginSignUpBottomSheetEventListener
+    private val onClickLogin : () -> Unit,
+    private val onClickSignUp: () -> Unit
 ): BottomSheetDialogFragment() {
-
     private lateinit var binding: BottomSheetLoginSignupBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_login_signup, container, false)
         return binding.root
     }
@@ -36,18 +35,13 @@ class LoginSignUpBottomSheet(
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnGoToLogin.setOnClickListener {
-            listener.onClickLogin()
+            onClickLogin()
             dismiss()
         }
 
         binding.btnGoToSignUp.setOnClickListener {
-            listener.onClickSignUp()
+            onClickSignUp()
             dismiss()
         }
-    }
-
-    interface LoginSignUpBottomSheetEventListener {
-        fun onClickLogin()
-        fun onClickSignUp()
     }
 }

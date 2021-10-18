@@ -12,16 +12,11 @@ import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentHomeBinding
-import org.kjh.mypracticeprojects.model.CityModel
-import org.kjh.mypracticeprojects.model.PostModel
-import org.kjh.mypracticeprojects.navigate
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.common.LinearItemDecoration
 import org.kjh.mypracticeprojects.ui.common.LinearVerticalItemDecoration
-import org.kjh.mypracticeprojects.ui.main.*
 import org.kjh.mypracticeprojects.ui.main.post.POST_TYPE_MEDIUM
 import org.kjh.mypracticeprojects.ui.main.post.PostListAdapter
-import org.kjh.mypracticeprojects.ui.main.post.PostListClickEventListener
 import org.kjh.mypracticeprojects.util.DataState
 
 
@@ -29,15 +24,36 @@ import org.kjh.mypracticeprojects.util.DataState
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var recentPostListAdapter: PostListAdapter
+
+    private val recentPostListAdapter by lazy {
+        PostListAdapter(POST_TYPE_MEDIUM) {
+            findNavController().navigate(
+                resId = R.id.action_homeFragment_to_postDetailFragment,
+                args = bundleOf("postItem" to it)
+            )
+        }
+    }
+
+    private val localAreaListAdapter by lazy {
+        LocalAreaListAdapter {
+            findNavController().navigate(
+                resId = R.id.action_homeFragment_to_postListByCityFragment,
+                args  = bundleOf("cityModel" to it)
+            )
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (viewModel.recentPostList.value == null) {
-            viewModel.getRecentPostList()
-        }
+        initSwipeRefreshLayout()
+        initRecentPostList()
+        initCityItemList()
+        initToolbarWithNavigation()
+        subscribeObserve()
+    }
 
+    private fun subscribeObserve() {
         viewModel.recentPostList.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success -> {
@@ -45,11 +61,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
             }
         })
-
-        initSwipeRefreshLayout()
-        initRecentPostList()
-        initCityItemList()
-        initToolbarWithNavigation()
     }
 
     private fun initSwipeRefreshLayout() {
@@ -64,16 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun initRecentPostList() {
-        recentPostListAdapter = PostListAdapter(object: PostListClickEventListener {
-            override fun onClickPost(item: PostModel) {
-                navigate(
-                    action = R.id.action_homeFragment_to_postDetailFragment,
-                    bundle = bundleOf("postItem" to item)
-                )
-            }
-        }, POST_TYPE_MEDIUM)
-
-        with (binding.rvRecentPostList) {
+        binding.rvRecentPostList.apply {
             adapter = recentPostListAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -83,15 +85,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun initCityItemList() {
-        with (binding.rvAreaList) {
-            adapter = LocalAreaListAdapter(object: LocalAreaListClickEventListener {
-                override fun onClickCity(city: CityModel) {
-                    navigate(
-                        action = R.id.action_homeFragment_to_postListByCityFragment,
-                        bundle = bundleOf("cityModel" to city)
-                    )
-                }
-            })
+        binding.rvAreaList.apply {
+            adapter = localAreaListAdapter
             layoutManager = LinearLayoutManager(activity).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
                 addItemDecoration(LinearItemDecoration(context))

@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import org.kjh.mypracticeprojects.*
+import org.kjh.mypracticeprojects.MyApplication
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_ID
+import org.kjh.mypracticeprojects.PREF_KEY_LOGIN_STATE
+import org.kjh.mypracticeprojects.R
 import org.kjh.mypracticeprojects.databinding.FragmentLoginBinding
 import org.kjh.mypracticeprojects.ui.base.BaseFragment
 import org.kjh.mypracticeprojects.ui.main.MainViewModel
@@ -44,7 +43,7 @@ class LoginFragment
                     MyApplication.prefs.setPref(PREF_KEY_LOGIN_ID, viewModel.email.value)
 
                     mainViewModel.reqMyUserData()
-                    navigate(action = R.id.action_loginFragment_to_homeFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             }
         })

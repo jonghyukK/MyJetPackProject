@@ -28,7 +28,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val ERROR_GET_FCM_TOKEN       = "Failed FCM registration Token"
     }
 
-    private lateinit var navController: NavController
+    private val navController by lazy {
+        val navHost: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+        navHost.navController
+    }
+
+    private val loginSignUpBottomSheet by lazy {
+        LoginSignUpBottomSheet(
+            onClickLogin  = { navController.navigate(R.id.action_global_loginFragment) },
+            onClickSignUp = { navController.navigate(R.id.action_global_signUpFragment) }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +63,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initBottomNavigationView() {
-        val navHost: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment? ?: return
-        navController = navHost.navController
-
         binding.bnvBottomNav.apply {
             // set NavController.
             setupWithNavController(navController)
@@ -93,17 +100,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun showLoginSignUpBottomSheet() {
-        val btmSheet = LoginSignUpBottomSheet(
-            object : LoginSignUpBottomSheet.LoginSignUpBottomSheetEventListener {
-                override fun onClickLogin() {
-                    navController.navigate(R.id.action_global_loginFragment)
-                }
-
-                override fun onClickSignUp() {
-                    navController.navigate(R.id.action_global_signUpFragment)
-                }
-            })
-
-        btmSheet.show(supportFragmentManager, LOGIN_SIGNUP_BOTTOM_SHEET)
+        loginSignUpBottomSheet.show(supportFragmentManager, LOGIN_SIGNUP_BOTTOM_SHEET)
     }
 }
